@@ -1,0 +1,19 @@
+/*police et position du titre du site dans le header*/
+#titleSite{
+    font-family: 'Courgette', cursive;
+    margin-top: -0.2em;
+    padding-top: 0.2em;
+}
+/*dimensions et position du logo dans la barre de navigation*/
+#logoNavbar{
+    width: 1.7em;
+    height: 1.9em;
+    padding: 0.1em;
+    margin-left: 0.3em;
+}
+/*définition de la position de la barre de navigation lorsqu'elle est fixe*/
+nav.fixed{
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
