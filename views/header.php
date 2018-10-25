@@ -37,7 +37,7 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="sass.html">Sass</a></li>
                     <li><a href="badges.html">Components</a></li>
-                    <li><a href="views/inscriptionUserForm.php">Inscription</a></li>
+                    <li><a href="views/registerUserForm.php">Inscription</a></li>
                     <li><a href="#">Connexion</a></li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
         <ul class="sidenav" id="mobile-demo">
             <li><a href="sass.html">Sass</a></li>
             <li><a href="badges.html">Components</a></li>
-            <li><a href="views/inscriptionUserForm.php">Inscription</a></li>
+            <li><a href="views/registerUserForm.php">Inscription</a></li>
             <li><a href="#">Connexion</a></li>
         </ul>
 
