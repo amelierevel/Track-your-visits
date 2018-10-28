@@ -46,20 +46,62 @@ class users extends database {
         return $insertUser->execute();
     }
 
+    /**
+     * Méthode permettant de vérifier la disponibilité d'un nom utilisateur
+     * @return type
+     */
     public function checkIfUserExist() {
+        //initialisation de la variable $state avec la valeur false
         $state = FALSE;
+        //déclaration de la requête sql
         $request = 'SELECT COUNT(`id`) AS `count` '
                 . 'FROM `F396V_users` '
                 . 'WHERE `username` = :username';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
         $result = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $result->bindValue(':username', $this->username, PDO::PARAM_STR);
+        //vérification que la requête s'est bien exécutée
         if ($result->execute()) {
             $selectResult = $result->fetch(PDO::FETCH_OBJ);
+            //attribution du résultat du count (0 ou 1) à la variable $state
             $state = $selectResult->count;
         }
         return $state;
     }
-    
+
+    /**
+     * Méthode permettant de faire la connexion de l'utilisateur
+     * @return boolean
+     */
+    public function connectionUser() {
+        //initialisation de la variable $state avec la valeur false
+        $state = FALSE;
+        //déclaration de la requête sql
+        $request = 'SELECT `id`,`lastname`,`firstname`,`username`,`password` '
+                . 'FROM `F396V_users` '
+                . 'WHERE `username` = :username';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        $result = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $result->bindValue(':username', $this->username, PDO::PARAM_STR);
+        //vérification que la requête s'est bien exécutée
+        if ($result->execute()) {
+            $selectResult = $result->fetch(PDO::FETCH_OBJ);
+            //vérification que l'on a bien trouvé l'utilisateur recherché et qu'il s'agit bien d'un objet
+            if (is_object($selectResult)) {
+                //hydratation
+                $this->id = $selectResult->id;
+                $this->lastname = $selectResult->lastname;
+                $this->firstname = $selectResult->firstname;
+                $this->username = $selectResult->username;
+                $this->password = $selectResult->password;
+                $state = TRUE;
+            }
+        }
+        return $state;
+    }
+
     /**
      * Méthode magique destruct héritée du parent database
      */

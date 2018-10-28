@@ -1,6 +1,15 @@
-/*police et position du titre du site dans le header*/
+/*police du site*/
+body{
+    font-family: 'Handlee', cursive;
+}
+/*taille police des liens de la barre de navigation*/
+body nav ul a{
+     font-size: 30px;
+}
+/*position du titre du site dans le header*/
 #titleSite{
-    font-family: 'Courgette', cursive;
+    font-style: italic;
+    font-weight: bold;
     margin-top: -0.2em;
     padding-top: 0.2em;
 }
@@ -9,11 +18,39 @@
     width: 1.7em;
     height: 1.9em;
     padding: 0.1em;
-    margin-left: 0.3em;
+    margin-left: 0.2em;
+    margin-top: 0.07em;
+    padding-right: 0.2em;
+    padding-bottom: 0.3em;
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 20px 20px 20px 20px;
 }
 /*définition de la position de la barre de navigation lorsqu'elle est fixe*/
 nav.fixed{
-  position: fixed;
-  top: 0;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+/*position du corps du site sous la barre de navigation*/
+nav{
+    margin-bottom: 1.8em;
+}
+/*position du corps du site au dessus du footer*/
+footer{
+    margin-top: 1.8em;
+}
+/*texte en gras*/
+.boldText{
+    font-weight: bold;
+}
+/*background des champs de texte*/
+.bgText{
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 10px 10px 10px 10px;
+    padding: 0.1em;
+}
+/*position du formulaire d'inscription utilisateur*/
+#registerForm{
+    padding-left: 2.5em;
+    padding-right: 2.5em;
 }

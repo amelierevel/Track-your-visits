@@ -1,5 +1,5 @@
 <?php
-
+include_once '../configuration.php';
 /**
  * création de la classe database parent des autres classes et permettant de se connecter à la base de données MYSQL
  */
