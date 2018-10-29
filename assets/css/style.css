@@ -1,6 +1,7 @@
 /*police du site*/
 body{
     font-family: 'Handlee', cursive;
+    font-size: 24px;
 }
 /*taille police des liens de la barre de navigation*/
 body nav ul a{
