@@ -1,7 +1,7 @@
 <?php
 
-include_once '../models/database.php';
-include_once '../models/users.php';
+include_once 'models/database.php';
+include_once 'models/users.php';
 
 //déclaration d'un tableau d'erreur
 $errorList = array();

@@ -1,8 +1,8 @@
 <?php
 
-include_once '../models/database.php';
-include_once '../models/userType.php';
-include_once '../models/users.php';
+include_once 'models/database.php';
+include_once 'models/userType.php';
+include_once 'models/users.php';
 
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userType();

@@ -1,5 +1,5 @@
-<?php include 'header.php'; ?>
-<?php include '../controllers/registerUserFormCtrl.php' ?>
+<?php include_once 'header.php'; ?>
+<?php include_once 'controllers/registerUserFormCtrl.php' ?>
 <div class="bgText container">
     <h2 class="center-align">Inscription d'un nouvel utilisateur</h2>
     <div class="row">

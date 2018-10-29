@@ -1,5 +1,5 @@
-<?php include 'header.php'; ?>
-<?php include '../controllers/connexionCtrl.php'; ?>
+<?php include_once 'header.php'; ?>
+<?php include_once 'controllers/connexionCtrl.php'; ?>
 <div class="bgText container">
     <h2 class="center-align">Connexion utilisateur</h2>
     <?php
