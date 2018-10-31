@@ -1,24 +1,24 @@
 <?php include_once 'header.php'; ?>
-<?php include_once 'controllers/registerUserFormCtrl.php' ?>
+<?php include_once 'controllers/updateProfileUserCtrl.php' ?>
 <div class="bgText container z-depth-3">
-    <h2 class="center-align">Inscription d'un nouvel utilisateur</h2>
+    <h2 class="center-align">Modification du profil de <?= $profileUser->username ?></h2>
     <div class="row">
         <?php
         //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
         if (isset($_POST['registerUserSubmit']) && (count($formError) === 0)) {
             ?> 
-            <p class="boldText green-text center-align">Votre inscription a bien été prise en compte</p>
+            <p class="boldText green-text center-align">Vos modifications ont bien été prises en compte</p>
             <?php
             //sinon affichage des messages d'erreurs
         } else {
             ?>  
             <!--Formulaire d'inscription d'un utilisateur-->
-            <form action="#" method="POST" class="col s12" id="registerForm">
+            <form action="#" method="POST" class="col s12">
                 <!--Champs nom et prénom-->
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">account_circle</i>
-                        <input type="text" name="lastname" id="lastname" value="<?= /* garde en mémoire la saisie dans le champ */ isset($user->lastname) ? $user->lastname : '' ?>" required />
+                        <input type="text" name="lastname" id="lastname" value="<?= /* garde en mémoire la saisie dans le champ */ isset($lastname) ? $lastname : '' ?>" required />
                         <label for="lastname">Nom</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -29,7 +29,7 @@
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">account_circle</i>
-                        <input  type="text" name="firstname" id="firstname" value="<?= isset($user->firstname) ? $user->firstname : '' ?>" required />
+                        <input  type="text" name="firstname" id="firstname" value="<?= isset($firstname) ? $firstname : '' ?>" required />
                         <label for="firstname">Prénom</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">assignment_ind</i>
-                        <input  type="text" name="username" id="username" value="<?= isset($user->username) ? $user->username : '' ?>" required />
+                        <input  type="text" name="username" id="username" value="<?= isset($username) ? $username : '' ?>" required />
                         <label for="username">Nom d'utilisateur</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -60,7 +60,7 @@
                             //boucle permettant d'afficher la liste des types d'utilisateur
                             foreach ($userTypeList as $userTypeDetail) {
                                 ?>
-                                <option value="<?= $userTypeDetail->id ?>" <?= ((isset($user->idUserType)) && ($user->idUserType == $userTypeDetail->id)) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
+                                <option value="<?= $userTypeDetail->id ?>" <?= ((isset($idUserType)) && ($idUserType == $userTypeDetail->id)) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
                             <?php } ?>
                         </select>
                         <label for="idUserType">Veuillez sélectionner un type d'utilisateur : </label>
@@ -76,7 +76,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="date" name="birthDate" id="birthDate" placeholder="jj/mm/aaaa" value="<?= isset($user->birthDate) ? $user->birthDate : '' ?>" required />
+                        <input type="date" name="birthDate" id="birthDate" placeholder="jj/mm/aaaa" value="<?= isset($birthDate) ? $birthDate : '' ?>" required />
                         <label for="birthDate">Date de naissance</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -87,7 +87,7 @@
                     </div>
                     <div class="input-field col s6">
                         <i class="material-icons prefix">email</i>
-                        <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= isset($user->mail) ? $user->mail : '' ?>" required />
+                        <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= isset($mail) ? $mail : '' ?>" required />
                         <label for="mail">Mail</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe

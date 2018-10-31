@@ -102,6 +102,10 @@ class users extends database {
         return $state;
     }
 
+    /**
+     * Méthode permettant l'affichage du profil d'un utilisateur
+     * @return type
+     */
     public function getUserById() {
         $userInfo = FALSE;
         $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`usType`.`name` '
@@ -117,6 +121,25 @@ class users extends database {
             }
         }
         return $userInfo;
+    }
+
+    /**
+     * Méthode permettant de modifier les informations de l'utilisateur
+     * @return type
+     */
+    public function updateProfileUser() {
+        $request = 'UPDATE `F396V_users` SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`username` = :username,`idUserType` = :idUserType,`password` = :password '
+                . 'WHERE `id` = :id';
+        $updateUser = $this->db->prepare($request);
+        $updateUser->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $updateUser->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
+        $updateUser->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
+        $updateUser->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
+        $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+        $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
+        $updateUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_STR);
+        $updateUser->bindValue(':password', $this->password, PDO::PARAM_STR);
+        return $updateUser->execute();
     }
 
     /**
