@@ -1,6 +1,8 @@
-<?php include_once 'header.php'; ?>
-<?php include_once 'controllers/connexionCtrl.php'; ?>
-<div class="bgText container">
+<?php
+include_once 'header.php';
+include_once 'controllers/connexionCtrl.php';
+?>
+<div class="bgText container z-depth-3">
     <h2 class="center-align">Connexion utilisateur</h2>
     <?php
     //vérification que le message de connexion n'est pas vide et l'afficher

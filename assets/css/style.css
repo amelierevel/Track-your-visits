@@ -55,3 +55,10 @@ footer{
     padding-left: 2.5em;
     padding-right: 2.5em;
 }
+/*position du container-fluid*/
+.container-fluid{
+    margin-top: -1.8em;
+    margin-bottom: -1.8em;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+}

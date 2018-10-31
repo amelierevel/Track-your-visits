@@ -102,6 +102,23 @@ class users extends database {
         return $state;
     }
 
+    public function getUserById() {
+        $userInfo = FALSE;
+        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`usType`.`name` '
+                . 'FROM `F396V_users` AS `us` '
+                . 'LEFT JOIN `F396V_userType` AS `usType` '
+                . 'ON `us`.`idUserType` = `usType`.`id` '
+                . 'WHERE `us`.`id` = :id';
+        $result = $this->db->prepare($request);
+        $result->bindValue(':id', $this->id, PDO::PARAM_INT);
+        if ($result->execute()) {
+            if (is_object($result)) {
+                $userInfo = $result->fetch(PDO::FETCH_OBJ);
+            }
+        }
+        return $userInfo;
+    }
+
     /**
      * Méthode magique destruct héritée du parent database
      */

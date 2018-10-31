@@ -34,7 +34,7 @@ include_once 'controllers/headerCtrl.php';
         </div>
         <!--Affichage du dropdown de connexion de la barre de navigation-->
         <ul id="dropdownConnection" class="dropdown-content">
-            <li><a href="#">Profil</a></li>
+            <li><a href="profile.php?id=<?= $_SESSION['id'] ?>">Profil</a></li>
             <li class="divider"></li>
             <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>
         </ul>
@@ -44,10 +44,8 @@ include_once 'controllers/headerCtrl.php';
                 <a href="../index.php" class="brand-logo">
                     <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
                 </a>
-                <a href="index.php" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">Menu</i></a>
+                <a href="index.php" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="sass.html" class="boldText">Sass</a></li>
-                    <li><a href="badges.html" class="boldText">Components</a></li>
                     <li><a href="registerUserForm.php" class="boldText">Inscription</a></li>
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
@@ -65,8 +63,6 @@ include_once 'controllers/headerCtrl.php';
         </nav>
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
             <li><a href="registerUserForm.php">Inscription</a></li>
             <li><a href="connexion.php">Connexion</a></li>
         </ul>

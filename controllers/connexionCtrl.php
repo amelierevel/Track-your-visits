@@ -40,6 +40,8 @@ if (isset($_POST['connexionUserSubmit'])) {
                 $_SESSION['firstname'] = $user->firstname;
                 $_SESSION['username'] = $user->username;
                 $_SESSION['isConnect'] = TRUE;
+                //redirection de la page vers la page de profil
+                header('Location: profile.php?id=' . $user->id);
                 //si le mot de passe ne correspond pas affichage d'un message d'erreur
             } else {
                 $messageConnection = 'Veuillez vérifier votre nom d\'utilisateur et votre mot de passe';
