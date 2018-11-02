@@ -108,7 +108,7 @@ class users extends database {
      */
     public function getUserById() {
         $userInfo = FALSE;
-        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`usType`.`name` '
+        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`usType`.`name` '
                 . 'FROM `F396V_users` AS `us` '
                 . 'LEFT JOIN `F396V_userType` AS `usType` '
                 . 'ON `us`.`idUserType` = `usType`.`id` '
@@ -136,9 +136,7 @@ class users extends database {
         $updateUser->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
         $updateUser->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
         $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-        $updateUser->bindValue(':username', $this->username, PDO::PARAM_STR);
         $updateUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_STR);
-        $updateUser->bindValue(':password', $this->password, PDO::PARAM_STR);
         return $updateUser->execute();
     }
 

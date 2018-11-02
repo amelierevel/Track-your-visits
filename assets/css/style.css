@@ -51,9 +51,9 @@ footer{
     padding: 0.1em;
 }
 /*position du formulaire d'inscription utilisateur*/
-#registerForm{
-    padding-left: 2.5em;
-    padding-right: 2.5em;
+#registerForm, #updateForm{
+    padding-left: 5%;
+    padding-right: 5%;
 }
 /*position du container-fluid*/
 .container-fluid{

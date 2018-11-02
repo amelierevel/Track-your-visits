@@ -46,7 +46,7 @@ include_once 'controllers/headerCtrl.php';
                 </a>
                 <a href="index.php" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="registerUserForm.php" class="boldText">Inscription</a></li>
+                    
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
                     if (isset($_SESSION['isConnect'])) {
@@ -56,7 +56,8 @@ include_once 'controllers/headerCtrl.php';
                         //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
                     } else {
                         ?>
-                        <li><a href="connexion.php" class="boldText">Connexion</a></li>
+                        <li><a href="registerUserForm.php" class="boldText">Inscription</a></li>
+                        <li><a href="#connexionModal" class="boldText modal-trigger">Connexion</a></li>
                     <?php } ?>
                 </ul>
             </div>
@@ -64,6 +65,49 @@ include_once 'controllers/headerCtrl.php';
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobile-demo">
             <li><a href="registerUserForm.php">Inscription</a></li>
-            <li><a href="connexion.php">Connexion</a></li>
+            <li><a href="#connexionModal">Connexion</a></li>
         </ul>
-
+        <!-- Modal pour la connexion -->
+        <div id="connexionModal" class="modal">
+            <div class="modal-content">
+                <h2>Connexion</h2>
+                <?php
+                //vérification que le message de connexion n'est pas vide et l'afficher
+                if ($messageConnection != '') {
+                    ?>
+                    <p class="boldText center-align"><?= $messageConnection ?></p>
+                <?php } ?>
+                <!--formulaire de connexion-->
+                <form action="#" method="POST"  class="col s10">
+                    <div class="row">
+                        <div class="input-field col s8 offset-s2">
+                            <i class="material-icons prefix">assignment_ind</i>
+                            <input  type="text" name="username" id="username" value="<?= isset($username) ? $username : '' ?>" class="validate" required />
+                            <label for="username">Nom d'utilisateur</label>
+                            <?php
+                            //affichage du message d'erreur si le tableau d'erreur existe
+                            if (isset($errorList['username'])) {
+                                ?>
+                                <p class="boldText red-text text-darken-1 center-align"><?= $errorList['username']; ?></p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s8 offset-s2">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <input type="text" name="password" id="password" class="validate" required />
+                            <label for="password">Mot de passe</label>
+                            <?php
+                            //affichage du message d'erreur si le tableau d'erreur existe
+                            if (isset($errorList['password'])) {
+                                ?>
+                                <p class="boldText red-text text-darken-1 center-align"><?= $errorList['password']; ?></p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn waves-effect waves-light" type="submit" name="connexionUserSubmit">Se connecter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
