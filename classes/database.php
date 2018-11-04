@@ -1,5 +1,7 @@
 <?php
-include_once 'configuration.php';
+
+include_once path::getRootPath() . 'configuration.php';
+
 /**
  * création de la classe database parent des autres classes et permettant de se connecter à la base de données MYSQL
  */
@@ -16,7 +18,7 @@ class database {
     /**
      * Méthode magique construct
      */
-    public function __construct() {      
+    public function __construct() {
         $this->host = HOST;
         $this->login = LOGIN;
         $this->password = PASSWORD;

@@ -1,6 +1,7 @@
 <?php
-include_once 'header.php';
-include_once 'controllers/profileCtrl.php';
+include_once 'classes/path.php';
+include_once path::getRootPath() . 'header.php';
+include_once path::getControllersPath() . 'profileCtrl.php';
 ?>
 <div class=" container-fluid white">
     <div class="row">
@@ -34,4 +35,4 @@ include_once 'controllers/profileCtrl.php';
         </div>
     </div>
 </div>
-<?php include_once 'footer.php'; ?>
+<?php include_once path::getRootPath() . 'footer.php'; ?>

@@ -43,7 +43,10 @@ class users extends database {
         $insertUser->bindValue(':password', $this->password, PDO::PARAM_STR);
         $insertUser->bindValue(':createDate', $this->createDate, PDO::PARAM_STR);
         $insertUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_INT);
-        return $insertUser->execute();
+        //vérification que la requête s'est bien exécutée
+        if ($insertUser->execute()) {
+            return $insertUser;
+        }
     }
 
     /**
@@ -107,14 +110,19 @@ class users extends database {
      * @return type
      */
     public function getUserById() {
+        //initialisation de la variable $userInfo avec la valeur false
         $userInfo = FALSE;
+        //déclaration de la requête sql
         $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`usType`.`name` '
                 . 'FROM `F396V_users` AS `us` '
                 . 'LEFT JOIN `F396V_userType` AS `usType` '
                 . 'ON `us`.`idUserType` = `usType`.`id` '
                 . 'WHERE `us`.`id` = :id';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
         $result = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $result->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
         if ($result->execute()) {
             if (is_object($result)) {
                 $userInfo = $result->fetch(PDO::FETCH_OBJ);
@@ -128,16 +136,36 @@ class users extends database {
      * @return type
      */
     public function updateProfileUser() {
+        //déclaration de la requête sql
         $request = 'UPDATE `F396V_users` SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`username` = :username,`idUserType` = :idUserType,`password` = :password '
                 . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $updateUser
         $updateUser = $this->db->prepare($request);
+        //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $updateUser->bindValue(':id', $this->id, PDO::PARAM_INT);
         $updateUser->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
         $updateUser->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
         $updateUser->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
         $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
         $updateUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_STR);
-        return $updateUser->execute();
+        //vérification que la requête s'est bien exécutée
+        if ($updateUser->execute()) {
+            return $updateUser;
+        }
+    }
+
+    public function deleteUser() {
+        //déclaration de la requête sql
+        $request = 'DELETE FROM `F396V_users` '
+                . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        $deleteUser = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $deleteUser->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
+        if ($deleteUser->execute()) {
+            return $deleteUser;
+        }
     }
 
     /**

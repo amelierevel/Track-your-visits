@@ -22,5 +22,13 @@
                 </div>
             </div>
         </footer>
+        <!--Script JQuery-->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <!--Script Materialize-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!--Feuille de script-->
+        <script src="assets/js/script.js"></script>
+        <!-- Script pour l'ajax -->
+        <script src="assets/js/connectionAjax.js"></script>
     </body>
 </html>

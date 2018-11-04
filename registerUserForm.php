@@ -1,5 +1,8 @@
-<?php include_once 'header.php'; ?>
-<?php include_once 'controllers/registerUserFormCtrl.php' ?>
+<?php 
+include_once 'classes/path.php';
+include_once path::getRootPath() . 'header.php';
+include_once path::getControllersPath() . 'registerUserFormCtrl.php'; 
+?>
 <div class="bgText container z-depth-3">
     <h2 class="center-align">Inscription d'un nouvel utilisateur</h2>
     <div class="row">
@@ -131,4 +134,4 @@
         <?php } ?>
     </div>
 </div>
-<?php include_once 'footer.php'; ?>
+<?php include_once path::getRootPath() . 'footer.php'; ?>

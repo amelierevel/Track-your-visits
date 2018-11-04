@@ -1,7 +1,7 @@
 <?php
 
-include_once 'models/database.php';
-include_once 'models/users.php';
+include_once path::getClassesPath() . 'database.php';
+include_once path::getModelsPath() . 'users.php';
 
 //instanciation de l'objet user
 $user = NEW users();

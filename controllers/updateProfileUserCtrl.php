@@ -1,8 +1,8 @@
 <?php
 
-include_once 'models/database.php';
-include_once 'models/users.php';
-include_once 'models/userType.php';
+include_once path::getClassesPath() . 'database.php';
+include_once path::getModelsPath() . 'users.php';
+include_once path::getModelsPath() . 'userType.php';
 
 //instanciation de l'objet user
 $user = NEW users();
