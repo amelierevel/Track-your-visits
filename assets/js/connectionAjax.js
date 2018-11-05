@@ -17,11 +17,15 @@ $(document).ready(function () {
             //si la requête s'exécute
             success: function (data) {
                 //s'il n'y a pas d'erreur
-                if (data['errorMessage'] == false) {
+                if (data['successConnection'] == true) {
+                    //fermeture de la fenêtre modale
                     $('#connectionModal').modal('close');
                     //redirection vers la page d'accueil
                     document.location.href = 'index.php';
-                } 
+                } else {
+                    //affichage du message d'erreur
+                    $('#errorMessage').show();
+                }
             }
         });
     });

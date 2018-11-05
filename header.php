@@ -36,10 +36,10 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <!--Barre de navigation-->
         <nav class="deep-orange lighten-2">
             <div class="nav-wrapper">
-                <a href="../index.php" class="brand-logo">
+                <a href="index.php" class="brand-logo">
                     <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
                 </a>
-                <a href="index.php" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="index.php" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
@@ -57,9 +57,9 @@ include_once path::getControllersPath() . 'headerCtrl.php';
             </div>
         </nav>
         <!--Affichage du menu de navigation en responsive-->
-        <ul class="sidenav" id="mobile-demo">
+        <ul class="sidenav" id="mobileNavbar">
             <li><a href="registerUserForm.php">Inscription</a></li>
-            <li><a href="#connectionModal">Connexion</a></li>
+            <li><a href="#connectionModal" class="modal-trigger">Connexion</a></li>
         </ul>
         <!-- Modal pour la connexion -->
         <div id="connectionModal" class="modal">

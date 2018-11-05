@@ -8,8 +8,8 @@ include_once path::getModelsPath() . 'users.php';
 
 //déclaration d'un tableau d'erreur pour la connexion
 $errorList = array();
-//initialisation de la variable $success avec la valeur FALSE
-$success = FALSE;
+//initialisation de la variable $successConnection avec la valeur FALSE
+$successConnection = FALSE;
 //initialisation de la variable $errorMessage avec la valeur FALSE
 $errorMessage = FALSE;
 
@@ -42,7 +42,7 @@ if ($errorMessage == FALSE) {
             $_SESSION['firstname'] = $user->firstname;
             $_SESSION['username'] = $user->username;
             $_SESSION['isConnect'] = TRUE;
-            $success = TRUE;
+            $successConnection = TRUE;
             //redirection de la page vers la page de profil
        //      header('Location: profile.php?id=' . $user->id);
             //si le mot de passe ne correspond pas affichage d'un message d'erreur
@@ -53,4 +53,4 @@ if ($errorMessage == FALSE) {
 }
 
 //lien avec l'ajax
-echo json_encode(array('errorMessage' => $errorMessage, 'success' => $success));
+echo json_encode(array('errorMessage' => $errorMessage, 'successConnection' => $successConnection));
