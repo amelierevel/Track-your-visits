@@ -25,11 +25,16 @@ include_once path::getRootPath() . 'header.php';
                 </p>
                 <p>
                     Modifier le mot de passe
-                    <a class="btn-floating pulse"><i class="material-icons">edit</i></a>
+                    <a href="#" class="btn-floating pulse"><i class="material-icons">edit</i></a>
                 </p>
                 <p>
                     Supprimer le compte
-                    <a class="btn-floating waves-effect waves-light pulse"><i class="material-icons">delete</i></a>
+                    <a href="profile.php?idDelete=<?= $profileUser->id?>" class="btn-floating waves-effect waves-light pulse"><i class="material-icons">delete</i></a>
+                    <?php //affichage du message d'erreur s'il existe
+                    if (isset($deleteError)) {
+                        echo $deleteError;
+                    } 
+                    ?>
                 </p>
             </div>
         </div>

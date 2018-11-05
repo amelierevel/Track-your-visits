@@ -20,5 +20,6 @@ if (isset($_GET['action'])) {
         session_destroy();
         //redirection de la page vers la page d'e connexion d'accueil
         header('Location: index.php');
+        exit;
     }
 }

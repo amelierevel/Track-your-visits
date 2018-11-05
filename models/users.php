@@ -164,9 +164,9 @@ class users extends database {
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $deleteUser->bindValue(':id', $this->id, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
-        if ($deleteUser->execute()) {
-            return $deleteUser;
-        }
+       // if ($deleteUser->execute()) {
+            return $deleteUser->execute();
+       // }
     }
 
     /**
