@@ -15,13 +15,15 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
     $deleteUser =NEW users();
     $deleteUser->id = htmlspecialchars($_GET['idDelete']);
     if ($removeUser = $deleteUser->deleteUser()) {
-        echo 'Utilisateur supprimé !!!';
+        //faire detruire la session ????????????????????!!!!!!!!!!!!!!!!!!!!!!!!
         header('Location: registerUserForm.php');
         exit;
     }
+    // à revoir ça marche pas
     if ($removeUser === FALSE) {
         $deleteError = 'L\'utilisateur n\'a pas pu être supprimé.';
     }
+    // fin du à revoir
 }
 
 //appel de la méthode getUserById() permettant l'affichage du profil de l'utilisateur connecté

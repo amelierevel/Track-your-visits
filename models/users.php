@@ -113,7 +113,8 @@ class users extends database {
         //initialisation de la variable $userInfo avec la valeur false
         $userInfo = FALSE;
         //déclaration de la requête sql
-        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`us`.`password`,`usType`.`name` '
+        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,'
+                . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`us`.`password`,`usType`.`name` '
                 . 'FROM `F396V_users` AS `us` '
                 . 'LEFT JOIN `F396V_userType` AS `usType` '
                 . 'ON `us`.`idUserType` = `usType`.`id` '

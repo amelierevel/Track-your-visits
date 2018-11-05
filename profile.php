@@ -30,9 +30,9 @@ include_once path::getRootPath() . 'header.php';
                 <p>
                     Supprimer le compte
                     <a href="profile.php?idDelete=<?= $profileUser->id?>" class="btn-floating waves-effect waves-light pulse"><i class="material-icons">delete</i></a>
-                    <?php //affichage du message d'erreur s'il existe
+                    <?php //affichage du message d'erreur s'il existe MAIS CA MARCHE PAS
                     if (isset($deleteError)) {
-                        echo $deleteError;
+                        echo $deleteError;      
                     } 
                     ?>
                 </p>

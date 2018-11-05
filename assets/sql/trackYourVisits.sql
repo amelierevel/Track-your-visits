@@ -4,13 +4,13 @@
 
 
 #------------------------------------------------------------
-# Table: F396V_userType
+# Table: F396V_userTypes
 #------------------------------------------------------------
 
-CREATE TABLE F396V_userType(
+CREATE TABLE F396V_userTypes(
         id   Int  Auto_increment  NOT NULL ,
         name Varchar (50) NOT NULL
-	,CONSTRAINT F396V_userType_PK PRIMARY KEY (id)
+	,CONSTRAINT F396V_userTypes_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
 
@@ -19,40 +19,40 @@ CREATE TABLE F396V_userType(
 #------------------------------------------------------------
 
 CREATE TABLE F396V_users(
-        id                Int  Auto_increment  NOT NULL ,
-        firstname         Varchar (40) NOT NULL ,
-        lastname          Varchar (40) NOT NULL ,
-        birthDate         Date NOT NULL ,
-        mail              Varchar (100) NOT NULL ,
-        username          Varchar (40) NOT NULL ,
-        password          Varchar (255) NOT NULL ,
-        createDate        Datetime NOT NULL ,
-        idUserType Int NOT NULL
+        id                 Int  Auto_increment  NOT NULL ,
+        firstname          Varchar (255) NOT NULL ,
+        lastname           Varchar (255) NOT NULL ,
+        birthDate          Date NOT NULL ,
+        mail               Varchar (100) NOT NULL ,
+        username           Varchar (25) NOT NULL ,
+        password           Varchar (255) NOT NULL ,
+        createDate         Datetime NOT NULL ,
+        idUserTypes Int NOT NULL
 	,CONSTRAINT F396V_users_PK PRIMARY KEY (id)
 
-	,CONSTRAINT F396V_users_F396V_userType_FK FOREIGN KEY (idUserType) REFERENCES F396V_userType(id)
+	,CONSTRAINT F396V_users_F396V_userTypes_FK FOREIGN KEY (idUserTypes) REFERENCES F396V_userTypes(id)
 )ENGINE=InnoDB;
 
 
 #------------------------------------------------------------
-# Table: F396V_category
+# Table: F396V_categories
 #------------------------------------------------------------
 
-CREATE TABLE F396V_category(
+CREATE TABLE F396V_categories(
         id   Int  Auto_increment  NOT NULL ,
         name Varchar (50) NOT NULL
-	,CONSTRAINT F396V_category_PK PRIMARY KEY (id)
+	,CONSTRAINT F396V_categories_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
 
 #------------------------------------------------------------
-# Table: F396V_timetableType
+# Table: F396V_timetableTypes
 #------------------------------------------------------------
 
-CREATE TABLE F396V_timetableType(
+CREATE TABLE F396V_timetableTypes(
         id   Int  Auto_increment  NOT NULL ,
-        name Varchar (15) NOT NULL
-	,CONSTRAINT F396V_timetableType_PK PRIMARY KEY (id)
+        name Varchar (50) NOT NULL
+	,CONSTRAINT F396V_timetableTypes_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
 
@@ -93,13 +93,13 @@ CREATE TABLE F396V_departments(
 
 
 #------------------------------------------------------------
-# Table: F396V_priceType
+# Table: F396V_priceTypes
 #------------------------------------------------------------
 
-CREATE TABLE F396V_priceType(
+CREATE TABLE F396V_priceTypes(
         id   Int  Auto_increment  NOT NULL ,
         name Varchar (50) NOT NULL
-	,CONSTRAINT F396V_priceType_PK PRIMARY KEY (id)
+	,CONSTRAINT F396V_priceTypes_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
 
@@ -122,18 +122,18 @@ CREATE TABLE F396V_cities(
 #------------------------------------------------------------
 
 CREATE TABLE F396V_places(
-        id                Int  Auto_increment  NOT NULL ,
-        name              Varchar (100) NOT NULL ,
-        description       Varchar (255) NOT NULL ,
-        address           Varchar (255) NOT NULL ,
-        phone             Varchar (10) NOT NULL ,
-        mail              Varchar (100) NOT NULL ,
-        website           Varchar (100) NOT NULL ,
-        idCategory Int NOT NULL ,
-        idCities   Int NOT NULL
+        id                  Int  Auto_increment  NOT NULL ,
+        name                Varchar (100) NOT NULL ,
+        description         Varchar (255) NOT NULL ,
+        address             Varchar (255) NOT NULL ,
+        phone               Varchar (10) NOT NULL ,
+        mail                Varchar (100) NOT NULL ,
+        website             Varchar (100) NOT NULL ,
+        idCategories Int NOT NULL ,
+        idCities     Int NOT NULL
 	,CONSTRAINT F396V_places_PK PRIMARY KEY (id)
 
-	,CONSTRAINT F396V_places_F396V_category_FK FOREIGN KEY (idCategory) REFERENCES F396V_category(id)
+	,CONSTRAINT F396V_places_F396V_categories_FK FOREIGN KEY (idCategories) REFERENCES F396V_categories(id)
 	,CONSTRAINT F396V_places_F396V_cities0_FK FOREIGN KEY (idCities) REFERENCES F396V_cities(id)
 )ENGINE=InnoDB;
 
@@ -144,7 +144,7 @@ CREATE TABLE F396V_places(
 
 CREATE TABLE F396V_comments(
         id              Int  Auto_increment  NOT NULL ,
-        content         Varchar (255) NOT NULL ,
+        content         Text NOT NULL ,
         postDate        Datetime NOT NULL ,
         idUsers  Int NOT NULL ,
         idPlaces Int NOT NULL
@@ -156,18 +156,18 @@ CREATE TABLE F396V_comments(
 
 
 #------------------------------------------------------------
-# Table: F396V_notation
+# Table: F396V_notations
 #------------------------------------------------------------
 
-CREATE TABLE F396V_notation(
+CREATE TABLE F396V_notations(
         id              Int  Auto_increment  NOT NULL ,
         note            Int NOT NULL ,
         idUsers  Int NOT NULL ,
         idPlaces Int NOT NULL
-	,CONSTRAINT F396V_notation_PK PRIMARY KEY (id)
+	,CONSTRAINT F396V_notations_PK PRIMARY KEY (id)
 
-	,CONSTRAINT F396V_notation_F396V_users_FK FOREIGN KEY (idUsers) REFERENCES F396V_users(id)
-	,CONSTRAINT F396V_notation_F396V_places0_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
+	,CONSTRAINT F396V_notations_F396V_users_FK FOREIGN KEY (idUsers) REFERENCES F396V_users(id)
+	,CONSTRAINT F396V_notations_F396V_places0_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
 )ENGINE=InnoDB;
 
 
@@ -176,30 +176,30 @@ CREATE TABLE F396V_notation(
 #------------------------------------------------------------
 
 CREATE TABLE F396V_prices(
-        id                 Int  Auto_increment  NOT NULL ,
-        price              Int NOT NULL ,
-        name               Varchar (50) NOT NULL ,
-        idPlaces    Int NOT NULL ,
-        idPriceType Int NOT NULL
+        id                  Int  Auto_increment  NOT NULL ,
+        price               Int NOT NULL ,
+        name                Varchar (50) NOT NULL ,
+        idPlaces     Int NOT NULL ,
+        idPriceTypes Int NOT NULL
 	,CONSTRAINT F396V_prices_PK PRIMARY KEY (id)
 
 	,CONSTRAINT F396V_prices_F396V_places_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
-	,CONSTRAINT F396V_prices_F396V_priceType0_FK FOREIGN KEY (idPriceType) REFERENCES F396V_priceType(id)
+	,CONSTRAINT F396V_prices_F396V_priceTypes0_FK FOREIGN KEY (idPriceTypes) REFERENCES F396V_priceTypes(id)
 )ENGINE=InnoDB;
 
 
 #------------------------------------------------------------
-# Table: F396V_favorite
+# Table: F396V_favorites
 #------------------------------------------------------------
 
-CREATE TABLE F396V_favorite(
+CREATE TABLE F396V_favorites(
         id              Int  Auto_increment  NOT NULL ,
         idUsers  Int NOT NULL ,
         idPlaces Int NOT NULL
-	,CONSTRAINT F396V_favorite_PK PRIMARY KEY (id)
+	,CONSTRAINT F396V_favorites_PK PRIMARY KEY (id)
 
-	,CONSTRAINT F396V_favorite_F396V_users_FK FOREIGN KEY (idUsers) REFERENCES F396V_users(id)
-	,CONSTRAINT F396V_favorite_F396V_places0_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
+	,CONSTRAINT F396V_favorites_F396V_users_FK FOREIGN KEY (idUsers) REFERENCES F396V_users(id)
+	,CONSTRAINT F396V_favorites_F396V_places0_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
 )ENGINE=InnoDB;
 
 
@@ -218,33 +218,46 @@ CREATE TABLE F396V_pictures(
 
 
 #------------------------------------------------------------
-# Table: F396V_timetable
+# Table: F396V_timetables
 #------------------------------------------------------------
 
-CREATE TABLE F396V_timetable(
-        id                     Int  Auto_increment  NOT NULL ,
-        opening                Int NOT NULL ,
-        closing                Int NOT NULL ,
-        idDays          Int NOT NULL ,
-        idPlaces        Int NOT NULL ,
-        idTimetableType Int NOT NULL
-	,CONSTRAINT F396V_timetable_PK PRIMARY KEY (id)
+CREATE TABLE F396V_timetables(
+        id                      Int  Auto_increment  NOT NULL ,
+        opening                 Int NOT NULL ,
+        closing                 Int NOT NULL ,
+        idDays           Int NOT NULL ,
+        idPlaces         Int NOT NULL ,
+        idTimetableTypes Int NOT NULL
+	,CONSTRAINT F396V_timetables_PK PRIMARY KEY (id)
 
-	,CONSTRAINT F396V_timetable_F396V_days_FK FOREIGN KEY (idDays) REFERENCES F396V_days(id)
-	,CONSTRAINT F396V_timetable_F396V_places0_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
-	,CONSTRAINT F396V_timetable_F396V_timetableType1_FK FOREIGN KEY (idTimetableType) REFERENCES F396V_timetableType(id)
+	,CONSTRAINT F396V_timetables_F396V_days_FK FOREIGN KEY (idDays) REFERENCES F396V_days(id)
+	,CONSTRAINT F396V_timetables_F396V_places0_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
+	,CONSTRAINT F396V_timetables_F396V_timetableTypes1_FK FOREIGN KEY (idTimetableTypes) REFERENCES F396V_timetableTypes(id)
 )ENGINE=InnoDB;
 
 
 #------------------------------------------------------------
-# Table: F396V_acceptedPayment
+# Table: F396V_paymentTypes
 #------------------------------------------------------------
 
-CREATE TABLE F396V_acceptedPayment(
-        id              Int  Auto_increment  NOT NULL ,
-        name            Varchar (50) NOT NULL ,
-        idPlaces Int NOT NULL
-	,CONSTRAINT F396V_acceptedPayment_PK PRIMARY KEY (id)
-
-	,CONSTRAINT F396V_acceptedPayment_F396V_places_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
+CREATE TABLE F396V_paymentTypes(
+        id   Int  Auto_increment  NOT NULL ,
+        name Varchar (100) NOT NULL
+	,CONSTRAINT F396V_paymentTypes_PK PRIMARY KEY (id)
 )ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: F396V_acceptedPayments
+#------------------------------------------------------------
+
+CREATE TABLE F396V_acceptedPayments(
+        id                    Int  Auto_increment  NOT NULL ,
+        idPlaces       Int NOT NULL ,
+        idPaymentTypes Int NOT NULL
+	,CONSTRAINT F396V_acceptedPayments_PK PRIMARY KEY (id)
+
+	,CONSTRAINT F396V_acceptedPayments_F396V_places_FK FOREIGN KEY (idPlaces) REFERENCES F396V_places(id)
+	,CONSTRAINT F396V_acceptedPayments_F396V_paymentTypes0_FK FOREIGN KEY (idPaymentTypes) REFERENCES F396V_paymentTypes(id)
+)ENGINE=InnoDB;
+
