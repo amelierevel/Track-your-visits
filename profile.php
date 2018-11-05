@@ -1,7 +1,7 @@
 <?php
 include_once 'classes/path.php';
-include_once path::getRootPath() . 'header.php';
 include_once path::getControllersPath() . 'profileCtrl.php';
+include_once path::getRootPath() . 'header.php';
 ?>
 <div class=" container-fluid white">
     <div class="row">
@@ -20,7 +20,7 @@ include_once path::getControllersPath() . 'profileCtrl.php';
         <div class="row">
             <div class="input-field col s4 offset-s4 center-align">
                 <p>
-                    Modifier les informations du profil
+                    Modifier les informations générales du profil
                     <a href="updateProfileUser.php?id=<?= $profileUser->id ?>" class="btn-floating pulse waves-effect waves-light"><i class="material-icons">edit</i></a>
                 </p>
                 <p>

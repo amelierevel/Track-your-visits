@@ -1,7 +1,7 @@
 <?php
 include_once 'classes/path.php';
+include_once path::getControllersPath() . 'updateProfileUserCtrl.php';
 include_once path::getRootPath() . 'header.php';
-include_once path::getControllersPath() . 'updateProfileUserCtrl.php'
 ?>
 <div class="bgText container z-depth-3">
     <h2 class="center-align">Modification du profil de <?= $profileUser->username ?></h2>

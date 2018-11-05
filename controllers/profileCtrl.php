@@ -11,3 +11,8 @@ if (isset($_GET['id'])) {
 }
 //appel de la méthode getUserById() permettant l'affichage du profil de l'utilisateur connecté
 $profileUser = $user->getUserById();
+
+if ($profileUser == FALSE) {
+    header('Location: registerUserForm.php');
+    exit;
+}

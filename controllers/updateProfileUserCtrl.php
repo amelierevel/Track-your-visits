@@ -12,10 +12,15 @@ if (isset($_GET['id'])) {
 }
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userType();
-$userTypeList = $userType->getUserType(); 
+$userTypeList = $userType->getUserType();
 
 //appel de la méthode getUserById() permettant l'affichage du profil de l'utilisateur connecté
 $profileUser = $user->getUserById();
+//redirection vers la page d'inscription si l'id dans l'url n'existe pas 
+if ($profileUser == FALSE) {
+    header('Location: registerUserForm.php');
+    exit;
+}
 
 //déclaration de la regex nom
 $regexName = '/^[A-Za-zäâéèëêîïôöüÿç\-\']+$/';
@@ -28,7 +33,11 @@ $formError = array();
 
 //verification que les données ont été envoyés
 if (isset($_POST['updateUserSubmit'])) {
-    $updateUser = NEW users();
+    //récupération des valeurs non modifiables par l'utilisateur
+    $user->id = $user->id;
+    $user->username = $profileUser->username;
+    $user->createDate = $profileUser->createDate;
+    $user->password = $profileUser->password;
     //vérification que le champ lastname n'est pas vide 
     if (!empty($_POST['lastname'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
@@ -54,19 +63,6 @@ if (isset($_POST['updateUserSubmit'])) {
         //si le champ est vide affichage d'un message d'erreur
     } else {
         $formError['firstname'] = 'Veuillez indiquer votre prénom';
-    }
-    //vérification que le champ username n'est pas vide
-    if (!empty($_POST['username'])) {
-        //vérification de la validité de la valeur et attribution de cette valeur à l'attribut username de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-        if (preg_match($regexUsername, $_POST['username'])) {
-            $user->username = htmlspecialchars($_POST['username']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
-            $formError['username'] = 'La saisie de votre nom d\'utilisateur est invalide';
-        }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
-        $formError['username'] = 'Veuillez indiquer un nom d\'utilisateur';
     }
     //vérification que le champ userType n'est pas vide
     if (!empty($_POST['idUserType'])) {

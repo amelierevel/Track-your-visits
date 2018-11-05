@@ -18,7 +18,7 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'disconnect') {
         //destruction de la session
         session_destroy();
-        //redirection de la page vers la page de connexion
-        header('Location: registerUserForm.php');
+        //redirection de la page vers la page d'e connexion d'accueil
+        header('Location: index.php');
     }
 }

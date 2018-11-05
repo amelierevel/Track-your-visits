@@ -30,6 +30,9 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <!--Affichage du dropdown de connexion de la barre de navigation-->
         <ul id="dropdownConnection" class="dropdown-content">
             <li><a href="profile.php?id=<?= $_SESSION['id'] ?>">Profil</a></li>
+            <li><a href="#">Favoris</a></li>
+            <li><a href="#">Mes visites</a></li>
+            <li><a href="#">A voir</a></li>
             <li class="divider"></li>
             <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>
         </ul>
@@ -45,7 +48,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                     //si l'utilisateur est connecté affichage de son menu de connexion
                     if (isset($_SESSION['isConnect'])) {
                         ?>
-                        <li><a class="dropdown-trigger" href="#" data-target="dropdownConnection" class="boldText"><?= $_SESSION['username'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href="#" data-target="dropdownConnection" class="dropdown-trigger boldText"><?= $_SESSION['username'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
                         <?php
                         //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
                     } else {
@@ -58,8 +61,18 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         </nav>
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobileNavbar">
-            <li><a href="registerUserForm.php">Inscription</a></li>
-            <li><a href="#connectionModal" class="modal-trigger">Connexion</a></li>
+            <?php
+            //si l'utilisateur est connecté affichage de son menu de connexion
+            if (isset($_SESSION['isConnect'])) {
+                ?>
+                <li><a href="#"><?= $_SESSION['username'] ?></a></li>
+                <?php
+                //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
+            } else {
+                ?>
+                <li><a href="registerUserForm.php">Inscription</a></li>
+                <li><a href="#connectionModal" class="modal-trigger">Connexion</a></li>
+            <?php } ?>
         </ul>
         <!-- Modal pour la connexion -->
         <div id="connectionModal" class="modal">
@@ -84,7 +97,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                     </div>
                     <div class="modal-footer">
                         <button class="btn waves-effect waves-light" type="submit" name="connectionUserSubmit">Se connecter</button>
-                     </div>
+                    </div>
                 </form>
             </div>
         </div>

@@ -113,7 +113,7 @@ class users extends database {
         //initialisation de la variable $userInfo avec la valeur false
         $userInfo = FALSE;
         //déclaration de la requête sql
-        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`usType`.`name` '
+        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`us`.`password`,`usType`.`name` '
                 . 'FROM `F396V_users` AS `us` '
                 . 'LEFT JOIN `F396V_userType` AS `usType` '
                 . 'ON `us`.`idUserType` = `usType`.`id` '
@@ -132,12 +132,13 @@ class users extends database {
     }
 
     /**
-     * Méthode permettant de modifier les informations de l'utilisateur
+     * Méthode permettant de modifier les informations générales de l'utilisateur
      * @return type
      */
     public function updateProfileUser() {
         //déclaration de la requête sql
-        $request = 'UPDATE `F396V_users` SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`username` = :username,`idUserType` = :idUserType,`password` = :password '
+        $request = 'UPDATE `F396V_users` '
+                . 'SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`idUserType` = :idUserType '
                 . 'WHERE `id` = :id';
         //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $updateUser
         $updateUser = $this->db->prepare($request);
@@ -150,7 +151,7 @@ class users extends database {
         $updateUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_STR);
         //vérification que la requête s'est bien exécutée
         if ($updateUser->execute()) {
-            return $updateUser;
+            return $updateUser->execute();
         }
     }
 
