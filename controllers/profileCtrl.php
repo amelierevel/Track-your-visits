@@ -15,11 +15,13 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
     $deleteUser =NEW users();
     $deleteUser->id = htmlspecialchars($_GET['idDelete']);
     if ($removeUser = $deleteUser->deleteUser()) {
-        //faire detruire la session ????????????????????!!!!!!!!!!!!!!!!!!!!!!!!
+        //destruction de la session
+        session_destroy();
+        //redirection vers la page d'inscription
         header('Location: registerUserForm.php');
         exit;
     }
-    // à revoir ça marche pas
+    // A REVOIR CA MARCHE PAS
     if ($removeUser === FALSE) {
         $deleteError = 'L\'utilisateur n\'a pas pu être supprimé.';
     }
@@ -28,8 +30,3 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
 
 //appel de la méthode getUserById() permettant l'affichage du profil de l'utilisateur connecté
 $profileUser = $user->getUserById();
-//redirection vers la page d'inscription si l'id dans l'url n'existe pas 
-if ($profileUser === FALSE) {
-    header('Location: registerUserForm.php');
-    exit;
-}

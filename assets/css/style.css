@@ -5,14 +5,28 @@ body{
 }
 /*taille police des liens de la barre de navigation*/
 body nav ul a{
-     font-size: 30px;
+     font-size: 120%;
+}
+body nav ul a:hover{
+    font-size: 120%;
+    background-color: #f57c00;
 }
 /*position du titre du site dans le header*/
 #titleSite{
+    font-size: 230%;
     font-style: italic;
     font-weight: bold;
     margin-top: -0.2em;
     padding-top: 0.2em;
+}
+/*position du header*/
+.header{
+    padding-bottom: 0.1%; 
+}
+/*dimensions du logo dans le header*/
+#headerLogo{
+    width: 17%;
+    height: 17%;
 }
 /*dimensions et position du logo dans la barre de navigation*/
 #logoNavbar{
@@ -32,14 +46,6 @@ nav.fixed{
     top: 0;
     z-index: 1000;
 }
-/*position du corps du site sous la barre de navigation*/
-nav{
-    margin-bottom: 1.8em;
-}
-/*position du corps du site au dessus du footer*/
-footer{
-    margin-top: 1.8em;
-}
 /*texte en gras*/
 .boldText{
     font-weight: bold;
@@ -48,17 +54,16 @@ footer{
 .bgText{
     background-color: rgba(255,255,255,0.9);
     border-radius: 10px 10px 10px 10px;
-    padding: 0.1em;
+}
+/*position du message d'erreur 404*/
+#textError404{
+    padding-top: 3%;
+}
+#textPageNotFound{
+    padding-bottom: 2%;
 }
 /*position du formulaire d'inscription utilisateur*/
 #registerForm, #updateForm{
-    padding-left: 5%;
-    padding-right: 5%;
-}
-/*position du container-fluid*/
-.container-fluid{
-    margin-top: -1.8em;
-    margin-bottom: -1.8em;
-    padding-top: 0.1em;
-    padding-bottom: 0.1em;
+    padding-left: 7%;
+    padding-right: 7%;
 }

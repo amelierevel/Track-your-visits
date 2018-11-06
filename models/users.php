@@ -14,7 +14,7 @@ class users extends database {
     public $username;
     public $password;
     public $createDate;
-    public $idUserType;
+    public $idUserTypes;
 
     /**
      * Méthode magique construct héritée du parent database
@@ -30,8 +30,8 @@ class users extends database {
      */
     public function addUser() {
         //déclaration de la requête sql
-        $request = 'INSERT INTO `F396V_users`(`firstname`,`lastname`,`birthDate`,`mail`,`username`,`password`,`createDate`,`idUserType`) '
-                . 'VALUES (:firstname, :lastname, :birthDate, :mail, :username, :password, :createDate, :idUserType)';
+        $request = 'INSERT INTO `F396V_users`(`firstname`,`lastname`,`birthDate`,`mail`,`username`,`password`,`createDate`,`idUserTypes`) '
+                . 'VALUES (:firstname, :lastname, :birthDate, :mail, :username, :password, :createDate, :idUserTypes)';
         //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $insertUser
         $insertUser = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
@@ -42,7 +42,7 @@ class users extends database {
         $insertUser->bindValue(':username', $this->username, PDO::PARAM_STR);
         $insertUser->bindValue(':password', $this->password, PDO::PARAM_STR);
         $insertUser->bindValue(':createDate', $this->createDate, PDO::PARAM_STR);
-        $insertUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_INT);
+        $insertUser->bindValue(':idUserTypes', $this->idUserTypes, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
         if ($insertUser->execute()) {
             return $insertUser;
@@ -114,10 +114,10 @@ class users extends database {
         $userInfo = FALSE;
         //déclaration de la requête sql
         $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,'
-                . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserType`,`us`.`password`,`usType`.`name` '
+                . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserTypes`,`us`.`password`,`usTypes`.`name` '
                 . 'FROM `F396V_users` AS `us` '
-                . 'LEFT JOIN `F396V_userType` AS `usType` '
-                . 'ON `us`.`idUserType` = `usType`.`id` '
+                . 'LEFT JOIN `F396V_userTypes` AS `usTypes` '
+                . 'ON `us`.`idUserTypes` = `usTypes`.`id` '
                 . 'WHERE `us`.`id` = :id';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
         $result = $this->db->prepare($request);
@@ -139,7 +139,7 @@ class users extends database {
     public function updateProfileUser() {
         //déclaration de la requête sql
         $request = 'UPDATE `F396V_users` '
-                . 'SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`idUserType` = :idUserType '
+                . 'SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`idUserTypes` = :idUserTypes '
                 . 'WHERE `id` = :id';
         //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $updateUser
         $updateUser = $this->db->prepare($request);
@@ -149,10 +149,10 @@ class users extends database {
         $updateUser->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
         $updateUser->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
         $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-        $updateUser->bindValue(':idUserType', $this->idUserType, PDO::PARAM_STR);
+        $updateUser->bindValue(':idUserTypes', $this->idUserTypes, PDO::PARAM_STR);
         //vérification que la requête s'est bien exécutée
         if ($updateUser->execute()) {
-            return $updateUser->execute();
+            return $updateUser;
         }
     }
 
@@ -165,9 +165,9 @@ class users extends database {
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $deleteUser->bindValue(':id', $this->id, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
-       // if ($deleteUser->execute()) {
-            return $deleteUser->execute();
-       // }
+        if ($deleteUser->execute()) {
+            return $deleteUser;
+        }
     }
 
     /**

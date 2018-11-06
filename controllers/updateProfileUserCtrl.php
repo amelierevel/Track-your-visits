@@ -2,7 +2,7 @@
 
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'users.php';
-include_once path::getModelsPath() . 'userType.php';
+include_once path::getModelsPath() . 'userTypes.php';
 
 //instanciation de l'objet user
 $user = NEW users();
@@ -11,16 +11,8 @@ if (isset($_GET['id'])) {
     $user->id = $_GET['id'];
 }
 //instanciation pour l'affichage de la liste des types d'utilisateur
-$userType = NEW userType();
+$userType = NEW userTypes();
 $userTypeList = $userType->getUserType();
-
-//appel de la méthode getUserById() permettant l'affichage du profil de l'utilisateur connecté
-$profileUser = $user->getUserById();
-//redirection vers la page d'inscription si l'id dans l'url n'existe pas 
-if ($profileUser == FALSE) {
-    header('Location: registerUserForm.php');
-    exit;
-}
 
 //déclaration de la regex nom
 $regexName = '/^[A-Za-zäâéèëêîïôöüÿç\-\']+$/';
@@ -65,17 +57,17 @@ if (isset($_POST['updateUserSubmit'])) {
         $formError['firstname'] = 'Veuillez indiquer votre prénom';
     }
     //vérification que le champ userType n'est pas vide
-    if (!empty($_POST['idUserType'])) {
+    if (!empty($_POST['idUserTypes'])) {
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idUserType de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-        if (is_numeric($_POST['idUserType'])) {
-            $user->idUserType = htmlspecialchars($_POST['idUserType']);
+        if (is_numeric($_POST['idUserTypes'])) {
+            $user->idUserTypes = htmlspecialchars($_POST['idUserTypes']);
             //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
         } else {
-            $formError['idUserType'] = 'Veuillez sélectionner un type d\'utilisateur valide';
+            $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur valide';
         }
         //si le champ est vide affichage d'un message d'erreur
     } else {
-        $formError['idUserType'] = 'Veuillez sélectionner un type d\'utilisateur';
+        $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur';
     }
     //vérification que le champ birthDate n'est pas vide 
     if (!empty($_POST['birthDate'])) {

@@ -19,25 +19,26 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />   
         <title>Track Your Visits</title>
     </head>
-    <body class="teal accent-1">
+    <body class="white">
         <!--Header-->
-        <div class="container">
+        <div class="header lime lighten-3">
             <div class="center-align">
-                <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" class="responsive-img" />
+                <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" class="responsive-img" id="headerLogo" />
                 <h1 id="titleSite">Track your visits</h1>
             </div>
         </div>
         <!--Affichage du dropdown de connexion de la barre de navigation-->
-        <ul id="dropdownConnection" class="dropdown-content">
-            <li><a href="profile.php?id=<?= $_SESSION['id'] ?>">Profil</a></li>
-            <li><a href="#">Favoris</a></li>
-            <li><a href="#">Mes visites</a></li>
-            <li><a href="#">A voir</a></li>
+        <ul id="dropdownConnection" class="dropdown-content orange darken-1">
+            <li><a href="profile.php?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Profil</a></li>
+            <li><a href="#" class="white-text boldText">Favoris</a></li>
+            <li><a href="#" class="white-text boldText">Mes visites</a></li>
+            <li><a href="#" class="white-text boldText">A voir</a></li>
+            <li><a href="updateProfileUser.php?id=<?= $profileUser->id ?>" class="white-text boldText">Modifier mon profil</a></li>
             <li class="divider"></li>
-            <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>
+            <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
         </ul>
         <!--Barre de navigation-->
-        <nav class="deep-orange lighten-2">
+        <nav class="orange darken-3 z-depth-3">
             <div class="nav-wrapper">
                 <a href="index.php" class="brand-logo">
                     <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />

@@ -3,7 +3,7 @@ include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
 include_once path::getControllersPath() . 'registerUserFormCtrl.php'; 
 ?>
-<div class="bgText container z-depth-3">
+<div class="container-fluid white">
     <h2 class="center-align">Inscription d'un nouvel utilisateur</h2>
     <div class="row">
         <?php
@@ -57,21 +57,21 @@ include_once path::getControllersPath() . 'registerUserFormCtrl.php';
                     </div>
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">assignment_ind</i>
-                        <select name="idUserType" required>
+                        <select name="idUserTypes" required>
                             <option value="0" disabled selected>Type d'utilisateur</option>
                             <?php
                             //boucle permettant d'afficher la liste des types d'utilisateur
                             foreach ($userTypeList as $userTypeDetail) {
                                 ?>
-                                <option value="<?= $userTypeDetail->id ?>" <?= ((isset($user->idUserType)) && ($user->idUserType == $userTypeDetail->id)) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
+                                <option value="<?= $userTypeDetail->id ?>" <?= ((isset($user->idUserTypes)) && ($user->idUserTypes == $userTypeDetail->id)) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
                             <?php } ?>
                         </select>
-                        <label for="idUserType">Veuillez sélectionner un type d'utilisateur : </label>
+                        <label for="idUserTypes">Veuillez sélectionner un type d'utilisateur : </label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['idUserType'])) {
+                        if (isset($formError['idUserTypes'])) {
                             ?>
-                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['idUserType']; ?></p>
+                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['idUserTypes']; ?></p>
                         <?php } ?>
                     </div>
                 </div>

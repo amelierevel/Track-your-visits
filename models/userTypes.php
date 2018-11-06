@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Création de la class userType héritière de database
+ * Création de la class userTypes héritière de database
  */
-class userType extends database {
+class userTypes extends database {
 
     //Liste des attributs
     public $id;
@@ -25,7 +25,7 @@ class userType extends database {
         //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
         $resultArray = array();
         //déclaration de la requête sql
-        $request = 'SELECT `id`,`name` FROM `F396V_userType`';
+        $request = 'SELECT `id`,`name` FROM `F396V_userTypes`';
         //appel de la requête avec un query que l'on stocke dans la variable $userTypeResult
         $userTypeResult = $this->db->query($request);
         //on vérifie que $userTypeResult est un objet
