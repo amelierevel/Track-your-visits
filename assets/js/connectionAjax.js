@@ -1,4 +1,22 @@
 $(document).ready(function () {
+    //on initialise une chaine de caractères vide parce que c'est cool
+    var key = '';
+    $('#password').keypress(function (e) {
+        //pour pas que ca actualise la page (?)
+        e.preventDefault();
+        //la touche appuyé doit etre = 1 (touche suppr = backspace = pleins de lettres)
+        if (e.key.length == 1) {
+            //key =  chaine de K vide + la touche appuyée
+            key = key + e.key;
+            //on donne la valeur • à key
+            $(this).val($(this).val() + '•');
+            //on fait que qd on click sur touche suppr ça suppr 
+        } else if (e.key == 'Backspace') {
+            key = key.slice(0, -1);
+            //on redonne la nouvelle val avec le K suppr à key
+            $(this).val($(this).val().slice(0, -1));
+        }
+    });
     //on cache le message d'erreur
     $('#errorMessage').hide();
     $('#connectionForm').on('submit', function (e) {
@@ -9,10 +27,10 @@ $(document).ready(function () {
             //on définit les paramètres
             url: 'ajax/connectionAjax.php', //chemin vers le controller
             type: 'POST', //le type de la requête
-            data: new FormData(this), //les données transmises/qu'on analyse (à vérifier?)
-            contentType: false, //Le type de contenu utilisé lors de l'envoi de données au serveur
-            cache: false, //Impossible de demander la mise en cache des pages
-            processData: false, //
+            data: {
+                password: key,
+                username: $('#username').val()
+            },
             dataType: 'json', //le type de données à recevoir
             //si la requête s'exécute
             success: function (data) {

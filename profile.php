@@ -16,6 +16,13 @@ include_once path::getRootPath() . 'header.php';
                 <li><span class="boldText">Date de naissance : </span><?= $profileUser->birthDate ?></li>
                 <li><span class="boldText">Mail : </span><?= $profileUser->mail ?></li>
             </ul>
+        <?php
+        if($profileUser->name == 'Contributeur'){
+            ?>
+            <a href="addPlace.php" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
+        <?php
+        }
+        ?>
         </div>
     </div>
 </div>

@@ -121,7 +121,7 @@ include_once path::getControllersPath() . 'registerUserFormCtrl.php';
                 </div>
                 <div class="row">
                     <div class="input-field col m5 s10 offset-m5 offset-s2">
-                        <button class="btn waves-effect waves-light" type="submit" name="registerUserSubmit" id="registerUserSubmit">Créer un compte</button>
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="registerUserSubmit" id="registerUserSubmit">Créer un compte</button>
                     </div>
                 </div>
             </form>

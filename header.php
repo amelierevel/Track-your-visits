@@ -40,7 +40,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <!--Barre de navigation-->
         <nav class="orange darken-3 z-depth-3">
             <div class="nav-wrapper">
-                <a href="index.php" class="brand-logo">
+                <a href="Accueil" class="brand-logo">
                     <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
                 </a>
                 <a href="index.php" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -84,7 +84,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <!-- Modal pour la connexion -->
         <div id="connectionModal" class="modal">
             <div class="modal-content">
-                <h2>Connexion</h2>
+                <h2 class="center-align">Connexion</h2>
                 <!--formulaire de connexion-->
                 <form action="#" method="POST"  class="col s10" id="connectionForm">
                     <div class="row">
@@ -103,7 +103,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn waves-effect waves-light" type="submit" name="connectionUserSubmit">Se connecter</button>
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="connectionUserSubmit">Se connecter</button>
                     </div>
                 </form>
             </div>

@@ -121,7 +121,6 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
         //fermeture de la session courante après avoir stocké les données
         session_write_close();
         exit();
-        
     }
     // A REVOIR CA MARCHE PAS
     if ($removeUser === FALSE) {

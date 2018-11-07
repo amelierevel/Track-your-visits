@@ -89,7 +89,7 @@ include_once path::getRootPath() . 'header.php';
                         <?php } ?>
                     </div>
                     <div class="input-field col m5 s7 offset-m1 offset-s4">
-                        <button class="btn waves-effect waves-light" type="submit" name="updateUserSubmit" id="updateUserSubmit">Enregistrer les modifications</button>
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="updateUserSubmit" id="updateUserSubmit">Enregistrer les modifications</button>
                     </div>
                 </div>
             </form>
@@ -104,7 +104,7 @@ include_once path::getRootPath() . 'header.php';
     <div class="row">
         <div class="col m5 offset-m2 s12">
             Modifier le mot de passe
-            <a href="#" class="btn-floating pulse"><i class="material-icons">edit</i></a>
+            <a href="#" class="btn-floating lime darken-3 pulse"><i class="material-icons">edit</i></a>
         </div>
         <div class="col m5 s12">
             Supprimer le compte
