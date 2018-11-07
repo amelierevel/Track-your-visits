@@ -33,7 +33,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
             <li><a href="#" class="white-text boldText">Favoris</a></li>
             <li><a href="#" class="white-text boldText">Mes visites</a></li>
             <li><a href="#" class="white-text boldText">A voir</a></li>
-            <li><a href="updateProfileUser.php?id=<?= $profileUser->id ?>" class="white-text boldText">Modifier mon profil</a></li>
+            <li><a href="updateProfileUser.php?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Modifier mon profil</a></li>
             <li class="divider"></li>
             <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
         </ul>
@@ -66,7 +66,13 @@ include_once path::getControllersPath() . 'headerCtrl.php';
             //si l'utilisateur est connecté affichage de son menu de connexion
             if (isset($_SESSION['isConnect'])) {
                 ?>
-                <li><a href="#"><?= $_SESSION['username'] ?></a></li>
+                <li><a href="profile.php?id=<?= $_SESSION['id'] ?>">Profil <?= $_SESSION['username'] ?></a></li>
+                <li><a href="#">Favoris</a></li>
+                <li><a href="#">Mes visites</a></li>
+                <li><a href="#">A voir</a></li>
+                <li><a href="updateProfileUser.php?id=<?= $_SESSION['id'] ?>">Modifier mon profil</a></li>
+                <li class="divider"></li>
+                <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>
                 <?php
                 //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
             } else {

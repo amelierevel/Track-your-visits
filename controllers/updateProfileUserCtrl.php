@@ -8,7 +8,7 @@ include_once path::getModelsPath() . 'userTypes.php';
 $user = NEW users();
 //sécurisation en vérifiant la présence d'un id dans l'url pour afficher le profil de l'utilisateur correspondant
 if (isset($_GET['id'])) {
-    $user->id = $_GET['id'];
+    $user->id = htmlspecialchars($_GET['id']);
 }
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userTypes();
@@ -27,9 +27,9 @@ $formError = array();
 if (isset($_POST['updateUserSubmit'])) {
     //récupération des valeurs non modifiables par l'utilisateur
     $user->id = $user->id;
-    $user->username = $profileUser->username;
-    $user->createDate = $profileUser->createDate;
-    $user->password = $profileUser->password;
+    $user->username = $user->username;
+    $user->createDate = $user->createDate;
+    $user->password = $user->password;
     //vérification que le champ lastname n'est pas vide 
     if (!empty($_POST['lastname'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
@@ -101,3 +101,31 @@ if (isset($_POST['updateUserSubmit'])) {
     }
 }
 
+//suppression de l'utilisateur
+if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
+    //instanciation pour la suppression
+    $deleteUser = NEW users();
+    $deleteUser->id = htmlspecialchars($_GET['idDelete']);
+    //appel de la méthode deleteUser() permettant la suppression d'un utilisateur
+    $removeUser = $deleteUser->deleteUser();
+    //si la méthode s'exécute 
+    if ($removeUser == TRUE) {
+        //ouverture de la session pour pouvoir la détruire avant le chargement de la page header (car sinon elle s'ouvre qu'à partir du chargement de la page header)
+        session_start();
+        //destruction de toutes les variables de la session
+        session_unset();
+        //destruction de la session
+        session_destroy();
+        //redirection vers la page d'inscription
+        header('Location: registerUserForm.php');
+        //fermeture de la session courante après avoir stocké les données
+        session_write_close();
+        exit();
+        
+    }
+    // A REVOIR CA MARCHE PAS
+    if ($removeUser === FALSE) {
+        $deleteError = 'L\'utilisateur n\'a pas pu être supprimé.';
+    }
+    // fin du à revoir
+}

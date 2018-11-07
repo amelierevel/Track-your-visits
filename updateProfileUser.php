@@ -101,5 +101,33 @@ include_once path::getRootPath() . 'header.php';
             </p>
         <?php } ?>
     </div>
+    <div class="row">
+        <div class="col m5 offset-m2 s12">
+            Modifier le mot de passe
+            <a href="#" class="btn-floating pulse"><i class="material-icons">edit</i></a>
+        </div>
+        <div class="col m5 s12">
+            Supprimer le compte
+            <a href="#deleteVerify" class="btn-floating waves-effect waves-light red accent-4 pulse modal-trigger"><i class="material-icons">delete</i></a>
+            <?php
+            //affichage du message d'erreur s'il existe MAIS CA MARCHE PAS
+            if (isset($deleteError)) {
+                echo $deleteError;
+            }
+            ?>
+        </div>
+    </div>
+    <!--Modal pour confirmation suppression du compte utilisateur-->
+    <div id="deleteVerify" class="modal">
+        <div class="modal-content">
+            <h3 class="center-align">Supprimer le compte</h3>
+            <p class="center-align">Voulez-vous vraiment supprimer votre compte ?</p>
+            <div class="modal-footer">
+                <a href="updateProfileUser.php?idDelete=<?= $profileUser->id ?>" class="waves-effect waves-green btn red accent-4 boldText">Suppression du compte</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn grey boldText">Annuler</a>
+            </div>
+        </div>
+    </div>
+    <!--Fin modal-->
 </div>
 <?php include_once path::getRootPath() . 'footer.php'; ?>

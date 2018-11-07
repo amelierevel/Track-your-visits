@@ -156,7 +156,12 @@ class users extends database {
         }
     }
 
+    /**
+     * Méthode permettant la suppression d'un utilisateur
+     * @return boolean
+     */
     public function deleteUser() {
+        $state = FALSE;
         //déclaration de la requête sql
         $request = 'DELETE FROM `F396V_users` '
                 . 'WHERE `id` = :id';
@@ -166,8 +171,9 @@ class users extends database {
         $deleteUser->bindValue(':id', $this->id, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
         if ($deleteUser->execute()) {
-            return $deleteUser;
+            $state = TRUE;
         }
+        return $state;
     }
 
     /**
