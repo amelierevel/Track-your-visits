@@ -7,9 +7,10 @@ body{
 body nav ul a{
      font-size: 120%;
 }
+/*taille et couleur police des liens du dropdown de la barre de navigation*/
 body nav ul a:hover{
     font-size: 120%;
-    background-color: #f57c00;
+    background-color: #F57C00;
 }
 /*position du titre du site dans le header*/
 #titleSite{
@@ -25,8 +26,8 @@ body nav ul a:hover{
 }
 /*dimensions du logo dans le header*/
 #headerLogo{
-    width: 17%;
-    height: 17%;
+    width: 14%;
+    height: 14%;
 }
 /*dimensions et position du logo dans la barre de navigation*/
 #logoNavbar{

@@ -1,7 +1,7 @@
-<?php 
+<?php
 include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
-include_once path::getControllersPath() . 'registerUserFormCtrl.php'; 
+include_once path::getControllersPath() . 'registerUserFormCtrl.php';
 ?>
 <div class="container-fluid white">
     <h2 class="center-align">Inscription d'un nouvel utilisateur</h2>

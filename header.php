@@ -43,7 +43,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                 <a href="Accueil" class="brand-logo">
                     <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
                 </a>
-                <a href="index.php" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
