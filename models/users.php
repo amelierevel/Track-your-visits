@@ -25,7 +25,7 @@ class users extends database {
     }
 
     /**
-     * Méthode permettant d'ajout un nouvel utilisateur
+     * Méthode permettant d'ajouter un nouvel utilisateur
      * @return type
      */
     public function addUser() {

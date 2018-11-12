@@ -6,8 +6,6 @@ include_once '../classes/path.php';
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'users.php';
 
-//déclaration d'un tableau d'erreur pour la connexion
-$errorList = array();
 //initialisation de la variable $successConnection avec la valeur FALSE
 $successConnection = FALSE;
 //initialisation de la variable $errorMessage avec la valeur FALSE

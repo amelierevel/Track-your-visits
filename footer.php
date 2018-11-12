@@ -30,5 +30,6 @@
         <script src="assets/js/script.js"></script>
         <!-- Script pour l'ajax -->
         <script src="assets/js/connectionAjax.js"></script>
+        <script src="assets/js/citiesAjax.js"></script>
     </body>
 </html>

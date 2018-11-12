@@ -25,7 +25,7 @@ $(document).ready(function () {
         //appel (ouverture) ajax 
         $.ajax({
             //on définit les paramètres
-            url: 'ajax/connectionAjax.php', //chemin vers le controller
+            url: 'ajax/connectionAjax.php', //chemin vers le controller ajax
             type: 'POST', //le type de la requête
             data: {
                 password: key,

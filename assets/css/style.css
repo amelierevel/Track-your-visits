@@ -9,7 +9,7 @@ body nav ul a{
 }
 /*taille et couleur police des liens du dropdown de la barre de navigation*/
 body nav ul a:hover{
-    font-size: 120%;
+    font-size: 100%;
     background-color: #F57C00;
 }
 /*position du titre du site dans le header*/
