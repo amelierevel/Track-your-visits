@@ -1,6 +1,7 @@
 <?php
 //démarrage de la session
 session_start();
+//insertion du fichier path et du controller
 include_once 'classes/path.php';
 include_once path::getControllersPath() . 'headerCtrl.php';
 ?>
@@ -29,13 +30,13 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         </div>
         <!--Affichage du dropdown de connexion de la barre de navigation-->
         <ul id="dropdownConnection" class="dropdown-content orange darken-1">
-            <li><a href="profile.php?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Profil</a></li>
+            <li><a href="Profil?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Profil</a></li>
             <li><a href="#" class="white-text boldText">Favoris</a></li>
             <li><a href="#" class="white-text boldText">Mes visites</a></li>
             <li><a href="#" class="white-text boldText">A voir</a></li>
-            <li><a href="updateProfileUser.php?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Modifier mon profil</a></li>
+            <li><a href="Modification-profil?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Modifier mon profil</a></li>
             <li class="divider"></li>
-            <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
+            <li><a href="<?= /* ajout de l'action disconnect dans l'url après le chemin du fichier courant */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
         </ul>
         <!--Barre de navigation-->
         <nav class="orange darken-3 z-depth-3">
@@ -54,7 +55,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                         //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
                     } else {
                         ?>
-                        <li><a href="registerUserForm.php" class="boldText">Inscription</a></li>
+                        <li><a href="Inscription-utilisateur" class="boldText">Inscription</a></li>
                         <li><a href="#connectionModal" class="boldText modal-trigger">Connexion</a></li>
                     <?php } ?>
                 </ul>
@@ -66,18 +67,18 @@ include_once path::getControllersPath() . 'headerCtrl.php';
             //si l'utilisateur est connecté affichage de son menu de connexion
             if (isset($_SESSION['isConnect'])) {
                 ?>
-                <li><a href="profile.php?id=<?= $_SESSION['id'] ?>">Profil <?= $_SESSION['username'] ?></a></li>
+                <li><a href="Profil?id=<?= $_SESSION['id'] ?>">Profil <?= $_SESSION['username'] ?></a></li>
                 <li><a href="#">Favoris</a></li>
                 <li><a href="#">Mes visites</a></li>
                 <li><a href="#">A voir</a></li>
-                <li><a href="updateProfileUser.php?id=<?= $_SESSION['id'] ?>">Modifier mon profil</a></li>
+                <li><a href="Modification-profil?id=<?= $_SESSION['id'] ?>">Modifier mon profil</a></li>
                 <li class="divider"></li>
                 <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>
                 <?php
                 //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
             } else {
                 ?>
-                <li><a href="registerUserForm.php">Inscription</a></li>
+                <li><a href="Inscription-utilisateur">Inscription</a></li>
                 <li><a href="#connectionModal" class="modal-trigger">Connexion</a></li>
             <?php } ?>
         </ul>

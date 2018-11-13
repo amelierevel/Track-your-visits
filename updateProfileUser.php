@@ -1,10 +1,11 @@
 <?php
+//insertion du fichier path, du controller puis du header 
 include_once 'classes/path.php';
 include_once path::getControllersPath() . 'updateProfileUserCtrl.php';
 include_once path::getRootPath() . 'header.php';
 ?>
 <div>
-    <h2 class="center-align">Modification du profil de <?= $profileUser->username ?></h2>
+    <h2 class="center-align">Modification du profil de <?= $_SESSION['username'] ?></h2>
     <div class="row">
         <?php
         //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
@@ -16,12 +17,12 @@ include_once path::getRootPath() . 'header.php';
         } else {
             ?>  
             <!--Formulaire de modification d'un utilisateur-->
-            <form action="updateProfileUser.php?id=<?= $profileUser->id ?>" method="POST" class="col s12" id="updateForm">
+            <form action="updateProfileUser.php?id=<?= $_SESSION['id'] ?>" method="POST" class="col s12" id="updateForm">
                 <!--Champs nom et prénom-->
                 <div class="row">
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input type="text" name="lastname" id="lastname" value="<?= $profileUser->lastname ?>" required />
+                        <input type="text" name="lastname" id="lastname" value="<?= $_SESSION['lastname'] ?>" required />
                         <label for="lastname">Nom</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -32,7 +33,7 @@ include_once path::getRootPath() . 'header.php';
                     </div>
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input  type="text" name="firstname" id="firstname" value="<?= $profileUser->firstname ?>" required />
+                        <input  type="text" name="firstname" id="firstname" value="<?= $_SESSION['firstname'] ?>" required />
                         <label for="firstname">Prénom</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -46,7 +47,7 @@ include_once path::getRootPath() . 'header.php';
                 <div class="row">
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">date_range</i>
-                        <input type="date" name="birthDate" id="birthDate" placeholder="jj/mm/aaaa" value="<?= $profileUser->birthDate ?>" required />
+                        <input type="date" name="birthDate" id="birthDate" placeholder="jj/mm/aaaa" value="<?= $_SESSION['birthDate'] ?>" required />
                         <label for="birthDate">Date de naissance</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -57,7 +58,7 @@ include_once path::getRootPath() . 'header.php';
                     </div>
                     <div class="input-field col m6 s12">
                         <i class="material-icons prefix">email</i>
-                        <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= $profileUser->mail ?>" required />
+                        <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= $_SESSION['mail'] ?>" required />
                         <label for="mail">Mail</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
@@ -77,10 +78,10 @@ include_once path::getRootPath() . 'header.php';
                             //boucle permettant d'afficher la liste des types d'utilisateur
                             foreach ($userTypeList as $userTypeDetail) {
                                 ?>
-                                <option value="<?= $userTypeDetail->id ?>" <?= ($profileUser->idUserTypes == $userTypeDetail->id) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
+                                <option value="<?= $userTypeDetail->id ?>" <?= ($_SESSION['idUserTypes'] == $userTypeDetail->id) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
                             <?php } ?>
                         </select>
-                        <label for="idUserTypes">Veuillez sélectionner un type d'utilisateur : </label>
+                        <label for="idUserTypes">Veuillez sélectionner un type d'utilisateur</label>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
                         if (isset($formError['idUserTypes'])) {
@@ -109,25 +110,28 @@ include_once path::getRootPath() . 'header.php';
         <div class="col m5 s12">
             Supprimer le compte
             <a href="#deleteVerify" class="btn-floating waves-effect waves-light red accent-4 pulse modal-trigger"><i class="material-icons">delete</i></a>
-            <?php
-            //affichage du message d'erreur s'il existe MAIS CA MARCHE PAS
-            if (isset($deleteError)) {
-                echo $deleteError;
-            }
-            ?>
         </div>
     </div>
+    <?php
+    //affichage du message d'erreur s'il existe 
+    if (isset($deleteError)) {
+        ?>  
+        <p class="boldText red-text text-darken-1 center-align"><?= $deleteError; ?></p>
+    <?php } ?>
     <!--Modal pour confirmation suppression du compte utilisateur-->
     <div id="deleteVerify" class="modal">
         <div class="modal-content">
             <h3 class="center-align">Supprimer le compte</h3>
             <p class="center-align">Voulez-vous vraiment supprimer votre compte ?</p>
             <div class="modal-footer">
-                <a href="updateProfileUser.php?idDelete=<?= $profileUser->id ?>" class="waves-effect waves-green btn red accent-4 boldText">Suppression du compte</a>
+                <a href="Modification-profil?idDelete=<?= $profileUser->id ?>" class="waves-effect waves-green btn red accent-4 boldText">Suppression du compte</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn grey boldText">Annuler</a>
             </div>
         </div>
     </div>
     <!--Fin modal-->
 </div>
-<?php include_once path::getRootPath() . 'footer.php'; ?>
+<?php
+//insertion du footer
+include_once path::getRootPath() . 'footer.php';
+?>

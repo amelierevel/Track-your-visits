@@ -81,7 +81,7 @@ class users extends database {
         //initialisation de la variable $state avec la valeur false
         $state = FALSE;
         //déclaration de la requête sql
-        $request = 'SELECT `id`,`lastname`,`firstname`,`username`,`password` '
+        $request = 'SELECT `id`,`lastname`,`firstname`,`username`,`password`,`birthDate`,`mail`,`idUserTypes` '
                 . 'FROM `F396V_users` '
                 . 'WHERE `username` = :username';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
@@ -99,6 +99,9 @@ class users extends database {
                 $this->firstname = $selectResult->firstname;
                 $this->username = $selectResult->username;
                 $this->password = $selectResult->password;
+                $this->birthDate = $selectResult->birthDate;
+                $this->mail = $selectResult->mail;
+                $this->idUserTypes = $selectResult->idUserTypes;
                 $state = TRUE;
             }
         }
@@ -125,6 +128,7 @@ class users extends database {
         $result->bindValue(':id', $this->id, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
         if ($result->execute()) {
+            //vérification qu'il s'agit bien d'un objet
             if (is_object($result)) {
                 $userInfo = $result->fetch(PDO::FETCH_OBJ);
             }
@@ -152,7 +156,10 @@ class users extends database {
         $updateUser->bindValue(':idUserTypes', $this->idUserTypes, PDO::PARAM_STR);
         //vérification que la requête s'est bien exécutée
         if ($updateUser->execute()) {
-            return $updateUser;
+            //vérification qu'il s'agit bien d'un objet
+            if (is_object($updateUser)) {
+                return $updateUser;
+            }
         }
     }
 
@@ -161,6 +168,7 @@ class users extends database {
      * @return boolean
      */
     public function deleteUser() {
+        //initialisation de la variable $state avec la valeur false
         $state = FALSE;
         //déclaration de la requête sql
         $request = 'DELETE FROM `F396V_users` '

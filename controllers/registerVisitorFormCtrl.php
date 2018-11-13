@@ -1,19 +1,8 @@
 <?php
 
-//insertion de la class database et des models users et userTypes
+//insertion de la class database et des models userTypes et users
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'users.php';
-include_once path::getModelsPath() . 'userTypes.php';
-
-//instanciation de l'objet user
-$user = NEW users();
-//sécurisation en vérifiant la présence d'un id dans l'url pour afficher le profil de l'utilisateur correspondant
-if (isset($_GET['id'])) {
-    $user->id = htmlspecialchars($_GET['id']);
-}
-//instanciation pour l'affichage de la liste des types d'utilisateur
-$userType = NEW userTypes();
-$userTypeList = $userType->getUserType();
 
 //déclaration de la regex nom
 $regexName = '/^[A-Za-zäâéèëêîïôöüÿç\-\']+$/';
@@ -25,13 +14,10 @@ $regexBirthDate = '/^(([1][9][2-9][0-9])|([2][0][0][0-9])|([2][0][1][0-8]))\-(([
 $formError = array();
 
 //verification que les données ont été envoyés
-if (isset($_POST['updateUserSubmit'])) {
-    //récupération des valeurs non modifiables par l'utilisateur
-    $user->id = $user->id;
-    $user->username = $user->username;
-    $user->createDate = $user->createDate;
-    $user->password = $user->password;
-    //vérification que le champ lastname n'est pas vide 
+if (isset($_POST['registerVisitorSubmit'])) {
+    //instanciation de l'objet user
+    $user = NEW users();
+    //vérification que le champ lastname n'est pas vide
     if (!empty($_POST['lastname'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexName, $_POST['lastname'])) {
@@ -44,7 +30,7 @@ if (isset($_POST['updateUserSubmit'])) {
     } else {
         $formError['lastname'] = 'Veuillez indiquer votre nom';
     }
-    //vérification que le champ firstname n'est pas vide 
+    //vérification que le champ firstname n'est pas vide
     if (!empty($_POST['firstname'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut firstname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexName, $_POST['firstname'])) {
@@ -57,20 +43,20 @@ if (isset($_POST['updateUserSubmit'])) {
     } else {
         $formError['firstname'] = 'Veuillez indiquer votre prénom';
     }
-    //vérification que le champ idUserTypes n'est pas vide
-    if (!empty($_POST['idUserTypes'])) {
-        //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idUserTypes de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-        if (is_numeric($_POST['idUserTypes'])) {
-            $user->idUserTypes = htmlspecialchars($_POST['idUserTypes']);
-            //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
+    //vérification que le champ username n'est pas vide
+    if (!empty($_POST['username'])) {
+        //vérification de la validité de la valeur et attribution de cette valeur à l'attribut username de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
+        if (preg_match($regexUsername, $_POST['username'])) {
+            $user->username = htmlspecialchars($_POST['username']);
+            //si la valeur n'est pas valide affichage d'un message d'erreur
         } else {
-            $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur valide';
+            $formError['username'] = 'La saisie de votre nom d\'utilisateur est invalide';
         }
         //si le champ est vide affichage d'un message d'erreur
     } else {
-        $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur';
+        $formError['username'] = 'Veuillez indiquer un nom d\'utilisateur';
     }
-    //vérification que le champ birthDate n'est pas vide 
+    //vérification que le champ birthDate n'est pas vide
     if (!empty($_POST['birthDate'])) {
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut birthDate de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexBirthDate, $_POST['birthDate'])) {
@@ -83,7 +69,7 @@ if (isset($_POST['updateUserSubmit'])) {
     } else {
         $formError['birthDate'] = 'Veuillez indiquer votre date de naissance';
     }
-    /* vérification que le champ mail n'est pas vide et 
+    /* vérification que le champ mail n'est pas vide et
      * vérification de la validité du mail avec un filtre puis
      * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
      */
@@ -93,33 +79,35 @@ if (isset($_POST['updateUserSubmit'])) {
     } else {
         $formError['mail'] = 'Veuillez indiquer votre mail';
     }
-    //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
-    if (count($formError) == 0) {
-        //affichage d'un message d'erreur si la méthode ne s'exécute pas
-        if (!$user->updateProfileUser()) {
-            $formError['updateUserSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-        }
+    /* vérification que les champs password et passwordVerify ne sont pas vides et
+     * vérification qu'ils sont identiques
+     * puis attribution de la valeur hachée du mot de passe à l'attribut password de l'objet $user
+     */
+    if (!empty($_POST['password']) && !empty($_POST['passwordVerify']) && $_POST['password'] == $_POST['passwordVerify']) {
+        $user->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        //si les champs sont vides ou s'il ne sont pas identiques affichage d'un message d'erreur
+    } else {
+        $formError['password'] = 'Veuillez vérifier votre mot de passe';
     }
-}
-
-//suppression de l'utilisateur
-if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
-    //instanciation pour la suppression
-    $deleteUser = NEW users();
-    $deleteUser->id = htmlspecialchars($_GET['idDelete']);
-    //appel de la méthode deleteUser() permettant la suppression d'un utilisateur
-    $removeUser = $deleteUser->deleteUser();
-    //si la méthode s'exécute 
-    if ($removeUser == TRUE) {
-        //ouverture de la session pour pouvoir la détruire avant le chargement de la page header (car sinon elle s'ouvre qu'à partir du chargement de la page header)
-        session_start();
-        //destruction de la session
-        session_destroy();
-        //redirection vers la page d'inscription
-        header('Location: registerUserForm.php');
-        exit();
-        //affichage d'un message d'erreur si la requête ne s'est pas exécutée
-    } elseif ($removeUser === FALSE) {
-        $deleteError = 'L\'utilisateur n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
+    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un utilisateur après vérification de la disponibilité du nom d'utilisateur
+    if (count($formError) == 0) {
+        //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $user
+        $user->createDate = date('Y-m-d H:i:s');
+        $user->idUserTypes = 1;
+        //appel de la méthode vérifiant la disponibilité du nom d'utilisateur
+        $checkUsername = $user->checkIfUserExist();
+        //si la méthode retourne 0 le nom d'utilisateur est disponible et l'utilisateur peut être ajouté à la base de données
+        if ($checkUsername === '0') {
+            //affichage d'un message d'erreur si la méthode ne s'exécute pas
+            if (!$user->addUser()) {
+                $formError['registerVisitorSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            }
+            //si la méthode retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+        } elseif ($checkUsername === FALSE) {
+            $formError['registerVisitorSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            //sinon la méthode retourne 1, le nom d'utilisateur n'est pas disponible, affichage d'un message d'erreur
+        } else {
+            $formError['username'] = 'Ce nom d\'utilisateur est déjà utilisé';
+        }
     }
 }

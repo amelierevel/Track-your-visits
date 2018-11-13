@@ -1,4 +1,5 @@
 <?php
+//insertion du fichier path, du header et du controller
 include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
 include_once path::getControllersPath() . 'addPlaceCtrl.php'
@@ -11,7 +12,17 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
         //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
         if (isset($_POST['addPlaceSubmit']) && (count($formError) === 0)) {
             ?> 
-            <p class="boldText green-text center-align">Lien vers la suite du formulaire (ajout des horaires et tarifs)</p>
+            <p class="boldText green-text center-align">Lien vers la suite du formulaire (ajout des horaires et tarifs à faire)</p>
+
+            <div class="row">
+                <h3 class="col s12 offset-s2">2. Horaires</h3>
+                <form action="#" method="POST" class="col s12" id="addTimetables">
+                    <div class="row">
+
+                    </div>
+                </form>
+            </div>
+
             <?php
             //sinon affichage des messages d'erreurs
         } else {
@@ -108,7 +119,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                         <select name="idCities" id="idCities" required>
                             <option value="0" disabled selected>Veuillez sélectionner une ville</option>
                             <?php
-                            //boucle permettant d'afficher la liste des catégories
+                            //boucle permettant d'afficher la liste des villes
                             foreach ($citiesList as $cityDetail) {
                                 ?>
                                 <option value="<?= $cityDetail->id ?>" <?= ((isset($place->idCities)) && ($place->idCities == $cityDetail->id)) ? 'selected' : '' ?>><?= $cityDetail->city ?></option>
@@ -139,7 +150,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                 <!--Champs téléphone, mail et site web du lieu touristique-->
                 <div class="row">
                     <div class="input-field col m2 offset-m2 s12">
-                        <i class="material-icons prefix">account_circle</i>
+                        <i class="material-icons prefix">phone</i>
                         <input type="text" name="phone" id="phone" value="<?= isset($place->phone) ? $place->phone : '' ?>" />
                         <label for="phone">N° de téléphone*</label>
                         <?php
@@ -200,4 +211,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
         <?php } ?>
     </div>
 </div>
-<?php include_once path::getRootPath() . 'footer.php'; ?>    
+<?php
+//insertion du footer
+include_once path::getRootPath() . 'footer.php';
+?>    

@@ -1,4 +1,5 @@
 <?php
+//insertion du fichier path et de la page header
 include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
 ?>
@@ -76,4 +77,7 @@ include_once path::getRootPath() . 'header.php';
         C'est notamment le cas en Europe, où sa circulation est facilitée grâce à l'instauration du passeport européen pour animal de compagnie. 
     </p>
 </div>
-<?php include_once path::getRootPath() . 'footer.php'; ?>
+<?php 
+//insertion du footer
+include_once path::getRootPath() . 'footer.php'; 
+?>

@@ -1,38 +1,42 @@
 $(document).ready(function () {
-    //on initialise une chaine de caractères vide parce que c'est cool
+    //----------------script pour masquer le mot de passe dans l'input de la modal pour la connexion
+    //initialisation d'une chaine de caractères vide
     var key = '';
+    //déclaration de la fonction permettant la transformation des caractères tapés par l'utilisateur
     $('#password').keypress(function (e) {
-        //pour pas que ca actualise la page (?)
+        //e.preventDefault() bloque l'actualisation de la page
         e.preventDefault();
-        //la touche appuyé doit etre = 1 (touche suppr = backspace = pleins de lettres)
+        //si la longueur de la touche appuyée = 1 (ex: touche suppr = backspace = 9 lettres)
         if (e.key.length == 1) {
-            //key =  chaine de K vide + la touche appuyée
+            //la variable key prend la valeur de la touche appuyée (key =  '' + la touche appuyée)
             key = key + e.key;
-            //on donne la valeur • à key
+            //transformation de la valeur de key en •
             $(this).val($(this).val() + '•');
-            //on fait que qd on click sur touche suppr ça suppr 
+            //si on appuie sur la touche de suppression (backspace) on supprime le caractère (en attribuant la valeur de key moins 1 caractère, le dernier ajouté)
         } else if (e.key == 'Backspace') {
             key = key.slice(0, -1);
-            //on redonne la nouvelle val avec le K suppr à key
+            //réattribution de la nouvelle valeur 
             $(this).val($(this).val().slice(0, -1));
         }
     });
+    //-----------------script pour la connexion de l'utilisateur dans la modal
     //on cache le message d'erreur
     $('#errorMessage').hide();
+    //déclaration de la fonction permettant la connexion de l'utilisateur 
     $('#connectionForm').on('submit', function (e) {
-        //pour éviter que la modale se referme normalement (à vérifier?)
+        //e.preventDefault() bloque la fermeture de la modal
         e.preventDefault();
-        //appel (ouverture) ajax 
+        //appel ajax 
         $.ajax({
             //on définit les paramètres
             url: 'ajax/connectionAjax.php', //chemin vers le controller ajax
             type: 'POST', //le type de la requête
             data: {
-                password: key,
-                username: $('#username').val()
+                password: key,  //mot de passe entré par l'utilisateur 
+                username: $('#username').val()  //valeur de l'input username
             },
             dataType: 'json', //le type de données à recevoir
-            //si la requête s'exécute
+            //fonction si la requête s'exécute
             success: function (data) {
                 //s'il n'y a pas d'erreur
                 if (data['successConnection'] == true) {

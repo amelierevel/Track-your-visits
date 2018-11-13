@@ -1,7 +1,8 @@
 <?php
+//insertion du fichier path, du header et du controller
 include_once 'classes/path.php';
-include_once path::getControllersPath() . 'profileCtrl.php';
 include_once path::getRootPath() . 'header.php';
+include_once path::getControllersPath() . 'profileCtrl.php';
 ?>
 <div class="content">
     <div class="row">
@@ -17,13 +18,17 @@ include_once path::getRootPath() . 'header.php';
                 <li><span class="boldText">Mail : </span><?= $profileUser->mail ?></li>
             </ul>
         <?php
+        //Affichage des fonctionnalités propres aux contributeurs
         if($profileUser->name == 'Contributeur'){
             ?>
-            <a href="addPlace.php" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
+            <a href="Ajout-site-touristique" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
         <?php
         }
         ?>
         </div>
     </div>
 </div>
-<?php include_once path::getRootPath() . 'footer.php'; ?>
+<?php 
+//insertion du footer
+include_once path::getRootPath() . 'footer.php'; 
+?>

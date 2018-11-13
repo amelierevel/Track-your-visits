@@ -1,14 +1,15 @@
 <?php
 
+//insertion du fichier configuration
 include_once path::getRootPath() . 'configuration.php';
 
 /**
  * création de la classe database parent des autres classes et permettant de se connecter à la base de données MYSQL
  */
 class database {
+    /*     * Liste des attributs
+      Attribut $db en protected pour que toutes les classes enfants y aient accès */
 
-    //liste des attributs
-    //attribut $db en protected pour que toutes les classes enfants y aient accès
     protected $db;
     private $host;
     private $login;

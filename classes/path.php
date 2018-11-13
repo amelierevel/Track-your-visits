@@ -3,7 +3,7 @@
 //création de la classe path pour faire les chemins absolus 
 class path {
 
-    //déclaration de la variable $absolutePath (static appartient à la classe et non a l'instance de la classe)
+    //déclaration de la variable $absolutePath (static appartient à la classe et non à l'instance de la classe)
     private static $absolutePath = null;
 
     //décaration des constantes
@@ -23,7 +23,7 @@ class path {
     }
 
     /**
-     * 
+     * Méthode permettant d'avoir le chemin absolu vers le dossier classes
      * @return type
      */
     public static function getClassesPath() {
@@ -31,7 +31,7 @@ class path {
     }
 
     /**
-     * 
+     * Méthode permettant d'avoir le chemin absolu vers le dossier controllers
      * @return type
      */
     public static function getControllersPath() {
@@ -39,7 +39,7 @@ class path {
     }
 
     /**
-     * 
+     * Méthode permettant d'avoir le chemin absolu vers le dossier models
      * @return type
      */
     public static function getModelsPath() {
@@ -47,7 +47,7 @@ class path {
     }
 
     /**
-     * Méthode des chemins à côté de index
+     * Méthode permettant d'avoir le chemin absolu au niveau de la racine du projet
      * @return type
      */
     public static function getRootPath() {

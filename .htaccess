@@ -1,5 +1,13 @@
 <ifModule mod_rewrite.c>
 RewriteEngine on
+#Réécriture d'url
 RewriteRule ^Accueil$ index.php 
+RewriteRule ^Profil$ profile.php
+RewriteRule ^Modification-profil$ updateProfileUser.php
+RewriteRule ^Inscription-utilisateur$ registerUserForm.php
+RewriteRule ^Inscription-visiteur$ registerVisitorForm.php
+RewriteRule ^Inscription-contributeur$ registerContributorForm.php
+RewriteRule ^Ajout-site-touristique$ addPlace.php
+#Redirection vers la page error404.php
 ErrorDocument 404 /error404.php
 </ifModule>

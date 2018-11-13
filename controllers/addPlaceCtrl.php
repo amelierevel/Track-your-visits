@@ -1,5 +1,5 @@
 <?php
-
+//insertion de la class database et des models categories, regions, departments, cities et places
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'categories.php';
 include_once path::getModelsPath() . 'regions.php';
@@ -9,7 +9,7 @@ include_once path::getModelsPath() . 'places.php';
 
 //instanciation pour l'affichage de la liste des catégories de sites touristiques
 $categorie = NEW categories();
-$categoriesList = $categorie->getCategories();
+$categoriesList = $categorie->getCategoriesList();
 
 //instanciation pour l'affichage de la liste des départements
 $department = NEW departments();
@@ -67,7 +67,7 @@ if (isset($_POST['addPlaceSubmit'])) {
         }
         //si le champ est vide affichage d'un message d'erreur
     } else {
-        $formError['regions'] = 'Veuillez indiquer une région';
+        $formError['regions'] = 'Veuillez sélectionner une région';
     }
     //vérification que le champ departments n'est pas vide 
     if (!empty($_POST['departments'])) {
@@ -80,7 +80,7 @@ if (isset($_POST['addPlaceSubmit'])) {
         }
         //si le champ est vide affichage d'un message d'erreur
     } else {
-        $formError['departments'] = 'Veuillez indiquer un département';
+        $formError['departments'] = 'Veuillez sélectionner un département';
     }
     //vérification que le champ postalCode n'est pas vide 
     if (!empty($_POST['postalCode'])) {
@@ -91,8 +91,9 @@ if (isset($_POST['addPlaceSubmit'])) {
         } else {
             $formError['postalCode'] = 'La saisie du code postal est invalide';
         }
+        //si le champ est vide affichage d'un message d'erreur
     } else {
-        $formError['postalCode'] = 'Veuillez sélectionner un code postal';
+        $formError['postalCode'] = 'Veuillez indiquer un code postal';
     }
     //vérification que le champ idCities n'est pas vide
     if (!empty($_POST['idCities'])) {
@@ -146,7 +147,7 @@ if (isset($_POST['addPlaceSubmit'])) {
             $place->website = htmlspecialchars($_POST['website']);
             //si la valeur n'est pas valide affichage d'un message d'erreur
         } else {
-            $formError['website'] = 'Veuillez indiquer un website';
+            $formError['website'] = 'La saisie du site web est invalide';
         }
     }
     //vérification que le champ description n'est pas vide 
@@ -163,16 +164,16 @@ if (isset($_POST['addPlaceSubmit'])) {
         $place->editDate = date('Y-m-d H:i:s');
         //appel de la méthode vérifiant que le lieu n'existe pas déjà dans la base de données
         $checkExistingPlace = $place->checkIfPlaceExist();
-        //si la méthode retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
+        //si la méthode checkIfPlaceExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
         if ($checkExistingPlace === '0') {
-            //affichage d'un message d'erreur si la méthode ne s'exécute pas
+            //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
             if (!$place->addPlace()) {
                 $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             }
-            //si la méthode retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+            //si la méthode checkIfPlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
         } elseif ($checkExistingPlace === FALSE) {
             $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            //sinon la méthode retourne 1, le lieu existe déjà dans la base de données, affichage d'un message d'erreur
+            //sinon la méthode checkIfPlaceExist() retourne 1, le lieu existe déjà dans la base de données, affichage d'un message d'erreur
         } else {
             $formError['placeName'] = 'Ce site touristique existe déjà';
         }
