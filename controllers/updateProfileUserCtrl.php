@@ -7,10 +7,7 @@ include_once path::getModelsPath() . 'userTypes.php';
 
 //instanciation de l'objet user
 $user = NEW users();
-//sécurisation en vérifiant la présence d'un id dans l'url pour afficher le profil de l'utilisateur correspondant
-if (isset($_GET['id'])) {
-    $user->id = htmlspecialchars($_GET['id']);
-}
+
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userTypes();
 $userTypeList = $userType->getUserType();
@@ -31,6 +28,7 @@ if (isset($_POST['updateUserSubmit'])) {
     $user->username = $user->username;
     $user->createDate = $user->createDate;
     $user->password = $user->password;
+        var_dump($_POST['updateUserSubmit']);
     //vérification que le champ lastname n'est pas vide 
     if (!empty($_POST['lastname'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
@@ -95,6 +93,7 @@ if (isset($_POST['updateUserSubmit'])) {
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
     if (count($formError) == 0) {
+        var_dump($_POST['updateUserSubmit']);
         //affichage d'un message d'erreur si la méthode ne s'exécute pas
         if (!$user->updateProfileUser()) {
             $formError['updateUserSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
@@ -102,24 +101,24 @@ if (isset($_POST['updateUserSubmit'])) {
     }
 }
 
-//suppression de l'utilisateur
+//-------------suppression de l'utilisateur---------------
 if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
-    //instanciation pour la suppression
-    $deleteUser = NEW users();
-    $deleteUser->id = htmlspecialchars($_GET['idDelete']);
-    //appel de la méthode deleteUser() permettant la suppression d'un utilisateur
-    $removeUser = $deleteUser->deleteUser();
-    //si la méthode s'exécute 
-    if ($removeUser == TRUE) {
-        //ouverture de la session pour pouvoir la détruire avant le chargement de la page header (car sinon elle s'ouvre qu'à partir du chargement de la page header)
-        session_start();
-        //destruction de la session
-        session_destroy();
-        //redirection vers la page d'inscription
-        header('Location: registerUserForm.php');
-        exit();
-        //affichage d'un message d'erreur si la requête ne s'est pas exécutée
-    } elseif ($removeUser === FALSE) {
-        $deleteError = 'L\'utilisateur n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
-    }
+//instanciation pour la suppression
+$deleteUser = NEW users();
+$deleteUser->id = htmlspecialchars($_GET['idDelete']);
+//appel de la méthode deleteUser() permettant la suppression d'un utilisateur
+$removeUser = $deleteUser->deleteUser();
+//si la méthode s'exécute 
+if ($removeUser == TRUE) {
+    //ouverture de la session pour pouvoir la détruire avant le chargement de la page header (car sinon elle s'ouvre qu'à partir du chargement de la page header)
+    session_start();
+    //destruction de la session
+    session_destroy();
+    //redirection vers la page d'inscription
+    header('Location: registerUser.php');
+    exit();
+    //affichage d'un message d'erreur si la requête ne s'est pas exécutée
+} elseif ($removeUser === FALSE) {
+    $deleteError = 'L\'utilisateur n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
+}
 }

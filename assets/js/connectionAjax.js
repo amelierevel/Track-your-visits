@@ -43,7 +43,7 @@ $(document).ready(function () {
                     //fermeture de la fenêtre modale
                     $('#connectionModal').modal('close');
                     //redirection vers la page d'accueil
-                    document.location.href = 'index.php';
+                    document.location.href = 'Profil';
                 } else {
                     //affichage du message d'erreur
                     $('#errorMessage').show();

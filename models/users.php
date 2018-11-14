@@ -81,9 +81,12 @@ class users extends database {
         //initialisation de la variable $state avec la valeur false
         $state = FALSE;
         //déclaration de la requête sql
-        $request = 'SELECT `id`,`lastname`,`firstname`,`username`,`password`,`birthDate`,`mail`,`idUserTypes` '
-                . 'FROM `F396V_users` '
-                . 'WHERE `username` = :username';
+        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,'
+                . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserTypes`,`us`.`password`,`usTypes`.`name` '
+                . 'FROM `F396V_users` AS `us` '
+                . 'LEFT JOIN `F396V_userTypes` AS `usTypes` '
+                . 'ON `us`.`idUserTypes` = `usTypes`.`id` '
+                . 'WHERE `us`.`username` = :username';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
         $result = $this->db->prepare($request);
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
@@ -97,43 +100,17 @@ class users extends database {
                 $this->id = $selectResult->id;
                 $this->lastname = $selectResult->lastname;
                 $this->firstname = $selectResult->firstname;
-                $this->username = $selectResult->username;
-                $this->password = $selectResult->password;
                 $this->birthDate = $selectResult->birthDate;
                 $this->mail = $selectResult->mail;
+                $this->username = $selectResult->username;
+                $this->createDate = $selectResult->createDate;
                 $this->idUserTypes = $selectResult->idUserTypes;
+                $this->password = $selectResult->password;
+                $this->name = $selectResult->name;
                 $state = TRUE;
             }
         }
         return $state;
-    }
-
-    /**
-     * Méthode permettant l'affichage du profil d'un utilisateur
-     * @return type
-     */
-    public function getUserById() {
-        //initialisation de la variable $userInfo avec la valeur false
-        $userInfo = FALSE;
-        //déclaration de la requête sql
-        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,'
-                . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserTypes`,`us`.`password`,`usTypes`.`name` '
-                . 'FROM `F396V_users` AS `us` '
-                . 'LEFT JOIN `F396V_userTypes` AS `usTypes` '
-                . 'ON `us`.`idUserTypes` = `usTypes`.`id` '
-                . 'WHERE `us`.`id` = :id';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
-        $result = $this->db->prepare($request);
-        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
-        $result->bindValue(':id', $this->id, PDO::PARAM_INT);
-        //vérification que la requête s'est bien exécutée
-        if ($result->execute()) {
-            //vérification qu'il s'agit bien d'un objet
-            if (is_object($result)) {
-                $userInfo = $result->fetch(PDO::FETCH_OBJ);
-            }
-        }
-        return $userInfo;
     }
 
     /**

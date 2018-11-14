@@ -97,13 +97,13 @@ include_once path::getControllersPath() . 'registerVisitorFormCtrl.php';
                         <i class="material-icons prefix">check</i>
                         <input  type="password" name="passwordVerify" id="passwordVerify" required />
                         <label for="passwordVerify">Vérification du mot de passe</label>
+                    </div>
                         <?php
                         //affichage du message d'erreur si le tableau d'erreur existe
                         if (isset($formError['password'])) {
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['password']; ?></p>
                         <?php } ?>
-                    </div>
                 </div>
                 <button class="btn waves-effect waves-light lime darken-3" type="submit" name="registerVisitorSubmit" id="registerVisitorSubmit">Créer un compte</button>
             </form>

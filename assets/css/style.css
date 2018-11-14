@@ -56,15 +56,15 @@ nav.fixed{
     background-color: rgba(255,255,255,0.9);
     border-radius: 10px 10px 10px 10px;
 }
-/*position du message d'erreur 404*/
+/*-------position du message d'erreur 404-------*/
 #textError404{
     padding-top: 3%;
 }
 #textPageNotFound{
     padding-bottom: 2%;
 }
-/*position du formulaire d'inscription utilisateur*/
-#registerForm, #updateForm{
+/*position du formulaire de modification utilisateur*/
+#updateForm{
     padding-left: 7%;
     padding-right: 7%;
 }

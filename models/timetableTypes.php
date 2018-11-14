@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Création de la class userTypes héritière de database
+ * Création de la class timetableTypes héritière de database
  */
-class userTypes extends database {
+class timetableTypes extends database {
 
     //Liste des attributs
     public $id;
@@ -18,22 +18,22 @@ class userTypes extends database {
     }
 
     /**
-     * Méthode permettant d'afficher la liste des types d'utilisateur
+     * Méthode permettant d'afficher la liste des types d'horaires (période horaire)
      * @return type
      */
-    public function getUserType() {
+    public function getTimetableTypesList() {
         //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
         $resultArray = array();
         //déclaration de la requête sql
-        $request = 'SELECT `id`,`name` FROM `F396V_userTypes`';
-        //appel de la requête avec un query que l'on stocke dans la variable $userTypeResult
-        $userTypeResult = $this->db->query($request);
+        $request = 'SELECT `id`,`name` FROM `F396V_timetableTypes`';
+        //appel de la requête avec un query que l'on stocke dans la variable $timetableTypesResult
+        $timetableTypesResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
-        if ($userTypeResult->execute()) {
-            //on vérifie que $userTypeResult est un objet
-            if (is_object($userTypeResult)) {
+        if ($timetableTypesResult->execute()) {
+            //on vérifie que $timetableTypesResult est un objet
+            if (is_object($timetableTypesResult)) {
                 //on stocke le résultat de la requête dans la variable $resultArray
-                $resultArray = $userTypeResult->fetchAll(PDO::FETCH_OBJ);
+                $resultArray = $timetableTypesResult->fetchAll(PDO::FETCH_OBJ);
             }
         }
         return $resultArray;

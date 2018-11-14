@@ -124,7 +124,7 @@ include_once path::getRootPath() . 'header.php';
             <h3 class="center-align">Supprimer le compte</h3>
             <p class="center-align">Voulez-vous vraiment supprimer votre compte ?</p>
             <div class="modal-footer">
-                <a href="Modification-profil?idDelete=<?= $profileUser->id ?>" class="waves-effect waves-green btn red accent-4 boldText">Suppression du compte</a>
+                <a href="Modification-profil?idDelete=<?= $_SESSION['id'] ?>" class="waves-effect waves-green btn red accent-4 boldText">Suppression du compte</a>
                 <a href="#!" class="modal-close waves-effect waves-green btn grey boldText">Annuler</a>
             </div>
         </div>

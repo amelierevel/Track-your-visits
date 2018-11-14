@@ -6,6 +6,7 @@ include_once path::getModelsPath() . 'regions.php';
 include_once path::getModelsPath() . 'departments.php';
 include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
+include_once path::getModelsPath() . 'timetableTypes.php';
 
 //instanciation pour l'affichage de la liste des catégories de sites touristiques
 $categorie = NEW categories();
@@ -22,6 +23,10 @@ $regionsList = $region->getRegionsList();
 //instanciation pour l'affichage de la liste des villes
 $city = NEW cities();
 $citiesList = $city->getCitiesList();
+
+//instanciation pour l'affichage de la liste des périodes horaires (timetableTypes)
+$timetableType = NEW timetableTypes();
+$timetableTypesList = $timetableType->getTimetableTypesList();
 
 //déclaration de la regex code postal
 $regexPostalCode = '/^[0-9]{5}$/';

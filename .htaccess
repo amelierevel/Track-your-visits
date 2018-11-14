@@ -4,7 +4,7 @@ RewriteEngine on
 RewriteRule ^Accueil$ index.php 
 RewriteRule ^Profil$ profile.php
 RewriteRule ^Modification-profil$ updateProfileUser.php
-RewriteRule ^Inscription-utilisateur$ registerUserForm.php
+RewriteRule ^Inscription-utilisateur$ registerUser.php
 RewriteRule ^Inscription-visiteur$ registerVisitorForm.php
 RewriteRule ^Inscription-contributeur$ registerContributorForm.php
 RewriteRule ^Ajout-site-touristique$ addPlace.php

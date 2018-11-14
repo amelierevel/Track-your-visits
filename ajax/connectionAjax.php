@@ -39,8 +39,10 @@ if ($errorMessage == FALSE) {
             $_SESSION['firstname'] = $user->firstname;
             $_SESSION['username'] = $user->username;
             $_SESSION['birthDate'] = $user->birthDate;
+            $_SESSION['createDate'] = $user->createDate;
             $_SESSION['mail'] = $user->mail;
             $_SESSION['idUserTypes'] = $user->idUserTypes;
+            $_SESSION['name'] = $user->name;
             $_SESSION['isConnect'] = TRUE;
             $successConnection = TRUE;
             //si le mot de passe ne correspond pas, affichage du message d'erreur

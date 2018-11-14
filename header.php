@@ -30,11 +30,11 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         </div>
         <!--Affichage du dropdown de connexion de la barre de navigation-->
         <ul id="dropdownConnection" class="dropdown-content orange darken-1">
-            <li><a href="Profil?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Profil</a></li>
+            <li><a href="Profil" class="white-text boldText">Profil</a></li>
             <li><a href="#" class="white-text boldText">Favoris</a></li>
             <li><a href="#" class="white-text boldText">Mes visites</a></li>
             <li><a href="#" class="white-text boldText">A voir</a></li>
-            <li><a href="Modification-profil?id=<?= $_SESSION['id'] ?>" class="white-text boldText">Modifier mon profil</a></li>
+            <li><a href="Modification-profil" class="white-text boldText">Modifier mon profil</a></li>
             <li class="divider"></li>
             <li><a href="<?= /* ajout de l'action disconnect dans l'url après le chemin du fichier courant */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
         </ul>
@@ -46,6 +46,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                 </a>
                 <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
+                        <li><a href="#" class="boldText">Trouver une visite</a></li>
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
                     if (isset($_SESSION['isConnect'])) {
@@ -63,15 +64,16 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         </nav>
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobileNavbar">
+            <li><a href="#">Trouver une visite</a></li>
             <?php
             //si l'utilisateur est connecté affichage de son menu de connexion
             if (isset($_SESSION['isConnect'])) {
                 ?>
-                <li><a href="Profil?id=<?= $_SESSION['id'] ?>">Profil <?= $_SESSION['username'] ?></a></li>
+                <li><a href="Profil">Profil <?= $_SESSION['username'] ?></a></li>
                 <li><a href="#">Favoris</a></li>
                 <li><a href="#">Mes visites</a></li>
                 <li><a href="#">A voir</a></li>
-                <li><a href="Modification-profil?id=<?= $_SESSION['id'] ?>">Modifier mon profil</a></li>
+                <li><a href="Modification-profil">Modifier mon profil</a></li>
                 <li class="divider"></li>
                 <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>
                 <?php
