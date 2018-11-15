@@ -10,12 +10,12 @@ include_once path::getRootPath() . 'header.php';
             <div class="col s6">
                 <h3>Visiteur</h3>
                 <p>Vous cherchez un lieu à visiter</p>
-                <a href="Inscription-visiteur" class="userChoiceButton btn waves-effect waves-light lime darken-3" title="">Cliquer ici</a>
+                <a href="Inscription-visiteur" class="userChoiceButton btn waves-effect waves-light lime darken-3" title="Lien vers la page d'inscription d'un visiteur">Cliquer ici</a>
             </div>
             <div class="col s6">
                 <h3>Contributeur</h3>
                 <p>Vous souhaitez ajouter un site touristique</p>
-                <a href="Inscription-contributeur" class="userChoiceButton btn waves-effect waves-light lime darken-3" title="">Cliquer ici</a>
+                <a href="Inscription-contributeur" class="userChoiceButton btn waves-effect waves-light lime darken-3" title="Lien vers la page d'inscription d'un contributeur">Cliquer ici</a>
             </div>
         </div>
     </div>

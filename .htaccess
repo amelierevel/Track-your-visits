@@ -7,7 +7,8 @@ RewriteRule ^Modification-profil$ updateProfileUser.php
 RewriteRule ^Inscription-utilisateur$ registerUser.php
 RewriteRule ^Inscription-visiteur$ registerVisitorForm.php
 RewriteRule ^Inscription-contributeur$ registerContributorForm.php
-RewriteRule ^Ajout-site-touristique$ addPlace.php
+RewriteRule ^Ajout-site-touristique_Informations-générales$ addPlace.php
+RewriteRule ^Ajout-site-touristique_Horaires$ addTimetable.php
 #Redirection vers la page error404.php
 ErrorDocument 404 /error404.php
 </ifModule>

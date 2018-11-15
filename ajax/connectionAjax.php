@@ -42,6 +42,7 @@ if ($errorMessage == FALSE) {
             $_SESSION['createDate'] = $user->createDate;
             $_SESSION['mail'] = $user->mail;
             $_SESSION['idUserTypes'] = $user->idUserTypes;
+            $_SESSION['password'] = $user->password;
             $_SESSION['name'] = $user->name;
             $_SESSION['isConnect'] = TRUE;
             $successConnection = TRUE;
