@@ -46,7 +46,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                 </a>
                 <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                        <li><a href="#" class="boldText">Trouver une visite</a></li>
+                        <li><a href="Liste-sites-touristiques" class="boldText">Liste des sites</a></li>
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
                     if (isset($_SESSION['isConnect'])) {

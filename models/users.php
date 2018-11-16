@@ -114,23 +114,49 @@ class users extends database {
     }
 
     /**
+     * Méthode permettant l'affichage du profil d'un utilisateur
+     * @return type
+     */
+    public function getUserById() {
+        //initialisation de la variable $userInfo avec la valeur false
+        $userInfo = FALSE;
+        //déclaration de la requête sql
+        $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,'
+                . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserTypes`,`us`.`password`,`usTypes`.`name` '
+                . 'FROM `F396V_users` AS `us` '
+                . 'LEFT JOIN `F396V_userTypes` AS `usTypes` '
+                . 'ON `us`.`idUserTypes` = `usTypes`.`id` '
+                . 'WHERE `us`.`id` = :id';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        $result = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $result->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
+        if ($result->execute()) {
+            //vérification qu'il s'agit bien d'un objet
+            if (is_object($result)) {
+                $userInfo = $result->fetch(PDO::FETCH_OBJ);
+            }
+        }
+        return $userInfo;
+    }
+
+    /**
      * Méthode permettant de modifier les informations générales de l'utilisateur
      * @return type
      */
     public function updateProfileUser() {
         //déclaration de la requête sql
         $request = 'UPDATE `F396V_users` '
-                . 'SET `lastname` = :lastname,`firstname` =:firstname,`birthDate` = :birthDate,`mail` = :mail,`idUserTypes` = :idUserTypes '
+                . 'SET `mail` = :mail,`idUserTypes` = :idUserTypes, `password` = :password '
                 . 'WHERE `id` = :id';
         //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $updateUser
         $updateUser = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $updateUser->bindValue(':id', $this->id, PDO::PARAM_INT);
-        $updateUser->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
-        $updateUser->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
-        $updateUser->bindValue(':birthDate', $this->birthDate, PDO::PARAM_STR);
         $updateUser->bindValue(':mail', $this->mail, PDO::PARAM_STR);
         $updateUser->bindValue(':idUserTypes', $this->idUserTypes, PDO::PARAM_STR);
+        $updateUser->bindValue(':password', $this->password, PDO::PARAM_STR);
         //vérification que la requête s'est bien exécutée
         if ($updateUser->execute()) {
             //vérification qu'il s'agit bien d'un objet

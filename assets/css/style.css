@@ -63,8 +63,9 @@ nav.fixed{
 #textPageNotFound{
     padding-bottom: 2%;
 }
-/*position du formulaire de modification utilisateur*/
-#updateForm{
-    padding-left: 7%;
-    padding-right: 7%;
+/*---------style du titre des cards pour le choix du type d'utilisateur*/
+.cardTitle{
+    font-weight: bold;
+    font-size: 140%;
+    padding-bottom: 2%;
 }

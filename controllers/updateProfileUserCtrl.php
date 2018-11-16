@@ -5,18 +5,10 @@ include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'users.php';
 include_once path::getModelsPath() . 'userTypes.php';
 
-
-
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userTypes();
 $userTypeList = $userType->getUserType();
 
-//déclaration de la regex nom
-$regexName = '/^[A-Za-zäâéèëêîïôöüÿç\-\']+$/';
-//déclaration de la regex username
-$regexUsername = '/^[a-zA-Z0-9àáâãäéèêëîïìíØøòóôõöùúûüýÿñçßæœ_\'\-]{1,25}$/';
-//déclaration de la regex date de naissance autorisant la naissance de 1920 à 2018
-$regexBirthDate = '/^(([1][9][2-9][0-9])|([2][0][0][0-9])|([2][0][1][0-8]))\-(([0][\d])|([1][0-2]))\-(([0-2][\d])|([3][0-1]))$/';
 //déclaration d'un tableau d'erreur
 $formError = array();
 
@@ -29,33 +21,20 @@ if (isset($_POST['updateUserSubmit'])) {
     //récupération des valeurs non modifiables par l'utilisateur
     $user->id = $_SESSION['id'];
     $user->username = $_SESSION['username'];
+    $user->lastname = $_SESSION['lastname'];
+    $user->firstname = $_SESSION['firstname'];
+    $user->birthDate = $_SESSION['birthDate'];
     $user->createDate = $_SESSION['createDate'];
     $user->password = $_SESSION['password'];
-    //vérification que le champ lastname n'est pas vide 
-    if (!empty($_POST['lastname'])) {
-        //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-        if (preg_match($regexName, $_POST['lastname'])) {
-            $user->lastname = htmlspecialchars($_POST['lastname']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
-            $formError['lastname'] = 'La saisie de votre nom est invalide';
-        }
-        //si le champ est vide affichage d'un message d'erreur
+    /* vérification que le champ mail n'est pas vide et 
+     * vérification de la validité du mail avec un filtre puis
+     * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
+     */
+    if (!empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
+        $user->mail = htmlspecialchars($_POST['mail']);
+        //si le champ est vide ou s'il n'est pas valide affichage d'un message d'erreur
     } else {
-        $formError['lastname'] = 'Veuillez indiquer votre nom';
-    }
-    //vérification que le champ firstname n'est pas vide 
-    if (!empty($_POST['firstname'])) {
-        //vérification de la validité de la valeur et attribution de sa valeur à l'attribut firstname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-        if (preg_match($regexName, $_POST['firstname'])) {
-            $user->firstname = htmlspecialchars($_POST['firstname']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
-            $formError['firstname'] = 'La saisie de votre prénom est invalide';
-        }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
-        $formError['firstname'] = 'Veuillez indiquer votre prénom';
+        $formError['mail'] = 'Veuillez indiquer votre mail';
     }
     //vérification que le champ idUserTypes n'est pas vide
     if (!empty($_POST['idUserTypes'])) {
@@ -70,40 +49,62 @@ if (isset($_POST['updateUserSubmit'])) {
     } else {
         $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur';
     }
-    //vérification que le champ birthDate n'est pas vide 
-    if (!empty($_POST['birthDate'])) {
-        //vérification de la validité de la valeur et attribution de cette valeur à l'attribut birthDate de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-        if (preg_match($regexBirthDate, $_POST['birthDate'])) {
-            $user->birthDate = htmlspecialchars($_POST['birthDate']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
-            $formError['birthDate'] = 'La saisie de votre date de naissance est invalide';
-        }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
-        $formError['birthDate'] = 'Veuillez indiquer votre date de naissance';
-    }
-    /* vérification que le champ mail n'est pas vide et 
-     * vérification de la validité du mail avec un filtre puis
-     * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-     */
-    if (!empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
-        $user->mail = htmlspecialchars($_POST['mail']);
-        //si le champ est vide ou s'il n'est pas valide affichage d'un message d'erreur
-    } else {
-        $formError['mail'] = 'Veuillez indiquer votre mail';
-    }
     //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
     if (count($formError) == 0) {
         //affichage d'un message d'erreur si la méthode ne s'exécute pas
         if (!$user->updateProfileUser()) {
             $formError['updateUserSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
         } else {
-            $_SESSION['lastname'] = $user->lastname;
-            $_SESSION['firstname'] = $user->firstname;
-            $_SESSION['idUserTypes'] = $user->idUserTypes;
-            $_SESSION['birthDate'] = $user->birthDate;
             $_SESSION['mail'] = $user->mail;
+            $_SESSION['idUserTypes'] = $user->idUserTypes;
+        }
+    }
+    //écriture des données de session et fermeture de la session (pour qu'elle puisse s'ouvrir correctement au chargement du header)
+    session_write_close();
+}
+//-------------modification du mot de passe de l'utilisateur---------------
+//verification que les données ont été envoyés
+if (isset($_POST['updatePasswordSubmit'])) {
+    //ouverture de la session pour pouvoir faire la modification du profil car elle ne s'ouvre qu'à partir du chargement de la page header (après le controller)
+    session_start();
+    //instanciation de l'objet user
+    $updateUserPassword = NEW users();
+    //récupération des valeurs non modifiables par l'utilisateur
+    $updateUserPassword->id = $_SESSION['id'];
+    $updateUserPassword->username = $_SESSION['username'];
+    $updateUserPassword->lastname = $_SESSION['lastname'];
+    $updateUserPassword->firstname = $_SESSION['firstname'];
+    $updateUserPassword->birthDate = $_SESSION['birthDate'];
+    $updateUserPassword->createDate = $_SESSION['createDate'];
+    $updateUserPassword->mail = $_SESSION['mail'];
+    $updateUserPassword->idUserTypes = $_SESSION['idUserTypes'];
+    //appel de la méthode pour récupérer le password de l'user
+    $getPassword = $updateUserPassword->getUserById();
+    if (!empty($_POST['oldPassword'])) {
+        $oldPassword = htmlspecialchars($_POST['oldPassword']);
+    } else {
+        $formError['password'] = 'Veuillez renseigner votre mot de passe actuel';
+    }
+    if (password_verify($oldPassword, $getPassword->password)) {
+        if (!empty($_POST['newPassword']) && !empty($_POST['newPasswordVerify'])) {
+            if ($_POST['newPassword'] == $_POST['newPasswordVerify']) {
+                $updateUserPassword->password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+            } else {
+                $formError['password'] = 'Les mots de passe ne correspondent pas';
+            }
+        } else {
+            $formError['password'] = 'Veuillez remplir tous les champs';
+        }
+    } else {
+        $formError['password'] = 'Le mot de passe actuel est incorrect';
+    }
+    //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
+    if (count($formError) == 0) {
+        //affichage d'un message d'erreur si la méthode ne s'exécute pas
+        if (!$updateUserPassword->updateProfileUser()) {
+            $formError['updatePasswordSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+        } else {
+            $_SESSION['password'] = $updateUserPassword->password;
         }
     }
     //écriture des données de session et fermeture de la session (pour qu'elle puisse s'ouvrir correctement au chargement du header)
@@ -124,7 +125,7 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
         //destruction de la session
         session_destroy();
         //redirection vers la page d'inscription
-        header('Location: registerUser.php');
+        header('Location: Inscription-utilisateur');
         exit();
         //affichage d'un message d'erreur si la requête ne s'est pas exécutée
     } elseif ($removeUser === FALSE) {

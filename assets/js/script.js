@@ -4,6 +4,7 @@ $(document).ready(function () {
     $(".dropdown-trigger").dropdown();  //pour l'affichage du dropdown de la barre de navigation
     $('select').formSelect();  //pour l'affichage du select du formulaire d'inscription utilisateur
     $('.modal').modal();    //pour l'affichage de la modal pour la connexion dans la barre de navigation
+    $('.collapsible').collapsible();
 });
 
 //--------------script permettant l'effet sticky-top de la barre de navigation-----------------

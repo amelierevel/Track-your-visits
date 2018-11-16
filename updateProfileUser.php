@@ -8,7 +8,7 @@ include_once path::getRootPath() . 'header.php';
     <h2 class="center-align">Modification du profil de <?= $_SESSION['username'] ?></h2>
     <div class="row">
         <?php
-        //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
+        //vérification de l'envoi du formulaire de modification du profil et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
         if (isset($_POST['updateUserSubmit']) && (count($formError) === 0)) {
             ?> 
             <p class="boldText green-text center-align">Vos modifications ont bien été prises en compte</p>
@@ -17,46 +17,10 @@ include_once path::getRootPath() . 'header.php';
         } else {
             ?>  
             <!--Formulaire de modification d'un utilisateur-->
-            <form action="updateProfileUser.php?id=<?= $_SESSION['id'] ?>" method="POST" class="col s12" id="updateForm">
-                <!--Champs nom et prénom-->
+            <form action="#" method="POST" class="col s12">
+                <!--Champs email et type d'utilisateur-->
                 <div class="row">
-                    <div class="input-field col m6 s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input type="text" name="lastname" id="lastname" value="<?= $_SESSION['lastname'] ?>" required />
-                        <label for="lastname">Nom</label>
-                        <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['lastname'])) {
-                            ?>
-                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['lastname']; ?></p>
-                        <?php } ?>
-                    </div>
-                    <div class="input-field col m6 s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input  type="text" name="firstname" id="firstname" value="<?= $_SESSION['firstname'] ?>" required />
-                        <label for="firstname">Prénom</label>
-                        <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['firstname'])) {
-                            ?>
-                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['firstname']; ?></p>
-                        <?php } ?>
-                    </div>
-                </div>
-                <!--Champs date de naissance et email-->
-                <div class="row">
-                    <div class="input-field col m6 s12">
-                        <i class="material-icons prefix">date_range</i>
-                        <input type="date" name="birthDate" id="birthDate" placeholder="jj/mm/aaaa" value="<?= $_SESSION['birthDate'] ?>" required />
-                        <label for="birthDate">Date de naissance</label>
-                        <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['birthDate'])) {
-                            ?>
-                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['birthDate']; ?></p>
-                        <?php } ?>
-                    </div>
-                    <div class="input-field col m6 s12">
+                    <div class="input-field col m4 offset-m2 s12">
                         <i class="material-icons prefix">email</i>
                         <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= $_SESSION['mail'] ?>" required />
                         <label for="mail">Mail</label>
@@ -67,10 +31,7 @@ include_once path::getRootPath() . 'header.php';
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['mail']; ?></p>
                         <?php } ?>
                     </div>
-                </div>
-                <!--Champ type d'utilisateur et bouton pour l'enregistrement des modifications-->
-                <div class="row">
-                    <div class="input-field col m6 s12">
+                    <div class="input-field col m4 s12">
                         <i class="material-icons prefix">assignment_ind</i>
                         <select name="idUserTypes" required>
                             <option value="0" disabled selected>Type d'utilisateur</option>
@@ -89,8 +50,59 @@ include_once path::getRootPath() . 'header.php';
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['idUserTypes']; ?></p>
                         <?php } ?>
                     </div>
-                    <div class="input-field col m5 s7 offset-m1 offset-s4">
-                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="updateUserSubmit" id="updateUserSubmit">Enregistrer les modifications</button>
+                </div>
+
+                <!--Champ type d'utilisateur et bouton pour l'enregistrement des modifications-->
+                <div class="input-field col s12 center-align">
+                    <button class="btn waves-effect waves-light lime darken-3" type="submit" name="updateUserSubmit" id="updateUserSubmit">Enregistrer les modifications</button>
+                </div>
+            </form>
+            <p class="boldText red-text text-darken-1 center-align">
+                <?php
+                //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
+                echo isset($formError['updateUserSubmit']) ? $formError['updateUserSubmit'] : '';
+                ?>
+            </p>
+        <?php } ?>
+    </div>
+    <!--Modification du mot de passe-->
+    <div class="row">
+        <?php
+        //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
+        if (isset($_POST['updatePasswordSubmit']) && (count($formError) === 0)) {
+            ?> 
+            <p class="boldText green-text center-align">Vos modifications ont bien été prises en compte</p>
+            <?php
+            //sinon affichage des messages d'erreurs
+        } else {
+            ?>  
+            <!--Formulaire de modification du mot de passe-->
+            <form action="#" method="POST" class="col s12">
+                <div class="row">
+                    <div class="input-field col m2 offset-m2 s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input  type="password" name="oldPassword" id="oldPassword" required />
+                        <label for="oldPassword">Mot de passe actuel</label>
+                    </div>
+                    <div class="input-field col m3 s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input  type="password" name="newPassword" id="newPassword" />
+                        <label for="newPassword">Nouveau mot de passe</label>
+                    </div>
+                    <div class="input-field col m3 s12">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input  type="password" name="newPasswordVerify" id="newPasswordVerify" />
+                        <label for="newPasswordVerify">Vérification du nouveau mot de passe</label>
+                    </div>
+                    <?php
+                    //affichage du message d'erreur si le tableau d'erreur existe
+                    if (isset($formError['password'])) {
+                        ?>
+                        <p class="boldText red-text text-darken-1 center-align"><?= $formError['password']; ?></p>
+                    <?php } ?>
+                    <!--Champ type d'utilisateur et bouton pour l'enregistrement des modifications-->
+                    <div class="input-field col s12 center-align">
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="updatePasswordSubmit" id="updatePasswordSubmit">Changer de mot de passe</button>
                     </div>
                 </div>
             </form>
@@ -103,11 +115,7 @@ include_once path::getRootPath() . 'header.php';
         <?php } ?>
     </div>
     <div class="row">
-        <div class="col m5 offset-m2 s12">
-            Modifier le mot de passe
-            <a href="#" class="btn-floating lime darken-3 pulse"><i class="material-icons">edit</i></a>
-        </div>
-        <div class="col m5 s12">
+        <div class="center-align">
             Supprimer le compte
             <a href="#deleteVerify" class="btn-floating waves-effect waves-light red accent-4 pulse modal-trigger"><i class="material-icons">delete</i></a>
         </div>

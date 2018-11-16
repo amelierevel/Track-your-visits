@@ -1,4 +1,5 @@
 <?php
+
 //insertion de la class database et des models categories, regions, departments, cities et places
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'categories.php';
@@ -6,7 +7,6 @@ include_once path::getModelsPath() . 'regions.php';
 include_once path::getModelsPath() . 'departments.php';
 include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
-include_once path::getModelsPath() . 'timetableTypes.php';
 
 //instanciation pour l'affichage de la liste des catégories de sites touristiques
 $categorie = NEW categories();
@@ -24,10 +24,6 @@ $regionsList = $region->getRegionsList();
 $city = NEW cities();
 $citiesList = $city->getCitiesList();
 
-//instanciation pour l'affichage de la liste des périodes horaires (timetableTypes)
-$timetableType = NEW timetableTypes();
-$timetableTypesList = $timetableType->getTimetableTypesList();
-
 //déclaration de la regex code postal
 $regexPostalCode = '/^[0-9]{5}$/';
 //déclaration de la regex téléphone
@@ -35,7 +31,6 @@ $regexPhone = '/^[0][1-9][0-9]{8}$/';
 //déclaration d'un tableau d'erreur
 $formError = array();
 
-//---------------------formulaire d'ajout d'un lieu partie "Informations générales"--------------------
 //vérification que les données ont été envoyés
 if (isset($_POST['addPlaceSubmit'])) {
     //instanciation de l'objet place
@@ -166,7 +161,7 @@ if (isset($_POST['addPlaceSubmit'])) {
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un lieu après avoir vérifié qu'il n'existe pas déjà
     if (count($formError) == 0) {
         //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDate de l'objet $place
-        $place->editDate = date('Y-m-d H:i:s');
+        $place->createDate = date('Y-m-d H:i:s');
         //appel de la méthode vérifiant que le lieu n'existe pas déjà dans la base de données
         $checkExistingPlace = $place->checkIfPlaceExist();
         //si la méthode checkIfPlaceExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
@@ -174,7 +169,7 @@ if (isset($_POST['addPlaceSubmit'])) {
             //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
             if (!$place->addPlace()) {
                 $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            }
+            } 
             //si la méthode checkIfPlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
         } elseif ($checkExistingPlace === FALSE) {
             $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
@@ -183,4 +178,7 @@ if (isset($_POST['addPlaceSubmit'])) {
             $formError['placeName'] = 'Ce site touristique existe déjà';
         }
     }
+    $addedPlace = NEW places();
+    $lastInsertIdPlace = $addedPlace->getLastInsertIdPlace();
+    var_dump($lastInsertIdPlace);
 }

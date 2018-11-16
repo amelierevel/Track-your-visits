@@ -21,7 +21,7 @@ include_once path::getRootPath() . 'header.php';
         //Affichage des fonctionnalités propres aux contributeurs
         if($_SESSION['name'] == 'Contributeur'){
             ?>
-            <a href="Ajout-site-touristique_Informations-générales" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
+            <a href="Ajout-site-touristique" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
         <?php
         }
         ?>
