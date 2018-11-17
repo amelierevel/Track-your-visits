@@ -13,8 +13,7 @@ include_once path::getRootPath() . 'header.php';
             ?> 
             <p class="boldText green-text center-align">Vos modifications ont bien été prises en compte</p>
             <?php
-            //sinon affichage des messages d'erreurs
-        } else {
+        } else { //sinon affichage des messages d'erreurs 
             ?>  
             <!--Formulaire de modification d'un utilisateur-->
             <form action="#" method="POST" class="col s12">
@@ -25,8 +24,7 @@ include_once path::getRootPath() . 'header.php';
                         <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= $_SESSION['mail'] ?>" required />
                         <label for="mail">Mail</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['mail'])) {
+                        if (isset($formError['mail'])) { //affichage du message d'erreur si le tableau d'erreur existe 
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['mail']; ?></p>
                         <?php } ?>
@@ -36,36 +34,32 @@ include_once path::getRootPath() . 'header.php';
                         <select name="idUserTypes" required>
                             <option value="0" disabled selected>Type d'utilisateur</option>
                             <?php
-                            //boucle permettant d'afficher la liste des types d'utilisateur
-                            foreach ($userTypeList as $userTypeDetail) {
+                            foreach ($userTypeList as $userTypeDetail) { //boucle permettant d'afficher la liste des types d'utilisateur 
                                 ?>
                                 <option value="<?= $userTypeDetail->id ?>" <?= ($_SESSION['idUserTypes'] == $userTypeDetail->id) ? 'selected' : '' ?>><?= $userTypeDetail->name ?></option>
                             <?php } ?>
                         </select>
                         <label for="idUserTypes">Veuillez sélectionner un type d'utilisateur</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['idUserTypes'])) {
+                        if (isset($formError['idUserTypes'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['idUserTypes']; ?></p>
                         <?php } ?>
                     </div>
                 </div>
-
-                <!--Champ type d'utilisateur et bouton pour l'enregistrement des modifications-->
+                <!--Bouton pour l'enregistrement des modifications-->
                 <div class="input-field col s12 center-align">
                     <button class="btn waves-effect waves-light lime darken-3" type="submit" name="updateUserSubmit" id="updateUserSubmit">Enregistrer les modifications</button>
                 </div>
             </form>
             <p class="boldText red-text text-darken-1 center-align">
                 <?php
-                //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
+                // ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
                 echo isset($formError['updateUserSubmit']) ? $formError['updateUserSubmit'] : '';
                 ?>
             </p>
         <?php } ?>
     </div>
-    <!--Modification du mot de passe-->
     <div class="row">
         <?php
         //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
@@ -73,8 +67,7 @@ include_once path::getRootPath() . 'header.php';
             ?> 
             <p class="boldText green-text center-align">Vos modifications ont bien été prises en compte</p>
             <?php
-            //sinon affichage des messages d'erreurs
-        } else {
+        } else { //sinon affichage des messages d'erreurs 
             ?>  
             <!--Formulaire de modification du mot de passe-->
             <form action="#" method="POST" class="col s12">
@@ -95,12 +88,11 @@ include_once path::getRootPath() . 'header.php';
                         <label for="newPasswordVerify">Vérification du nouveau mot de passe</label>
                     </div>
                     <?php
-                    //affichage du message d'erreur si le tableau d'erreur existe
-                    if (isset($formError['password'])) {
+                    if (isset($formError['password'])) { //affichage du message d'erreur si le tableau d'erreur existe
                         ?>
                         <p class="boldText red-text text-darken-1 center-align"><?= $formError['password']; ?></p>
                     <?php } ?>
-                    <!--Champ type d'utilisateur et bouton pour l'enregistrement des modifications-->
+                    <!--Bouton pour l'enregistrement de la modification du mot de passe-->
                     <div class="input-field col s12 center-align">
                         <button class="btn waves-effect waves-light lime darken-3" type="submit" name="updatePasswordSubmit" id="updatePasswordSubmit">Changer de mot de passe</button>
                     </div>
@@ -121,8 +113,7 @@ include_once path::getRootPath() . 'header.php';
         </div>
     </div>
     <?php
-    //affichage du message d'erreur s'il existe 
-    if (isset($deleteError)) {
+    if (isset($deleteError)) { //affichage du message d'erreur s'il existe
         ?>  
         <p class="boldText red-text text-darken-1 center-align"><?= $deleteError; ?></p>
     <?php } ?>

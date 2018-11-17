@@ -64,7 +64,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         </nav>
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobileNavbar">
-            <li><a href="#">Trouver une visite</a></li>
+            <li><a href="Liste-sites-touristiques">Liste des sites</a></li>
             <?php
             //si l'utilisateur est connecté affichage de son menu de connexion
             if (isset($_SESSION['isConnect'])) {

@@ -1,7 +1,6 @@
 <?php
-//insertion du fichier path, du header et du controller
+//insertion du fichier path et du header
 include_once 'classes/path.php';
-include_once path::getControllersPath() . 'profileCtrl.php';
 include_once path::getRootPath() . 'header.php';
 ?>
 <div class="content">
@@ -17,18 +16,15 @@ include_once path::getRootPath() . 'header.php';
                 <li><span class="boldText">Date de naissance : </span><?= $_SESSION['birthDate'] ?></li>
                 <li><span class="boldText">Mail : </span><?= $_SESSION['mail'] ?></li>
             </ul>
-        <?php
-        //Affichage des fonctionnalités propres aux contributeurs
-        if($_SESSION['name'] == 'Contributeur'){
-            ?>
-            <a href="Ajout-site-touristique" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
-        <?php
-        }
-        ?>
+            <?php
+            if ($_SESSION['name'] == 'Contributeur') { //Affichage des fonctionnalités propres aux contributeurs
+                ?>
+                <a href="Ajout-site-touristique" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un site touristique</a>
+            <?php } ?>
         </div>
     </div>
 </div>
-<?php 
+<?php
 //insertion du footer
-include_once path::getRootPath() . 'footer.php'; 
+include_once path::getRootPath() . 'footer.php';
 ?>

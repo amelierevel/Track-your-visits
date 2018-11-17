@@ -9,7 +9,7 @@ include_once path::getRootPath() . 'header.php';
         <div class="col m5 offset-m1 s6">
             <div class="card">
                 <div class="card-image">
-                    <img src="assets/img/berger_picard.jpg" />
+                    <img src="assets/img/visitorCard.jpg" />
                 </div>
                 <div class="card-content">
                     <p class="cardTitle">Visiteur</p>

@@ -13,10 +13,9 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
             ?>
             <p class="boldText green-text center-align">Votre inscription a bien été prise en compte</p>
             <?php
-            //sinon affichage des messages d'erreurs
-        } else {
+        } else { //sinon affichage des messages d'erreurs
             ?>
-            <!--Formulaire d'inscription d'un utilisateur-->
+            <!--Formulaire d'inscription d'un utilisateur contributeur-->
             <form action="#" method="POST" class="col s8 offset-s2">
                 <!--Champs nom et prénom-->
                 <div class="row">
@@ -25,8 +24,7 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
                         <input type="text" name="lastname" id="lastname" value="<?= /* garde en mémoire la saisie dans le champ */ isset($user->lastname) ? $user->lastname : '' ?>" required />
                         <label for="lastname">Nom</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['lastname'])) {
+                        if (isset($formError['lastname'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['lastname']; ?></p>
                         <?php } ?>
@@ -38,8 +36,7 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
                         <input  type="text" name="firstname" id="firstname" value="<?= isset($user->firstname) ? $user->firstname : '' ?>" required />
                         <label for="firstname">Prénom</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['firstname'])) {
+                        if (isset($formError['firstname'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['firstname']; ?></p>
                         <?php } ?>
@@ -52,8 +49,7 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
                         <input  type="text" name="username" id="username" value="<?= isset($user->username) ? $user->username : '' ?>" required />
                         <label for="username">Nom d'utilisateur</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['username'])) {
+                        if (isset($formError['username'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['username']; ?></p>
                         <?php } ?>
@@ -66,8 +62,7 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
                         <input type="date" name="birthDate" id="birthDate" placeholder="jj/mm/aaaa" value="<?= isset($user->birthDate) ? $user->birthDate : '' ?>" required />
                         <label for="birthDate">Date de naissance</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['birthDate'])) {
+                        if (isset($formError['birthDate'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['birthDate']; ?></p>
                         <?php } ?>
@@ -79,8 +74,7 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
                         <input  type="email" name="mail" id="mail" placeholder="exemple@exemple.fr" value="<?= isset($user->mail) ? $user->mail : '' ?>" required />
                         <label for="mail">Mail</label>
                         <?php
-                        //affichage du message d'erreur si le tableau d'erreur existe
-                        if (isset($formError['mail'])) {
+                        if (isset($formError['mail'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['mail']; ?></p>
                         <?php } ?>
@@ -99,8 +93,7 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
                         <label for="passwordVerify">Vérification du mot de passe</label>
                     </div>
                     <?php
-                    //affichage du message d'erreur si le tableau d'erreur existe
-                    if (isset($formError['password'])) {
+                    if (isset($formError['password'])) { //affichage du message d'erreur si le tableau d'erreur existe
                         ?>
                         <p class="boldText red-text text-darken-1 center-align"><?= $formError['password']; ?></p>
                     <?php } ?>

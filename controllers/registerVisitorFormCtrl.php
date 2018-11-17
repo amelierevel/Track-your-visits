@@ -1,6 +1,6 @@
 <?php
 
-//insertion de la class database et des models userTypes et users
+//insertion de la class database et du model users
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'users.php';
 
@@ -22,12 +22,10 @@ if (isset($_POST['registerVisitorSubmit'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexName, $_POST['lastname'])) {
             $user->lastname = htmlspecialchars($_POST['lastname']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['lastname'] = 'La saisie de votre nom est invalide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['lastname'] = 'Veuillez indiquer votre nom';
     }
     //vérification que le champ firstname n'est pas vide
@@ -35,12 +33,10 @@ if (isset($_POST['registerVisitorSubmit'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut firstname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexName, $_POST['firstname'])) {
             $user->firstname = htmlspecialchars($_POST['firstname']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['firstname'] = 'La saisie de votre prénom est invalide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['firstname'] = 'Veuillez indiquer votre prénom';
     }
     //vérification que le champ username n'est pas vide
@@ -48,12 +44,10 @@ if (isset($_POST['registerVisitorSubmit'])) {
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut username de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexUsername, $_POST['username'])) {
             $user->username = htmlspecialchars($_POST['username']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['username'] = 'La saisie de votre nom d\'utilisateur est invalide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['username'] = 'Veuillez indiquer un nom d\'utilisateur';
     }
     //vérification que le champ birthDate n'est pas vide
@@ -61,12 +55,10 @@ if (isset($_POST['registerVisitorSubmit'])) {
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut birthDate de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexBirthDate, $_POST['birthDate'])) {
             $user->birthDate = htmlspecialchars($_POST['birthDate']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['birthDate'] = 'La saisie de votre date de naissance est invalide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['birthDate'] = 'Veuillez indiquer votre date de naissance';
     }
     /* vérification que le champ mail n'est pas vide et
@@ -75,8 +67,7 @@ if (isset($_POST['registerVisitorSubmit'])) {
      */
     if (!empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
         $user->mail = htmlspecialchars($_POST['mail']);
-        //si le champ est vide ou s'il n'est pas valide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide ou s'il n'est pas valide affichage d'un message d'erreur
         $formError['mail'] = 'Veuillez indiquer votre mail';
     }
     /* vérification que les champs password et passwordVerify ne sont pas vides et
@@ -85,28 +76,25 @@ if (isset($_POST['registerVisitorSubmit'])) {
      */
     if (!empty($_POST['password']) && !empty($_POST['passwordVerify']) && $_POST['password'] == $_POST['passwordVerify']) {
         $user->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        //si les champs sont vides ou s'il ne sont pas identiques affichage d'un message d'erreur
-    } else {
+    } else { //si les champs sont vides ou s'il ne sont pas identiques affichage d'un message d'erreur
         $formError['password'] = 'Veuillez vérifier votre mot de passe';
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un utilisateur après vérification de la disponibilité du nom d'utilisateur
     if (count($formError) == 0) {
         //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $user
         $user->createDate = date('Y-m-d H:i:s');
+        //attribution de la valeur 1 (visiteur) à l'attribut idUserTypes de l'objet $user
         $user->idUserTypes = 1;
         //appel de la méthode vérifiant la disponibilité du nom d'utilisateur
         $checkUsername = $user->checkIfUserExist();
         //si la méthode retourne 0 le nom d'utilisateur est disponible et l'utilisateur peut être ajouté à la base de données
         if ($checkUsername === '0') {
-            //affichage d'un message d'erreur si la méthode ne s'exécute pas
-            if (!$user->addUser()) {
+            if (!$user->addUser()) { //affichage d'un message d'erreur si la méthode ne s'exécute pas
                 $formError['registerVisitorSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             }
-            //si la méthode retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
-        } elseif ($checkUsername === FALSE) {
+        } elseif ($checkUsername === FALSE) { //si la méthode retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
             $formError['registerVisitorSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            //sinon la méthode retourne 1, le nom d'utilisateur n'est pas disponible, affichage d'un message d'erreur
-        } else {
+        } else { //sinon la méthode retourne 1, le nom d'utilisateur n'est pas disponible, affichage d'un message d'erreur
             $formError['username'] = 'Ce nom d\'utilisateur est déjà utilisé';
         }
     }

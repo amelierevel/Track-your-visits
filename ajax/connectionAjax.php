@@ -14,15 +14,13 @@ $errorMessage = FALSE;
 //vérification que le champ username n'est pas vide et attribution de sa valeur à la variable $username avec la sécurité htmlspecialchars
 if (!empty($_POST['username'])) {
     $username = htmlspecialchars($_POST['username']);
-    //si le champ est vide affichage d'un message d'erreur (paragraphe dans la vue sera show)
-} else {
+} else { //si le champ est vide affichage d'un message d'erreur (paragraphe dans la vue sera show)
     $errorMessage = TRUE;
 }
 //vérification que le champ password n'est pas vide et attribution de sa valeur à la variable $password avec la sécurité htmlspecialchars
 if (!empty($_POST['password'])) {
     $password = htmlspecialchars($_POST['password']);
-    //si le champ est vide affichage d'un message d'erreur (paragraphe dans la vue sera show)
-} else {
+} else { //si le champ est vide affichage d'un message d'erreur (paragraphe dans la vue sera show)
     $errorMessage = TRUE;
 }
 //s'il n'y a pas d'erreur appel de la méthode connectionUser() permettant la connexion de l'utilisateur
@@ -46,8 +44,7 @@ if ($errorMessage == FALSE) {
             $_SESSION['name'] = $user->name;
             $_SESSION['isConnect'] = TRUE;
             $successConnection = TRUE;
-            //si le mot de passe ne correspond pas, affichage du message d'erreur
-        } else {
+        } else { //si le mot de passe ne correspond pas, affichage du message d'erreur
             $errorMessage = TRUE;
         }
     }

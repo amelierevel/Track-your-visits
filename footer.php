@@ -6,7 +6,7 @@
                         <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
-                        <h5 class="white-text">Contact</h5>
+                        <a href="Contact" class="white-text">Contact</a>
                         <ul>
                             <li><a class="grey-text text-lighten-3" href="https://github.com/amelierevel" target="_blank"><i class="fab fa-github"></i> Github</a></li>
                             <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/amelie-revel-387541b8/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
@@ -30,6 +30,5 @@
         <script src="assets/js/script.js"></script>
         <!-- Script pour l'ajax -->
         <script src="assets/js/connectionAjax.js"></script>
-        <script src="assets/js/citiesAjax.js"></script>
     </body>
 </html>

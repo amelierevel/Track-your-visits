@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Création de la class places héritière de database
+ */
 class places extends database {
 
     //Liste des attributs
@@ -74,12 +77,21 @@ class places extends database {
         return $state;
     }
 
+    /**
+     * Méthode permettant l'affichage de la liste des sites touristiques
+     * @return type
+     */
     public function getPlacesList() {
+        //initialisation d'un tableau vide
         $resultArray = array();
+        //déclaration de la requête sql
         $request = 'SELECT `id`,`name`,`address`,`phone`,`mail`,`website`,`description`,`createDate`,`idCategories`,`idCities` '
                 . 'FROM `F396V_places`';
+        //appel de la requête avec un query que l'on stocke dans la variable $placesList
         $placesList = $this->db->query($request);
+        //vérification que la requête s'est bien exécutée
         if ($placesList->execute()) {
+            //on vérifie que $placesList est un objet
             if (is_object($placesList)) {
                 $resultArray = $placesList->fetchAll(PDO::FETCH_OBJ);
             }
@@ -92,12 +104,19 @@ class places extends database {
      * @return type
      */
     public function getPlaceById() {
+        //initialisation de la variable $result avec la valeur false
+        $result = FALSE;
+        //déclaration de la requête sql
         $request = 'SELECT `id`,`name`,`address`,`phone`,`mail`,`website`,`description`,`createDate`,`idCategories`,`idCities` '
                 . 'FROM `F396V_places` '
                 . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
         $infoPlace = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $infoPlace->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
         if ($infoPlace->execute()) {
+            //vérification qu'il s'agit bien d'un objet
             if (is_object($infoPlace)) {
                 $result = $infoPlace->fetch(PDO::FETCH_OBJ);
             }
@@ -105,11 +124,19 @@ class places extends database {
         return $result;
     }
 
+    /**
+     * Méthode permettant de récupérer le dernier id inséré pour faire les liens vers l'ajout des horaires et des tarifs
+     * @return type
+     */
     public function getLastInsertIdPlace() {
-        $request = 'SELECT LAST_INSERT_ID() AS `id` '
+        //déclaration de la requête sql
+        $request = 'SELECT MAX(`id`) AS `id`'
                 . 'FROM `F396V_places`';
+        //appel de la requête avec un query que l'on stocke dans la variable $lastId
         $lastId = $this->db->query($request);
+        //vérification que la requête s'est bien exécutée
         if ($lastId->execute()) {
+            //on vérifie que $lastId est un objet
             if (is_object($lastId)) {
                 $result = $lastId->fetch(PDO::FETCH_OBJ);
             }

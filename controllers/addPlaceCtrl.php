@@ -1,24 +1,14 @@
 <?php
 
-//insertion de la class database et des models categories, regions, departments, cities et places
+//insertion de la class database et des models categories, cities et places
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'categories.php';
-include_once path::getModelsPath() . 'regions.php';
-include_once path::getModelsPath() . 'departments.php';
 include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
 
 //instanciation pour l'affichage de la liste des catégories de sites touristiques
 $categorie = NEW categories();
 $categoriesList = $categorie->getCategoriesList();
-
-//instanciation pour l'affichage de la liste des départements
-$department = NEW departments();
-$departmentsList = $department->getDepartmentsList();
-
-//instanciation pour l'affichage de la liste des régions
-$region = NEW regions();
-$regionsList = $region->getRegionsList();
 
 //instanciation pour l'affichage de la liste des villes
 $city = NEW cities();
@@ -35,12 +25,10 @@ $formError = array();
 if (isset($_POST['addPlaceSubmit'])) {
     //instanciation de l'objet place
     $place = NEW places();
-    //vérification que le champ placeName n'est pas vide 
+    //vérification que le champ placeName n'est pas vide et attribution de sa valeur à l'attribut name de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
     if (!empty($_POST['placeName'])) {
-        //attribution de sa valeur à l'attribut name de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         $place->name = htmlspecialchars($_POST['placeName']);
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['placeName'] = 'Veuillez indiquer un nom pour le site touristique';
     }
     //vérification que le champ idCategories n'est pas vide 
@@ -48,51 +36,21 @@ if (isset($_POST['addPlaceSubmit'])) {
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idCategories de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         if (is_numeric($_POST['idCategories'])) {
             $place->idCategories = htmlspecialchars($_POST['idCategories']);
-            //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
             $formError['idCategories'] = 'Veuillez sélectionner une catégorie valide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idCategories'] = 'Veuillez indiquer une catégorie';
-    }
-    //vérification que le champ regions n'est pas vide 
-    if (!empty($_POST['regions'])) {
-        //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à la variable $regions avec la sécurité htmlspecialchars (évite injection de code)
-        if (is_numeric($_POST['regions'])) {
-            $regions = htmlspecialchars($_POST['regions']);
-            //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
-        } else {
-            $formError['regions'] = 'Veuillez sélectionner une région valide';
-        }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
-        $formError['regions'] = 'Veuillez sélectionner une région';
-    }
-    //vérification que le champ departments n'est pas vide 
-    if (!empty($_POST['departments'])) {
-        //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à la variable $departments avec la sécurité htmlspecialchars (évite injection de code)
-        if (is_numeric($_POST['departments'])) {
-            $departments = htmlspecialchars($_POST['departments']);
-            //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
-        } else {
-            $formError['departments'] = 'Veuillez sélectionner un département valide';
-        }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
-        $formError['departments'] = 'Veuillez sélectionner un département';
     }
     //vérification que le champ postalCode n'est pas vide 
     if (!empty($_POST['postalCode'])) {
         //vérification de la validité de la valeur et attribution de cette valeur à la variable $postalCode avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexPostalCode, $_POST['postalCode'])) {
             $postalCode = htmlspecialchars($_POST['postalCode']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['postalCode'] = 'La saisie du code postal est invalide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['postalCode'] = 'Veuillez indiquer un code postal';
     }
     //vérification que le champ idCities n'est pas vide
@@ -100,20 +58,17 @@ if (isset($_POST['addPlaceSubmit'])) {
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idCities de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         if (is_numeric($_POST['idCities'])) {
             $place->idCities = htmlspecialchars($_POST['idCities']);
-            //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
             $formError['idCities'] = 'Veuillez sélectionner une ville valide';
         }
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idCities'] = 'Veuillez sélectionner une ville';
     }
     //vérification que le champ address n'est pas vide 
     if (!empty($_POST['address'])) {
         //attribution de sa valeur à l'attribut address de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         $place->address = htmlspecialchars($_POST['address']);
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['address'] = 'Veuillez indiquer une adresse';
     }
     //vérification que le champ phone n'est pas vide (peut être vide)
@@ -121,8 +76,7 @@ if (isset($_POST['addPlaceSubmit'])) {
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut phone de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexPhone, $_POST['phone'])) {
             $place->phone = htmlspecialchars($_POST['phone']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['phone'] = 'La saisie du numéro de téléphone est invalide';
         }
     }
@@ -133,8 +87,7 @@ if (isset($_POST['addPlaceSubmit'])) {
     if (!empty($_POST['mail'])) {
         if (filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
             $place->mail = htmlspecialchars($_POST['mail']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['mail'] = 'La saisie du mail est invalide';
         }
     }
@@ -145,17 +98,14 @@ if (isset($_POST['addPlaceSubmit'])) {
     if (!empty($_POST['website'])) {
         if (filter_var($_POST['website'], FILTER_VALIDATE_URL)) {
             $place->website = htmlspecialchars($_POST['website']);
-            //si la valeur n'est pas valide affichage d'un message d'erreur
-        } else {
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
             $formError['website'] = 'La saisie du site web est invalide';
         }
     }
-    //vérification que le champ description n'est pas vide 
+    //vérification que le champ description n'est pas vide et attribution de sa valeur à l'attribut description de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
     if (!empty($_POST['description'])) {
-        //attribution de sa valeur à l'attribut description de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         $place->description = htmlspecialchars($_POST['description']);
-        //si le champ est vide affichage d'un message d'erreur
-    } else {
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['description'] = 'Veuillez renseigner une description du site touristique';
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un lieu après avoir vérifié qu'il n'existe pas déjà
@@ -166,19 +116,16 @@ if (isset($_POST['addPlaceSubmit'])) {
         $checkExistingPlace = $place->checkIfPlaceExist();
         //si la méthode checkIfPlaceExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
         if ($checkExistingPlace === '0') {
-            //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
-            if (!$place->addPlace()) {
+            if (!$place->addPlace()) { //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
                 $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             } 
-            //si la méthode checkIfPlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
-        } elseif ($checkExistingPlace === FALSE) {
+        } elseif ($checkExistingPlace === FALSE) { //si la méthode checkIfPlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
             $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            //sinon la méthode checkIfPlaceExist() retourne 1, le lieu existe déjà dans la base de données, affichage d'un message d'erreur
-        } else {
+        } else { //sinon la méthode checkIfPlaceExist() retourne 1, le lieu existe déjà dans la base de données, affichage d'un message d'erreur
             $formError['placeName'] = 'Ce site touristique existe déjà';
         }
     }
+    //instanciation pour récupérer l'id du dernier lieu ajouté
     $addedPlace = NEW places();
     $lastInsertIdPlace = $addedPlace->getLastInsertIdPlace();
-    var_dump($lastInsertIdPlace);
 }
