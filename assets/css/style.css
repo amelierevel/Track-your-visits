@@ -1,3 +1,8 @@
+/*texte en gras*/
+.boldText{
+    font-weight: bold;
+}
+/*------------------------------------------------------------Page header---------------------------------------------------------*/
 /*police du site*/
 body{
     font-family: 'Handlee', cursive;
@@ -47,22 +52,12 @@ nav.fixed{
     top: 0;
     z-index: 1000;
 }
-/*texte en gras*/
-.boldText{
-    font-weight: bold;
-}
-/*background des champs de texte*/
-.bgText{
-    background-color: rgba(255,255,255,0.9);
-    border-radius: 10px 10px 10px 10px;
-}
+/*----------------------------------------------------------Page error404--------------------------------------------------------*/
 /*-------position du message d'erreur 404-------*/
-#textError404{
-    padding-top: 3%;
-}
 #textPageNotFound{
-    padding-bottom: 2%;
+    /*padding-bottom: 2%;*/
 }
+/*---------------------------------------------------------Page registerUser-----------------------------------------------------*/
 /*---------style du titre des cards pour le choix du type d'utilisateur*/
 .cardTitle{
     font-weight: bold;
