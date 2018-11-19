@@ -89,17 +89,17 @@ include_once path::getControllersPath() . 'headerCtrl.php';
             <div class="modal-content">
                 <h2 class="center-align">Connexion</h2>
                 <!--formulaire de connexion-->
-                <form action="#" method="POST"  class="col s10" id="connectionForm">
+                <form action="#" method="POST"  class="col m10 s12" id="connectionForm">
                     <div class="row">
                         <p class="boldText red-text text-darken-1 center-align" id="errorMessage">Veuillez vérifier votre nom d'utilisateur et votre mot de passe</p>
-                        <div class="input-field col s8 offset-s2">
+                        <div class="input-field col m8 offset-m2 s12">
                             <i class="material-icons prefix">assignment_ind</i>
                             <input  type="text" name="username" id="username" value="<?= isset($username) ? $username : '' ?>" class="validate" required />
                             <label for="username">Nom d'utilisateur</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s8 offset-s2">
+                        <div class="input-field col m8 offset-m2 s12">
                             <i class="material-icons prefix">vpn_key</i>
                             <input type="text" name="password" id="password" class="validate" required />
                             <label for="password">Mot de passe</label>

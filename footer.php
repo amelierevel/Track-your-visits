@@ -6,11 +6,11 @@
                         <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
-                        <a href="Contact" class="white-text">Contact</a>
+                        <a href="Contact" title="Lien vers la page contact" class="white-text">Contact</a>
                         <ul>
-                            <li><a class="grey-text text-lighten-3" href="https://github.com/amelierevel" target="_blank"><i class="fab fa-github"></i> Github</a></li>
-                            <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/amelie-revel-387541b8/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                            <li><a class="grey-text text-lighten-3" href="mailto:amelie.revel20@yahoo.fr"><i class="fas fa-envelope"></i> Contacter par mail</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/amelierevel" title="Lien vers le github d'Amélie Revel" target="_blank"><i class="fab fa-github"></i> Github</a></li>
+                            <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/amelie-revel-387541b8/" title="Lien vers le Linkedin d'Amélie Revel" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                            <li><a class="grey-text text-lighten-3" href="mailto:amelie.revel20@yahoo.fr" title="Lien pour l'envoi d'un mail à Amélie Revel"><i class="fas fa-envelope"></i> Contacter par mail</a></li>
                         </ul>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
             <div class="footer-copyright">
                 <div class="container">
                     © 2018 Copyright
-                    <a class="grey-text text-lighten-4 right" href="https://amelierevel.github.io/" target="_blank">Amélie Revel</a>
+                    <a class="grey-text text-lighten-4 right" href="https://amelierevel.github.io/" title="Lien vers le curriculum vitae d'Amélie Revel" target="_blank">Amélie Revel</a>
                 </div>
             </div>
         </footer>

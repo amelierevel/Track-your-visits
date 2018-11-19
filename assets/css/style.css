@@ -52,15 +52,32 @@ nav.fixed{
     top: 0;
     z-index: 1000;
 }
-/*----------------------------------------------------------Page error404--------------------------------------------------------*/
-/*-------position du message d'erreur 404-------*/
-#textPageNotFound{
-    /*padding-bottom: 2%;*/
-}
 /*---------------------------------------------------------Page registerUser-----------------------------------------------------*/
 /*---------style du titre des cards pour le choix du type d'utilisateur*/
 .cardTitle{
     font-weight: bold;
     font-size: 140%;
     padding-bottom: 2%;
+}
+/*---------------------------------------------------Page placesList & getAPlace-----------------------------------------------*/
+.categoryText{
+    font-size: 80%;
+    margin-top: -2%;
+}
+.placesName {
+    margin-bottom: -0.1%;
+}
+/*----------------------------------------------------------Page getAPlace-------------------------------------------------------*/
+.placeImgCard{
+    margin-top: 2%;
+}
+.sectionTitle {
+    font-size: 150%;
+}
+.iconPlaceForUser{
+    margin-top : -8%;
+}
+.blackIcon{
+    margin-left: 1%;
+    color: black;
 }
