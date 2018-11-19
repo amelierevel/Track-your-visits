@@ -78,6 +78,8 @@ nav.fixed{
     margin-top : -8%;
 }
 .blackIcon{
-    margin-left: 1%;
     color: black;
+}
+.greenIcon{
+    color: #9E9D24;
 }

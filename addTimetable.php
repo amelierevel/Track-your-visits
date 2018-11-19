@@ -18,8 +18,8 @@ include_once path::getControllersPath() . 'addTimetableCtrl.php'
         ?>  
         <div class="row">
             <form action="#" method="POST" class="col s12" id="addTimetables">
-                <?php 
-                for ($count = 1; $count <= 2; $count++) { //boucle permettant d'afficher les différentes lignes du formulaire
+                <?php
+                for ($count = 0; $count <= 1; $count++) { //boucle permettant d'afficher les différentes lignes du formulaire
                     ?>
                     <!-----------------Ajout d'horaire----------------->
                     <div class="row">
@@ -34,9 +34,9 @@ include_once path::getControllersPath() . 'addTimetableCtrl.php'
                             </select>
                             <label for="idDays[]">Sélectionner un jour</label>
                             <?php
-                            if (isset($formError['idDays[]'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                            if (isset($formError['idDays'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
                                 ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['idDays[]']; ?></p>
+                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['idDays'][$count]; ?></p>
                             <?php } ?>
                         </div>
                         <div class="input-field col m2 s12">
@@ -50,34 +50,34 @@ include_once path::getControllersPath() . 'addTimetableCtrl.php'
                             </select>
                             <label for="idTimetableTypes[]">Sélectionner une période horaire</label>
                             <?php
-                            if (isset($formError['idTimetableTypes[]'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                            if (isset($formError['idTimetableTypes'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
                                 ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['idTimetableTypes[]']; ?></p>
+                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['idTimetableTypes'][$count]; ?></p>
                             <?php } ?>
                         </div>
                         <div class="input-field col m2 s5 offset-s1">
                             <input type="time" name="opening[]" id="opening" placeholder="--:--" class="validate" value="" />
                             <label for="opening[]">Horaire d'ouverture</label>
                             <?php
-                            if (isset($formError['opening[]'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                            if (isset($formError['opening'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
                                 ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['opening[]']; ?></p>
+                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['opening'][$count]; ?></p>
                             <?php } ?>
                         </div>
                         <div class="input-field col m2 s5">
                             <input type="time" name="closing[]" id="closing" placeholder="--:--" class="validate" value="" />
                             <label for="closing[]">Horaire de fermeture</label>
                             <?php
-                            if (isset($formError['closing[]'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                            if (isset($formError['closing'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
                                 ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['closing[]']; ?></p>
+                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['closing'][$count]; ?></p>
                             <?php } ?>
                         </div>
                     </div>
                     <?php
-                    if (isset($formError['timetableExist[]'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                    if (isset($formError['timetableExist'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
                         ?>
-                        <p class="boldText red-text text-darken-1 center-align"><?= $formError['timetableExist[]']; ?></p>
+                        <p class="boldText red-text text-darken-1 center-align"><?= $formError['timetableExist'][$count]; ?></p>
                     <?php } ?>
                 <?php } ?>
                 <!--Bouton de validation du formulaire-->
