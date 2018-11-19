@@ -1,9 +1,10 @@
 <?php
 
-//insertion de la class database et des models places et placesToSee
+//insertion de la class database et des models places, placesToSee, visitedPlaces
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'places.php';
 include_once path::getModelsPath() . 'placesToSee.php';
+include_once path::getModelsPath() . 'visitedPlaces.php';
 
 //instanciation pour l'affichage des informations d'un site touristique
 $getPlaceInfo = NEW places();
@@ -17,6 +18,7 @@ $placeInfo = $getPlaceInfo->getPlaceById();
 //déclaration d'un tableau d'erreur
 $formError = array();
 
+//----------------------------Ajout lieu à voir-----------------------------------
 //vérification que les données ont été envoyés
 if (isset($_POST['addPlaceToSeeSubmit'])) {
     //instanciation de l'objet $placeToSee
@@ -50,6 +52,42 @@ if (isset($_POST['addPlaceToSeeSubmit'])) {
         }
     }
 }
+
+//----------------------------Ajout lieu visité-----------------------------------
+//vérification que les données ont été envoyés
+if (isset($_POST['addVisitedPlaceSubmit'])) {
+    //instanciation de l'objet $visitedPlace
+    $visitedPlace = NEW visitedPlaces();
+    //vérification que chaque champ idPlace n'est pas vide et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $visitedPlace avec la sécurité htmlspecialchars
+    if (!empty($_POST['idPlace']) && is_numeric($_POST['idPlace'])) {
+        $visitedPlace->idPlaces = htmlspecialchars($_POST['idPlace']);
+    } else { //sinon affichage d'un message d'erreur
+        $formError['idPlace'] = 'Une erreur est survenue dans la sélection du lieu';
+    }
+    //vérification que chaque champ idUser n'est pas vide et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idUsers de l'objet $visitedPlace avec la sécurité htmlspecialchars
+    if (!empty($_POST['idUser']) && is_numeric($_POST['idUser'])) {
+        $visitedPlace->idUsers = htmlspecialchars($_POST['idUser']);
+    } else { //sinon affichage d'un message d'erreur
+        $formError['idUser'] = 'Aucun utilisateur sélectionné';
+    }
+    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout dans les lieux à voir après avoir vérifié qu'il n'existait pas déjà
+    if (count($formError) == 0) {
+        //appel de la méthode vérifiant que le lieu n'est pas déjà ajouté dans les lieux à voir par l'utilisateur dans la base de données
+        $checkExistingVisitedPlace = $visitedPlace->checkIfVisitedPlaceExist();
+        //si la méthode checkIfVisitedPlaceExist() retourne 0 le lieu n'est pas déjà ajouté et il peut être ajouté à la base de données
+        if ($checkExistingVisitedPlace === '0') {
+            if (!$visitedPlace->addVisitedPlace()) { //affichage d'un message d'erreur si la méthode addVisitedPlace() ne s'exécute pas
+                $formError['addVisitedPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            }
+            //si la méthode checkIfVisitedPlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+        } elseif ($checkExistingVisitedPlace === FALSE) {
+            $formError['addVisitedPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+        } else { //sinon la méthode checkIfVisitedPlaceExist() retourne 1, le lieu est déjà dans la base de données, affichage d'un message d'erreur
+            $formError['alreadyAdded'] = 'Ce lieu fait déjà parti de votre liste de lieux visités';
+        }
+    }
+}
+
 
 if (isset($_POST['addPictureSubmit'])) {
     $picture = NEW pictures();

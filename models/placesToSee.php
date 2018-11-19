@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Création de la class places héritière de database
+ * Création de la class placesToSee héritière de database
  */
 class placesToSee extends database {
 

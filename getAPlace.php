@@ -27,7 +27,7 @@ include_once path::getControllersPath() . 'getAPlaceCtrl.php';
                             //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
                             if (isset($_POST['addPlaceToSeeSubmit']) && (count($formError) === 0)) {
                                 ?>
-                                <button class="btn-flat btn-large white"><a href="#" title="Lieux à voir"><i class="fas fa-eye greenIcon"></i></a></button>
+                                <button class="btn-flat btn-large white" title="Lieux à voir"><i class="fas fa-eye greenIcon"></i></button>
                             <?php } else { ?>
                                 <div class="input-field hide">
                                     <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
@@ -37,29 +37,42 @@ include_once path::getControllersPath() . 'getAPlaceCtrl.php';
                                     <input type="text" name="idUser" id="idUser" value="<?= $_SESSION['id'] ?>" required />
                                     <label for="idUser"></label>
                                 </div>
-                                <button class="btn-flat btn-large white" type="submit" name="addPlaceToSeeSubmit" id="addPlaceToSeeSubmit">
-                                    <a href="#" title="Ajouter aux lieux à voir"><i class="fas fa-eye fa-lg blackIcon"></i></a>
+                                <button class="btn-flat btn-large white" type="submit" name="addPlaceToSeeSubmit" title="Ajouter aux lieux à voir" id="addPlaceToSeeSubmit">
+                                    <i class="fas fa-eye blackIcon"></i>
                                 </button>
                             <?php } ?>
                         </form>
-                        <form action="#" method="POST" class="col m1">
-                            <div class="input-field hide">
-                                <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
-                                <label for="idPlace"></label>
-                            </div>
-                            <div class="input-field hide">
-                                <input type="text" name="idUser" id="idUser" value="<?= $_SESSION['id'] ?>" required />
-                                <label for="idUser"></label>
-                            </div>
-                            <button class="btn-flat btn-large white" type="submit" name="addVisitedPlaceSubmit" id="addVisitedPlaceSubmit">
-                                <a href="#" title="Ajouter aux lieux vus"><i class="far fa-check-circle fa-lg blackIcon"></i></a>
-                            </button>
+                        <form action="#" method="POST" class="col m1" id="addVisitedPlaceForm">
+                            <?php
+                            //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
+                            if (isset($_POST['addVisitedPlaceSubmit']) && (count($formError) === 0)) {
+                                ?>
+                                <button class="btn-flat btn-large white" title="Lieux visités"><i class="far fa-check-circle greenIcon"></i></button>
+                            <?php } else { ?>
+                                <div class="input-field hide">
+                                    <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
+                                    <label for="idPlace"></label>
+                                </div>
+                                <div class="input-field hide">
+                                    <input type="text" name="idUser" id="idUser" value="<?= $_SESSION['id'] ?>" required />
+                                    <label for="idUser"></label>
+                                </div>
+                                <button class="btn-flat btn-large white" type="submit" name="addVisitedPlaceSubmit" title="Ajouter aux lieux visités" id="addVisitedPlaceSubmit">
+                                    <i class="far fa-check-circle blackIcon"></i>
+                                </button>
+                            <?php } ?>
                         </form>
                     </div>
                     <p class="red-text text-darken-1 right-align">
                         <?php
                         //ternaire permettant l'affichage du message d'erreur si le lieu fait déjà parti des lieux à voir de l'utilisateur
                         echo isset($formError['alreadyAdded']) ? $formError['alreadyAdded'] : '';
+                        //ternaires permettant l'affichage des messages d'erreur si les tableaux d'erreur existent
+                        echo isset($formError['idPlace']) ? $formError['idPlace'] : '';
+                        echo isset($formError['idUser']) ? $formError['idUser'] : '';
+                        //ternaires permettant l'affichage des messages d'erreur si les méthodes ne s'exécutent pas
+                        echo isset($formError['addPlaceToSeeSubmit']) ? $formError['addPlaceToSeeSubmit'] : '';
+                        echo isset($formError['addVisitedPlaceSubmit']) ? $formError['addVisitedPlaceSubmit'] : '';
                         ?>
                     </p>
                 </div>
