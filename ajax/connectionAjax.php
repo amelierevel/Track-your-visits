@@ -1,4 +1,5 @@
 <?php
+
 //démarrage de la session
 session_start();
 //insertion du fichier path, de la class database et du model users
@@ -52,3 +53,5 @@ if ($errorMessage == FALSE) {
 
 //lien avec l'ajax
 echo json_encode(array('errorMessage' => $errorMessage, 'successConnection' => $successConnection));
+//écriture des données de session et fermeture de la session
+session_write_close();

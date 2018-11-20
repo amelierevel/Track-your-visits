@@ -31,9 +31,8 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <!--Affichage du dropdown de connexion de la barre de navigation-->
         <ul id="dropdownConnection" class="dropdown-content orange darken-1">
             <li><a href="Profil" class="white-text boldText">Profil</a></li>
-            <li><a href="#" class="white-text boldText">Favoris</a></li>
-            <li><a href="#" class="white-text boldText">Mes visites</a></li>
-            <li><a href="#" class="white-text boldText">A voir</a></li>
+            <li><a href="Mes-visites" class="white-text boldText">Mes visites</a></li>
+            <li><a href="A-voir" class="white-text boldText">A voir</a></li>
             <li><a href="Modification-profil" class="white-text boldText">Modifier mon profil</a></li>
             <li class="divider"></li>
             <li><a href="<?= /* ajout de l'action disconnect dans l'url après le chemin du fichier courant */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
@@ -46,11 +45,14 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                 </a>
                 <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                        <li><a href="Liste-sites-touristiques" class="boldText">Liste des sites</a></li>
+                    <li><a href="Liste-des-lieux" class="boldText">Liste des lieux</a></li>
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
                     if (isset($_SESSION['isConnect'])) {
-                        ?>
+                        if ($_SESSION['name'] == 'Contributeur') { //Affichage des fonctionnalités propres aux contributeurs
+                            ?>
+                            <li><a href="Ajout-lieu" class="boldText">Ajouter un lieu</a></li>
+                        <?php } ?>
                         <li><a href="#" data-target="dropdownConnection" class="dropdown-trigger boldText"><?= $_SESSION['username'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
                         <?php
                         //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
@@ -64,15 +66,17 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         </nav>
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobileNavbar">
-            <li><a href="Liste-sites-touristiques">Liste des sites</a></li>
+            <li><a href="Liste-des-lieux">Liste des lieux</a></li>
             <?php
             //si l'utilisateur est connecté affichage de son menu de connexion
             if (isset($_SESSION['isConnect'])) {
-                ?>
+                if ($_SESSION['name'] == 'Contributeur') { //Affichage des fonctionnalités propres aux contributeurs
+                    ?>
+                    <li><a href="Ajout-lieu" class="boldText">Ajouter un lieu</a></li>
+                <?php } ?>
                 <li><a href="Profil">Profil <?= $_SESSION['username'] ?></a></li>
-                <li><a href="#">Favoris</a></li>
-                <li><a href="#">Mes visites</a></li>
-                <li><a href="#">A voir</a></li>
+                <li><a href="Mes-visites">Mes visites</a></li>
+                <li><a href="A-voir">A voir</a></li>
                 <li><a href="Modification-profil">Modifier mon profil</a></li>
                 <li class="divider"></li>
                 <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Déconnexion</a></li>

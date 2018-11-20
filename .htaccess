@@ -1,17 +1,19 @@
 <ifModule mod_rewrite.c>
 RewriteEngine on
 #Réécriture d'url
-RewriteRule ^Ajout-site-touristique$ addPlace.php
+RewriteRule ^Ajout-lieu$ addPlace.php
 RewriteRule ^Ajout-horaires$ addTimetable.php
 RewriteRule ^Contact$ contactForm.php
-RewriteRule ^Site-touristique$ getAPlace.php
+RewriteRule ^Lieu$ getAPlace.php
 RewriteRule ^Accueil$ index.php 
-RewriteRule ^Liste-sites-touristiques$ placesList.php 
+RewriteRule ^Liste-des-lieux$ placesList.php 
 RewriteRule ^Profil$ profile.php
 RewriteRule ^Inscription-contributeur$ registerContributorForm.php
 RewriteRule ^Inscription-utilisateur$ registerUser.php
 RewriteRule ^Inscription-visiteur$ registerVisitorForm.php
 RewriteRule ^Modification-profil$ updateProfileUser.php
+RewriteRule ^A-voir$ userPlacesToSee.php
+RewriteRule ^Mes-visites$ userVisitedPlaces.php
 #Redirection vers la page error404.php
 ErrorDocument 404 /error404.php
 </ifModule>

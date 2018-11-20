@@ -53,7 +53,7 @@ nav.fixed{
     z-index: 1000;
 }
 /*---------------------------------------------------------Page registerUser-----------------------------------------------------*/
-/*---------style du titre des cards pour le choix du type d'utilisateur*/
+/*style du titre des cards pour le choix du type d'utilisateur*/
 .cardTitle{
     font-weight: bold;
     font-size: 140%;
@@ -71,11 +71,13 @@ nav.fixed{
 .placeImgCard{
     margin-top: 2%;
 }
+/*taille de la police des sections contact, horaires, tarifs*/
 .sectionTitle {
     font-size: 150%;
 }
+/*position des icones pour l'ajout aux lieux à voir et lieux visités*/
 .iconPlaceForUser{
-    margin-top : -8%;
+    margin-top : -10%;
 }
 .blackIcon{
     color: black;
@@ -83,3 +85,4 @@ nav.fixed{
 .greenIcon{
     color: #9E9D24;
 }
+/*----------------------------------------------------------Page -------------------------------------------------------*/

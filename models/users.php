@@ -176,7 +176,7 @@ class users extends database {
         //déclaration de la requête sql
         $request = 'DELETE FROM `F396V_users` '
                 . 'WHERE `id` = :id';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $deleteUser
         $deleteUser = $this->db->prepare($request);
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $deleteUser->bindValue(':id', $this->id, PDO::PARAM_INT);

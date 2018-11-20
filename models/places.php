@@ -118,7 +118,7 @@ class places extends database {
                 . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
                 . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
                 . 'WHERE `pl`.`id` = :id';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $result
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $infoPlace
         $infoPlace = $this->db->prepare($request);
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $infoPlace->bindValue(':id', $this->id, PDO::PARAM_INT);

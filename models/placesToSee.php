@@ -63,6 +63,58 @@ class placesToSee extends database {
     }
 
     /**
+     * Méthode permettant d'afficher la liste des lieux à voir d'un utilisateur
+     * @return type
+     */
+    public function getPlacesToSeeListByUser() {
+        //initialisation d'un tableau vide
+        $resultArray = array();
+        //déclaration de la requête sql
+        $request = 'SELECT `pTs`.`idPlaces`,`pTs`.`id` AS `idPlaceToSee`,'
+                . '`pl`.`id`,`pl`.`name`,`pl`.`idCities`, '
+                . '`cit`.`city`,`cit`.`postalCode`, '
+                . '`cat`.`name` AS `category` '
+                . 'FROM `F396V_placesToSee` AS `pTs` '
+                . 'LEFT JOIN `F396V_places` AS `pl` ON `pTs`.`idPlaces` = `pl`.`id` '
+                . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
+                . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
+                . 'WHERE `pTs`.`idUsers` = :idUsers';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $placesToSeeList
+        $placesToSeeList = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $placesToSeeList->bindValue(':idUsers', $this->idUsers, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
+        if ($placesToSeeList->execute()) {
+            //on vérifie que $placesToSeeList est un objet
+            if (is_object($placesToSeeList)) {
+                $resultArray = $placesToSeeList->fetchAll(PDO::FETCH_OBJ);
+            }
+        }
+        return $resultArray;
+    }
+
+    /**
+     * Méthode permettant la suppression d'un lieu de la liste des lieux à voir par l'utilisateur
+     * @return boolean
+     */
+    public function deletePlaceToSee() {
+        //initialisation de la variable $state avec la valeur false
+        $state = FALSE;
+        //déclaration de la requête sql
+        $request = 'DELETE FROM `F396V_placesToSee` '
+                . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $deletePlaceToSee
+        $deletePlaceToSee = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $deletePlaceToSee->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
+        if ($deletePlaceToSee->execute()) {
+            $state = TRUE;
+        }
+        return $state;
+    }
+
+    /**
      * Méthode magique destruct héritière du parent database
      */
     public function __destruct() {

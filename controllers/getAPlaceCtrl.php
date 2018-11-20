@@ -29,12 +29,8 @@ if (isset($_POST['addPlaceToSeeSubmit'])) {
     } else { //sinon affichage d'un message d'erreur
         $formError['idPlace'] = 'Une erreur est survenue dans la sélection du lieu';
     }
-    //vérification que chaque champ idUser n'est pas vide et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idUsers de l'objet $placeToSee avec la sécurité htmlspecialchars
-    if (!empty($_POST['idUser']) && is_numeric($_POST['idUser'])) {
-        $placeToSee->idUsers = htmlspecialchars($_POST['idUser']);
-    } else { //sinon affichage d'un message d'erreur
-        $formError['idUser'] = 'Aucun utilisateur sélectionné';
-    }
+    //attribution de la valeur de l'id de la session à l'attribut idUsers de l'objet $placeToSee 
+    $placeToSee->idUsers = $_SESSION['id'];
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout dans les lieux à voir après avoir vérifié qu'il n'existait pas déjà
     if (count($formError) == 0) {
         //appel de la méthode vérifiant que le lieu n'est pas déjà ajouté dans les lieux à voir par l'utilisateur dans la base de données
@@ -64,12 +60,8 @@ if (isset($_POST['addVisitedPlaceSubmit'])) {
     } else { //sinon affichage d'un message d'erreur
         $formError['idPlace'] = 'Une erreur est survenue dans la sélection du lieu';
     }
-    //vérification que chaque champ idUser n'est pas vide et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idUsers de l'objet $visitedPlace avec la sécurité htmlspecialchars
-    if (!empty($_POST['idUser']) && is_numeric($_POST['idUser'])) {
-        $visitedPlace->idUsers = htmlspecialchars($_POST['idUser']);
-    } else { //sinon affichage d'un message d'erreur
-        $formError['idUser'] = 'Aucun utilisateur sélectionné';
-    }
+    //attribution de la valeur de l'id de la session à l'attribut idUsers de l'objet $visitedPlace
+    $visitedPlace->idUsers = $_SESSION['id'];
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout dans les lieux à voir après avoir vérifié qu'il n'existait pas déjà
     if (count($formError) == 0) {
         //appel de la méthode vérifiant que le lieu n'est pas déjà ajouté dans les lieux à voir par l'utilisateur dans la base de données

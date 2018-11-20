@@ -33,10 +33,6 @@ include_once path::getControllersPath() . 'getAPlaceCtrl.php';
                                     <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
                                     <label for="idPlace"></label>
                                 </div>
-                                <div class="input-field hide">
-                                    <input type="text" name="idUser" id="idUser" value="<?= $_SESSION['id'] ?>" required />
-                                    <label for="idUser"></label>
-                                </div>
                                 <button class="btn-flat btn-large white" type="submit" name="addPlaceToSeeSubmit" title="Ajouter aux lieux à voir" id="addPlaceToSeeSubmit">
                                     <i class="fas fa-eye blackIcon"></i>
                                 </button>
@@ -47,18 +43,14 @@ include_once path::getControllersPath() . 'getAPlaceCtrl.php';
                             //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
                             if (isset($_POST['addVisitedPlaceSubmit']) && (count($formError) === 0)) {
                                 ?>
-                                <button class="btn-flat btn-large white" title="Lieux visités"><i class="far fa-check-circle greenIcon"></i></button>
+                                <button class="btn-flat btn-large white" title="Lieux visités"><i class="fas fa-check-circle greenIcon"></i></button>
                             <?php } else { ?>
                                 <div class="input-field hide">
                                     <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
                                     <label for="idPlace"></label>
                                 </div>
-                                <div class="input-field hide">
-                                    <input type="text" name="idUser" id="idUser" value="<?= $_SESSION['id'] ?>" required />
-                                    <label for="idUser"></label>
-                                </div>
                                 <button class="btn-flat btn-large white" type="submit" name="addVisitedPlaceSubmit" title="Ajouter aux lieux visités" id="addVisitedPlaceSubmit">
-                                    <i class="far fa-check-circle blackIcon"></i>
+                                    <i class="fas fa-check-circle blackIcon"></i>
                                 </button>
                             <?php } ?>
                         </form>

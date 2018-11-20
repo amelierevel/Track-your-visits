@@ -5,7 +5,7 @@ include_once path::getRootPath() . 'header.php';
 include_once path::getControllersPath() . 'addPlaceCtrl.php'
 ?>
 <div>
-    <h2 class="center-align">Ajout d'un nouveau site touristique</h2>
+    <h2 class="center-align">Ajout d'un nouveau lieu</h2>
     <div class="row">
         <h3 class="col s10 offset-s2">Informations générales</h3>
         <?php
@@ -13,7 +13,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
         if (isset($_POST['addPlaceSubmit']) && (count($formError) === 0)) {
             ?> 
             <div class="center-align">
-                <p>Votre site touristique <span class="boldText">"<?= $place->name ?>"</span> a bien été enregistré. Vous pouvez désormais ajouter ses horaires et ses tarifs</p>
+                <p>Votre lieu <span class="boldText">"<?= $place->name ?>"</span> a bien été enregistré. Vous pouvez désormais ajouter ses horaires et ses tarifs</p>
                 <a href="Ajout-horaires?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers l'ajout des horaires">Ajouter les horaires</a>
                 <a href="Ajout-tarifs?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers l'ajout des tarifs">Ajouter les tarifs</a>
             </div>
@@ -26,7 +26,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                     <div class="input-field col m5 offset-m2 s12">
                         <i class="material-icons prefix">location_on</i>
                         <input type="text" name="placeName" id="placeName" value="<?= /* garde en mémoire la saisie dans le champ */ isset($place->name) ? $place->name : '' ?>" required />
-                        <label for="placeName">Nom du site touristique</label>
+                        <label for="placeName">Nom du lieu</label>
                         <?php
                         if (isset($formError['placeName'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
@@ -118,7 +118,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                     <div class="input-field col m3 s12">
                         <i class="material-icons prefix">desktop_windows</i>
                         <input type="text" name="website" id="website" value="<?= isset($place->website) ? $place->website : '' ?>" />
-                        <label for="placeWebsite">Site web du lieu touristique (facultatif)</label>
+                        <label for="placeWebsite">Site web du lieu (facultatif)</label>
                         <?php
                         if (isset($formError['website'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
@@ -131,7 +131,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                     <div class="input-field col m8 offset-m2 s12">
                         <i class="material-icons prefix">create</i>
                         <textarea class="materialize-textarea" name="description" id="description" value="<?= isset($place->description) ? $place->description : '' ?>" required></textarea>
-                        <label for="description">Description du site touristique</label>
+                        <label for="description">Description du lieu</label>
                         <?php
                         if (isset($formError['description'])) { //affichage du message d'erreur si le tableau d'erreur existe
                             ?>
@@ -141,7 +141,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                 </div>
                 <div class="row">
                     <div class="input-field center-align col s8 offset-s2">
-                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPlaceSubmit" id="addPlaceSubmit">Ajouter le site touristique</button>
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPlaceSubmit" id="addPlaceSubmit">Ajouter le lieu</button>
                     </div>
                 </div>
             </form>

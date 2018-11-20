@@ -20,7 +20,7 @@ include_once path::getControllersPath() . 'placesListCtrl.php'
                         <p class="categoryText"><?= $placeDetail->category ?></p>
                         <p><?= $placeDetail->description ?></p>
                         <p class="grey-text text-darken-1"><?= $placeDetail->city ?> (<?= $placeDetail->postalCode ?>)</p>
-                        <a href="Site-touristique?id=<?= $placeDetail->id ?>" class="secondary-content">Plus d'info</a>
+                        <a href="Lieu?id=<?= $placeDetail->id ?>" class="secondary-content">Plus d'info</a>
                     </div>
                 </div>
             </li>
@@ -30,17 +30,17 @@ include_once path::getControllersPath() . 'placesListCtrl.php'
 <!--Pagination-->
 <ul class="pagination center-align">
     <li class="waves-effect <?= $offset <= 1 ? 'disabled' : '' ?>">
-        <a href="Liste-sites-touristiques?page=<?= $page - 1 ?>"><i class="material-icons">chevron_left</i></a>
+        <a href="Liste-des-lieux?page=<?= $page - 1 ?>"><i class="material-icons">chevron_left</i></a>
     </li>
     <?php
     for ($pageNumber = 1; $pageNumber <= $totalPages; $pageNumber++) { //boucle permettant d'afficher le nombre de page
         ?>
         <li class="waves-effect">
-            <a href="Liste-sites-touristiques?page=<?= $pageNumber ?>"><?= $pageNumber ?></a>
+            <a href="Liste-des-lieux?page=<?= $pageNumber ?>"><?= $pageNumber ?></a>
         </li>
     <?php } ?>
     <li class="waves-effect <?= $offset >= $totalPages ? 'disabled' : '' ?>">
-        <a href="Liste-sites-touristiques?page=<?= $page + 1 ?>"><i class="material-icons">chevron_right</i></a>
+        <a href="Liste-des-lieux?page=<?= $page + 1 ?>"><i class="material-icons">chevron_right</i></a>
     </li>
 </ul>
 <?php
