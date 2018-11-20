@@ -46,7 +46,7 @@ class timetables extends database {
     }
 
     /**
-     * Méthode permettant de vérifier qu'un horaire n'existe pas déjà pour proposer à l'utilisateur de la modifier si elle existe
+     * Méthode permettant de vérifier qu'un horaire n'existe pas déjà
      * @return type
      */
     public function checkIfTimetableExist() {
@@ -67,6 +67,85 @@ class timetables extends database {
             $selectResult = $result->fetch(PDO::FETCH_OBJ);
             //attribution du résultat du count (0 ou 1) à la variable $state
             $state = $selectResult->count;
+        }
+        return $state;
+    }
+
+    /**
+     * DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`
+     * @return type
+     */
+    public function getTimetablesList() {
+        //initialisation d'un tableau vide
+        $resultArray = array();
+        //déclaration de la requête sql
+        $request = 'SELECT `tim`.`id`,DATE_FORMAT(`tim`.`opening`, \'%Hh%i\') AS `opening`,DATE_FORMAT(`tim`.`closing`, \'%Hh%i\') AS `closing`, '
+                . '`tim`.`idDays`,`tim`.`idPlaces`,`tim`.`idTimetableTypes`,DATE_FORMAT(`tim`.`editDate`, \'%d/%m/%Y\') AS `editDate`, '
+                . '`timT`.`name` AS `period`, '
+                . '`d`.`day` '
+                . 'FROM `F396V_timetables` AS `tim` '
+                . 'LEFT JOIN `F396V_timetableTypes` AS `timT` ON `tim`.`idTimetableTypes` = `timT`.`id` '
+                . 'LEFT JOIN `F396V_days` AS `d` ON `tim`.`idDays` = `d`.`id` '
+                . 'LEFT JOIN `F396V_places` AS `pl` ON `tim`.`idPlaces` = `pl`.`id` '
+                . 'WHERE `pl`.`id` = :id '
+                . 'ORDER BY `tim`.`idDays` ASC';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $timetableList
+        $timetableList = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $timetableList->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
+        if ($timetableList->execute()) {
+            //vérification qu'il s'agit bien d'un objet
+            if (is_object($timetableList)) {
+                $resultArray = $timetableList->fetchAll(PDO::FETCH_OBJ);
+            }
+        }
+        return $resultArray;
+    }
+
+    /**
+     * Méthode permettant de modifier un horaire
+     * @return type
+     */
+    public function updateTimetable() {
+        //déclaration de la requête sql
+        $request = 'UPDATE `F396V_timetables` '
+                . 'SET `idDays` = :idDays,`idTimetableTypes` = :idTimetableTypes, `opening` = :opening, `closing` = :closing, `editDate` = :editDate '
+                . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $updateTimetable
+        $updateTimetable = $this->db->prepare($request);
+        //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
+        $updateTimetable->bindValue(':idDays', $this->idDays, PDO::PARAM_INT);
+        $updateTimetable->bindValue(':idTimetableTypes', $this->idTimetableTypes, PDO::PARAM_INT);
+        $updateTimetable->bindValue(':opening', $this->opening, PDO::PARAM_STR);
+        $updateTimetable->bindValue(':closing', $this->closing, PDO::PARAM_STR);
+        $updateTimetable->bindValue(':editDate', $this->editDate, PDO::PARAM_STR);
+        //vérification que la requête s'est bien exécutée
+        if ($updateTimetable->execute()) {
+            //vérification qu'il s'agit bien d'un objet
+            if (is_object($updateTimetable)) {
+                return $updateTimetable;
+            }
+        }
+    }
+
+    /**
+     * Méthode permettant la suppression d'un horaire
+     * @return boolean 
+     */
+    public function deleteTimetable() {
+        //initialisation de la variable $state avec la valeur false
+        $state = FALSE;
+        //déclaration de la requête sql
+        $request = 'DELETE FROM `F396V_timetables` '
+                . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $deleteTimetable
+        $deleteTimetable = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $deleteTimetable->bindValue(':id', $this->id, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
+        if ($deleteTimetable->execute()) {
+            $state = TRUE;
         }
         return $state;
     }

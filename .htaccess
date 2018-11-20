@@ -2,6 +2,7 @@
 RewriteEngine on
 #Réécriture d'url
 RewriteRule ^Ajout-lieu$ addPlace.php
+RewriteRule ^Ajout-tarifs$ addPrices.php
 RewriteRule ^Ajout-horaires$ addTimetable.php
 RewriteRule ^Contact$ contactForm.php
 RewriteRule ^Lieu$ getAPlace.php

@@ -49,7 +49,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
                     <?php
                     //si l'utilisateur est connecté affichage de son menu de connexion
                     if (isset($_SESSION['isConnect'])) {
-                        if ($_SESSION['name'] == 'Contributeur') { //Affichage des fonctionnalités propres aux contributeurs
+                        if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                             ?>
                             <li><a href="Ajout-lieu" class="boldText">Ajouter un lieu</a></li>
                         <?php } ?>
@@ -70,7 +70,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
             <?php
             //si l'utilisateur est connecté affichage de son menu de connexion
             if (isset($_SESSION['isConnect'])) {
-                if ($_SESSION['name'] == 'Contributeur') { //Affichage des fonctionnalités propres aux contributeurs
+                if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                     ?>
                     <li><a href="Ajout-lieu" class="boldText">Ajouter un lieu</a></li>
                 <?php } ?>

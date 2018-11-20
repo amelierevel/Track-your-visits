@@ -17,7 +17,7 @@ include_once path::getRootPath() . 'header.php';
                 <li><span class="boldText">Mail : </span><?= $_SESSION['mail'] ?></li>
             </ul>
             <?php
-            if ($_SESSION['name'] == 'Contributeur') { //Affichage des fonctionnalités propres aux contributeurs
+            if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                 ?>
                 <a href="Ajout-lieu" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un lieu</a>
             <?php } ?>

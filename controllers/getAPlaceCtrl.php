@@ -1,18 +1,26 @@
 <?php
-
+//ouverture de la session
+session_start();
 //insertion de la class database et des models places, placesToSee, visitedPlaces
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'places.php';
 include_once path::getModelsPath() . 'placesToSee.php';
 include_once path::getModelsPath() . 'visitedPlaces.php';
+include_once path::getModelsPath() . 'timetables.php';
+include_once path::getModelsPath() . 'days.php';
+include_once path::getModelsPath() . 'timetableTypes.php';
+include_once path::getModelsPath() . 'priceTypes.php';
+include_once path::getModelsPath() . 'prices.php';
 
-//instanciation pour l'affichage des informations d'un site touristique
+
+//--------------------Affichage des info du lieu---------------------------
+//instanciation pour l'affichage des informations d'un lieu
 $getPlaceInfo = NEW places();
 //vérification de la présence de l'id dans l'url
-if (isset($_GET['id'])) {
-    $getPlaceInfo->id = $_GET['id'];
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $getPlaceInfo->id = htmlspecialchars($_GET['id']);
 }
-//appel de la méthode permettant l'affichage des informations d'un site touristique
+//appel de la méthode permettant l'affichage des informations d'un lieu
 $placeInfo = $getPlaceInfo->getPlaceById();
 
 //déclaration d'un tableau d'erreur
@@ -80,7 +88,213 @@ if (isset($_POST['addVisitedPlaceSubmit'])) {
     }
 }
 
+//----------------Affichage des horaires------------
+$getTimetable = NEW timetables();
+//vérification de la présence de l'id dans l'url
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $getTimetable->id = htmlspecialchars($_GET['id']);
+}
+$timetablesList = $getTimetable->getTimetablesList();
 
+//----------------------------Ajout d'horaire-------------------
+//instanciation pour l'affichage de la liste des jours de la semaine
+$day = NEW days();
+$daysList = $day->getDaysList();
+
+//instanciation pour l'affichage de la liste des périodes horaires (timetableTypes)
+$timetableType = NEW timetableTypes();
+$timetableTypesList = $timetableType->getTimetableTypesList();
+
+//déclaration d'un tableau d'erreur
+$formError = array();
+
+//vérification que les données ont été envoyés
+if (isset($_POST['addTimetablesSubmit'])) {
+    //instanciation de l'objet timetable
+    $timetable = NEW timetables();
+    //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDate de l'objet $timetable
+    $timetable->editDate = date('Y-m-d H:i:s');
+    //vérification de la présence d'un id dans l'url et attribution de sa valeur à l'attribut idPlaces de l'objet $timetable
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $timetable->idPlaces = htmlspecialchars($_GET['id']);
+    }
+
+    //vérification que chaque champ idDays n'est pas vide
+    if (!empty($_POST['idDays'])) {
+        //vérification de la validité de chaque valeur (doit être un nombre) et attribution de leurs valeurs à l'attribut idDays de l'objet $timetable avec la sécurité htmlspecialchars (évite injection de code)
+        if (is_numeric($_POST['idDays'])) {
+            $timetable->idDays = htmlspecialchars($_POST['idDays']);
+        } else { //si chaque valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
+            $formError['idDays'] = 'Veuillez sélectionner un jour valide';
+        }
+    } else { //si chaque champ est vide affichage d'un message d'erreur
+        $formError['idDays'] = 'Veuillez sélectionner un jour';
+    }
+    //vérification que chaque champ idTimetableTypes n'est pas vide
+    if (!empty($_POST['idTimetableTypes'])) {
+        //vérification de la validité de chaque valeur (doit être un nombre) et attribution de leurs valeurs à l'attribut idTimetableTypes de l'objet $timetable avec la sécurité htmlspecialchars (évite injection de code)
+        if (is_numeric($_POST['idTimetableTypes'])) {
+            $timetable->idTimetableTypes = htmlspecialchars($_POST['idTimetableTypes']);
+            //vérification que la période sélectionnée est égale 5 (fermé) et attribution de la valeur NULL aux attributs opening et closing de l'objet $timetable
+            if ($_POST['idTimetableTypes'] == 5) {
+                $timetable->opening = NULL;
+                $timetable->closing = NULL;
+            } else { //si la période sélectionnée est différente de 5 (fermé)
+                if (!empty($_POST['opening'])) { //vérification que chaque champ opening n'est pas vide
+                    //vérification de la validité de chaque valeur et attribution de leurs valeurs à l'attribut opening de l'objet $timetable avec la sécurité htmlspecialchars (évite injection de code)
+                    $timetable->opening = htmlspecialchars($_POST['opening']);
+                } else { //si chaque champ est vide affichage d'un message d'erreur
+                    $formError['opening'] = 'Veuillez sélectionner une horaire d\'ouveture';
+                }
+                if (!empty($_POST['closing'])) { //vérification que chaque champ closing n'est pas vide
+                    //vérification de la validité de chaque valeur et attribution de leurs valeurs à l'attribut closing de l'objet $timetable avec la sécurité htmlspecialchars (évite injection de code)
+                    $timetable->closing = htmlspecialchars($_POST['closing']);
+                } else { //si chaque champ est vide affichage d'un message d'erreur
+                    $formError['closing'] = 'Veuillez sélectionner une horaire de fermeture';
+                }
+            }
+        } else { //si chaque valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
+            $formError['idTimetableTypes'] = 'Veuillez sélectionner une période horaire valide';
+        }
+    } else { //si chaque champ est vide affichage d'un message d'erreur
+        $formError['idTimetableTypes'] = 'Veuillez sélectionner une période horaire';
+    }
+    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout des horaires après avoir vérifié qu'ils n'existaient pas déjà
+    if (count($formError) == 0) {
+        //appel de la méthode vérifiant que l'horaire n'existe pas déjà dans la base de données
+        $checkExistingTimetable = $timetable->checkIfTimetableExist();
+        //si la méthode checkIfTimetableExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
+        if ($checkExistingTimetable === '0') {
+            if (!$timetable->addTimetable()) { //affichage d'un message d'erreur si la méthode addTimetable() ne s'exécute pas
+                $formError['addTimetablesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            } else {
+                header('Location: Lieu?id=' . $timetable->idPlaces);
+                exit;
+            }
+            //si la méthode checkIfTimetableExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+        } elseif ($checkExistingTimetable === FALSE) {
+            $formError['addTimetablesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            //sinon la méthode checkIfTimetableExist() retourne 1, l'horaire existe déjà dans la base de données, affichage d'un message d'erreur
+        } else {
+            $formError['addTimetablesSubmit'] = 'Il y a déjà des horaires enregistrés pour ce jour à cette période';
+        }
+    }
+}
+
+//------------------------Suppression d'un horaire--------------------
+//vérification de la présence de idTimetableDelete et qu'il s'agit bien d'un nombre
+if (isset($_GET['idTimetableDelete']) && is_numeric($_GET['idTimetableDelete'])) {
+    //instanciation pour la suppression
+    $deleteTimetable = NEW timetables();
+    $deleteTimetable->id = htmlspecialchars($_GET['idTimetableDelete']);
+    //appel de la méthode deleteTimetable() permettant la suppression d'un horaire
+    $removeTimetable = $deleteTimetable->deleteTimetable();
+    if ($removeTimetable == TRUE) { //si la méthode s'exécute 
+    //redirection vers la page des lieux à voir de l'utilisateur
+        header('Location: Lieu?id=' . $getPlaceInfo->id);
+        exit();
+    } elseif ($removeTimetable === FALSE) { //affichage d'un message d'erreur si la requête ne s'est pas exécutée
+        $deleteTimetableError = 'L\'horaire n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
+    }
+}
+
+//----------------Affichage des tarifs------------
+$getPrices = NEW prices();
+//vérification de la présence de l'id dans l'url
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $getPrices->id = htmlspecialchars($_GET['id']);
+}
+$pricesList = $getPrices->getPricesList();
+
+//---------------------------Ajout d'un tarif-------------------------------
+//instanciation pour l'affichage de la liste des jours de la semaine
+$priceType = NEW priceTypes();
+$priceTypesList = $priceType->getPriceTypesList();
+
+$regexPrice = '/^[0-9]+[.]?[0-9]{0,2}$/';
+//déclaration d'un tableau d'erreur
+$formError = array();
+
+//vérification que les données ont été envoyés
+if (isset($_POST['addPricesSubmit'])) {
+    //instanciation de l'objet timetable
+    $price = NEW prices();
+    //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDate de l'objet $timetable
+    $price->editDatePrices = date('Y-m-d H:i:s');
+    //vérification de la présence d'un id dans l'url et attribution de sa valeur à l'attribut idPlaces de l'objet $timetable
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $price->idPlaces = htmlspecialchars($_GET['id']);
+    }
+    //
+    if (!empty($_POST['price'])) {
+        if (preg_match($regexPrice, $_POST['price'])) {
+            $price->price = htmlspecialchars($_POST['price']);
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
+            $formError['price'] = 'La saisie du tarif est invalide';
+        }
+    } else { //si le champ est vide affichage d'un message d'erreur
+        $formError['price'] = 'Veuillez indiquer un tarif';
+    }
+    //
+    if (!empty($_POST['idPriceTypes'])) {
+        //vérification de la validité de chaque valeur (doit être un nombre) et attribution de leurs valeurs à l'attribut idDays de l'objet $timetable avec la sécurité htmlspecialchars (évite injection de code)
+        if (is_numeric($_POST['idPriceTypes'])) {
+            $price->idPriceTypes = htmlspecialchars($_POST['idPriceTypes']);
+        } else { //si chaque valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
+            $formError['idPriceTypes'] = 'Veuillez sélectionner un type de tarif valide';
+        }
+    } else { //si chaque champ est vide affichage d'un message d'erreur
+        $formError['idPriceTypes'] = 'Veuillez sélectionner un type de tarif';
+    }
+    //vérification que le champ phone n'est pas vide (peut être vide)
+    if (!empty($_POST['priceName'])) {
+        //vérification de la validité de la valeur et attribution de cette valeur à l'attribut phone de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
+        if (preg_match($regexPhone, $_POST['priceName'])) {
+            $price->name = htmlspecialchars($_POST['priceName']);
+        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
+            $formError['priceName'] = 'La saisie du numéro de téléphone est invalide';
+        }
+    }
+    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout des horaires après avoir vérifié qu'ils n'existaient pas déjà
+    if (count($formError) == 0) {
+        //appel de la méthode vérifiant que l'horaire n'existe pas déjà dans la base de données
+        $checkExistingPrice = $price->checkIfPriceExist();
+        //si la méthode checkIfTimetableExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
+        if ($checkExistingPrice === '0') {
+            if (!$price->addPrices()) { //affichage d'un message d'erreur si la méthode addTimetable() ne s'exécute pas
+                $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            } else {
+                header('Location: Lieu?id=' . $price->idPlaces);
+                exit;
+            }
+            //si la méthode checkIfTimetableExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+        } elseif ($checkExistingPrice === FALSE) {
+            $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+            //sinon la méthode checkIfTimetableExist() retourne 1, l'horaire existe déjà dans la base de données, affichage d'un message d'erreur
+        } else {
+            $formError['addPricesSubmit'] = 'Ce site touristique a déjà des horaires enregistrés pour ce jour à cette période, veuillez les modifier sur la page du site touristique';
+        }
+    }
+}
+
+//------------------------Suppression d'un tarif--------------------
+//vérification de la présence de idPriceDelete et qu'il s'agit bien d'un nombre
+if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) {
+    //instanciation pour la suppression
+    $deletePrice = NEW prices();
+    $deletePrice->id = htmlspecialchars($_GET['idPriceDelete']);
+    //appel de la méthode deletePrice() permettant la suppression d'un horaire
+    $removePrice = $deletePrice->deletePrice();
+    if ($removePrice == TRUE) { //si la méthode s'exécute 
+    //redirection vers la page des lieux à voir de l'utilisateur
+        header('Location: Lieu?id=' . $getPlaceInfo->id);
+        exit();
+    } elseif ($removePrice === FALSE) { //affichage d'un message d'erreur si la requête ne s'est pas exécutée
+        $deletePriceError = 'Le tarif n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
+    }
+}
+
+//----------------Ajout photo------------
 if (isset($_POST['addPictureSubmit'])) {
     $picture = NEW pictures();
     if (!empty($_FILES['picture'])) {
@@ -111,7 +325,8 @@ if (isset($_POST['addPictureSubmit'])) {
     }
 }    
 
-
+//écriture des données de session et fermeture de la session 
+session_write_close();
 
 //  if (!empty($_FILES['file']) && isset($_POST['submit'])) {
 //  if (is_uploaded_file($_FILES['file']['tmp_name'])) {

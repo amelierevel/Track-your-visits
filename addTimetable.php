@@ -18,72 +18,79 @@ include_once path::getControllersPath() . 'addTimetableCtrl.php'
         ?>  
         <div class="row">
             <form action="#" method="POST" class="col s12" id="addTimetables">
-                <?php
-                for ($count = 0; $count <= 1; $count++) { //boucle permettant d'afficher les différentes lignes du formulaire
-                    ?>
-                    <!-----------------Ajout d'horaire----------------->
-                    <div class="row">
-                        <div class="input-field col m2 offset-m2 s12">
-                            <select name="idDays[]">
-                                <option value="0" disabled selected>Jour</option>
-                                <?php
-                                foreach ($daysList as $dayDetail) { //boucle permettant d'afficher la liste des jours de la semaine
-                                    ?>
-                                    <option value="<?= $dayDetail->id ?>"><?= $dayDetail->day ?></option>
-                                <?php } ?>
-                            </select>
-                            <label for="idDays[]">Sélectionner un jour</label>
-                            <?php
-                            if (isset($formError['idDays'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
-                                ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['idDays'][$count]; ?></p>
-                            <?php } ?>
-                        </div>
-                        <div class="input-field col m2 s12">
-                            <select name="idTimetableTypes[]">
-                                <option value="0" disabled selected>Période</option>
-                                <?php
-                                foreach ($timetableTypesList as $timetableTypeDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
-                                    ?>
-                                    <option value="<?= $timetableTypeDetail->id ?>"><?= $timetableTypeDetail->name ?></option>
-                                <?php } ?>
-                            </select>
-                            <label for="idTimetableTypes[]">Sélectionner une période horaire</label>
-                            <?php
-                            if (isset($formError['idTimetableTypes'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
-                                ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['idTimetableTypes'][$count]; ?></p>
-                            <?php } ?>
-                        </div>
-                        <div class="input-field col m2 s5 offset-s1">
-                            <input type="time" name="opening[]" id="opening" placeholder="--:--" class="validate" value="" />
-                            <label for="opening[]">Horaire d'ouverture</label>
-                            <?php
-                            if (isset($formError['opening'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
-                                ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['opening'][$count]; ?></p>
-                            <?php } ?>
-                        </div>
-                        <div class="input-field col m2 s5">
-                            <input type="time" name="closing[]" id="closing" placeholder="--:--" class="validate" value="" />
-                            <label for="closing[]">Horaire de fermeture</label>
-                            <?php
-                            if (isset($formError['closing'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
-                                ?>
-                                <p class="boldText red-text text-darken-1 center-align"><?= $formError['closing'][$count]; ?></p>
-                            <?php } ?>
-                        </div>
-                    </div>
+                <div id="newTimetableAfter">
                     <?php
-                    if (isset($formError['timetableExist'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
+                    for ($count = 0; $count <= 6; $count++) { //boucle permettant d'afficher les différentes lignes du formulaire
                         ?>
-                        <p class="boldText red-text text-darken-1 center-align"><?= $formError['timetableExist'][$count]; ?></p>
+                        <!-----------------Ajout d'horaire----------------->
+                        <div class="row timetableLign">
+                            <div class="input-field hide">
+                                <input type="text" name="lignNumber[]" id="lignNumber" value="<?= $count ?>" required />
+                                <label for="lignNumber[]"></label>
+                            </div>
+                            <div class="input-field col m2 offset-m2 s12">
+                                <select name="idDays[]">
+                                    <option value="0" disabled selected>Jour</option>
+                                    <?php
+                                    foreach ($daysList as $dayDetail) { //boucle permettant d'afficher la liste des jours de la semaine
+                                        ?>
+                                        <option value="<?= $dayDetail->id ?>"><?= $dayDetail->day ?></option>
+                                    <?php } ?>
+                                </select>
+                                <label for="idDays[]">Sélectionner un jour</label>
+                                <?php
+                                if (isset($formError['idDays'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
+                                    ?>
+                                    <p class="boldText red-text text-darken-1 center-align"><?= $formError['idDays'][$count]; ?></p>
+                                <?php } ?>
+                            </div>
+                            <div class="input-field col m2 s12">
+                                <select name="idTimetableTypes[]">
+                                    <option value="0" disabled selected>Période</option>
+                                    <?php
+                                    foreach ($timetableTypesList as $timetableTypeDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
+                                        ?>
+                                        <option value="<?= $timetableTypeDetail->id ?>"><?= $timetableTypeDetail->name ?></option>
+                                    <?php } ?>
+                                </select>
+                                <label for="idTimetableTypes[]">Sélectionner une période horaire</label>
+                                <?php
+                                if (isset($formError['idTimetableTypes'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
+                                    ?>
+                                    <p class="boldText red-text text-darken-1 center-align"><?= $formError['idTimetableTypes'][$count]; ?></p>
+                                <?php } ?>
+                            </div>
+                            <div class="input-field col m2 s5 offset-s1">
+                                <input type="time" name="opening[]" id="opening" placeholder="--:--" class="validate" value="" />
+                                <label for="opening[]">Horaire d'ouverture</label>
+                                <?php
+                                if (isset($formError['opening'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
+                                    ?>
+                                    <p class="boldText red-text text-darken-1 center-align"><?= $formError['opening'][$count]; ?></p>
+                                <?php } ?>
+                            </div>
+                            <div class="input-field col m2 s5">
+                                <input type="time" name="closing[]" id="closing" placeholder="--:--" class="validate" value="" />
+                                <label for="closing[]">Horaire de fermeture</label>
+                                <?php
+                                if (isset($formError['closing'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
+                                    ?>
+                                    <p class="boldText red-text text-darken-1 center-align"><?= $formError['closing'][$count]; ?></p>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <?php
+                        if (isset($formError['timetableExist'][$count])) { //affichage du message d'erreur si le tableau d'erreur existe
+                            ?>
+                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['timetableExist'][$count]; ?></p>
+                        <?php } ?>
                     <?php } ?>
-                <?php } ?>
-                <!--Bouton de validation du formulaire-->
-                <div class="center-align">
-                    <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addTimetablesSubmit" id="addTimetablesSubmit">Enregistrer les horaires</button>
+                    <!--Bouton de validation du formulaire-->
                 </div>
+                    <div class="center-align">
+                        <button class="btn waves-effect waves-light lime darken-3" type="button" id="addTimetableLign"><i class="material-icons right">add</i>Ajouter plus d'horaires</button>
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addTimetablesSubmit" id="addTimetablesSubmit">Enregistrer les horaires</button>
+                    </div>
             </form>
             <p class="boldText red-text text-darken-1 center-align">
                 <?php

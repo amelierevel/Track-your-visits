@@ -1,5 +1,6 @@
 <?php
-
+//ouverture de la session
+session_start();
 //insertion de la class database et des models users et userTypes
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'users.php';
@@ -14,8 +15,6 @@ $formError = array();
 
 //verification que les données ont été envoyés
 if (isset($_POST['updateUserSubmit'])) {
-    //ouverture de la session pour pouvoir faire la modification du profil car elle ne s'ouvre qu'à partir du chargement de la page header (après le controller)
-    session_start();
     //instanciation de l'objet user
     $user = NEW users();
     //récupération des valeurs non modifiables par l'utilisateur
@@ -50,20 +49,16 @@ if (isset($_POST['updateUserSubmit'])) {
     if (count($formError) == 0) {
         if (!$user->updateProfileUser()) { //affichage d'un message d'erreur si la méthode ne s'exécute pas
             $formError['updateUserSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-        } else { //réattribution des nouvelles valeurs (modifiées par l'utilisateur) à la session
+        } else { //si la méthode s'exécute, réattribution des nouvelles valeurs (modifiées par l'utilisateur) à la session
             $_SESSION['mail'] = $user->mail;
             $_SESSION['idUserTypes'] = $user->idUserTypes;
         }
     }
-    //écriture des données de session et fermeture de la session (pour qu'elle puisse s'ouvrir correctement au chargement du header)
-    session_write_close();
 }
 
 //-------------modification du mot de passe de l'utilisateur---------------
 //verification que les données ont été envoyés
 if (isset($_POST['updatePasswordSubmit'])) {
-    //ouverture de la session pour pouvoir faire la modification du profil car elle ne s'ouvre qu'à partir du chargement de la page header (après le controller)
-    session_start();
     //instanciation de l'objet user
     $updateUserPassword = NEW users();
     //récupération des valeurs non modifiables par l'utilisateur
@@ -108,8 +103,6 @@ if (isset($_POST['updatePasswordSubmit'])) {
             $_SESSION['password'] = $updateUserPassword->password;
         }
     }
-    //écriture des données de session et fermeture de la session (pour qu'elle puisse s'ouvrir correctement au chargement du header)
-    session_write_close();
 }
 
 //-------------suppression de l'utilisateur---------------
@@ -121,8 +114,6 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
     //appel de la méthode deleteUser() permettant la suppression d'un utilisateur
     $removeUser = $deleteUser->deleteUser();
     if ($removeUser == TRUE) { //si la méthode s'exécute 
-        //ouverture de la session pour pouvoir la détruire avant le chargement de la page header (car sinon elle s'ouvre qu'à partir du chargement de la page header)
-        session_start();
         //destruction de la session
         session_destroy();
         //redirection vers la page d'inscription
@@ -132,3 +123,5 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
         $deleteError = 'L\'utilisateur n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
     }
 }
+//écriture des données de session et fermeture de la session 
+session_write_close();
