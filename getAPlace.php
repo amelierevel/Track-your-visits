@@ -15,6 +15,36 @@ include_once path::getRootPath() . 'header.php';
             </div>
         </div>
         <div class="col m7 s12">
+            
+<!--            <h3 class="center-align">Ajouter une photo</h3>
+            <form action="#" method="POST" enctype="multipart/form-data" class="col s12" id="addPicture">
+                <div class="row">
+                    <div class="file-field input-field">
+                        <div class="btn orange darken-3 boldText col m2 s12">
+                            <span>Parcourir</span>
+                            <input type="file" name="picture" id="picture" />
+                        </div>
+                        <div class="file-path-wrapper col m10 s12">
+                            <input type="text"  class="file-path validate"  />
+                        </div>
+                        <?php
+                        if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                            ?>
+                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['picture']; ?></p>
+                        <?php } ?>
+                    </div>
+                    <div class="input-field hide">
+                        <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
+                        <label for="idPlace"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field center-align col s8 offset-s2">
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPictureSubmit" id="addPictureSubmit">Ajouter la photo</button>
+                    </div>
+                </div>
+            </form>-->
+            
             <h2 class="PlaceTitle"><?= $placeInfo->name ?></h2>
             <p class="categoryText"><?= $placeInfo->category ?></p>
             <?php
@@ -365,10 +395,10 @@ include_once path::getRootPath() . 'header.php';
                     <div class="file-field input-field">
                         <div class="btn orange darken-3 boldText col m2 s12">
                             <span>Parcourir</span>
-                            <input type="file" />
+                            <input type="file" name="picture" id="picture" />
                         </div>
                         <div class="file-path-wrapper col m10 s12">
-                            <input type="text" name="picture" class="file-path validate"  />
+                            <input type="text" class="file-path validate"  />
                         </div>
                         <?php
                         if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe

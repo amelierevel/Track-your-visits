@@ -1,4 +1,5 @@
 <?php
+
 //ouverture de la session
 session_start();
 //insertion de la class database et des models 
@@ -11,7 +12,7 @@ include_once path::getModelsPath() . 'days.php';
 include_once path::getModelsPath() . 'timetableTypes.php';
 include_once path::getModelsPath() . 'priceTypes.php';
 include_once path::getModelsPath() . 'prices.php';
-
+include_once path::getModelsPath() . 'pictures.php';
 
 //instanciation pour l'affichage des informations du lieu
 $getPlaceInfo = NEW places();
@@ -221,7 +222,7 @@ if (isset($_POST['addPricesSubmit'])) {
         $price->idPlaces = htmlspecialchars($_GET['id']);
     }
     //vérification que le champ price n'est pas vide
-    if (!empty($_POST['price'])) { 
+    if (!empty($_POST['price'])) {
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut price de l'objet $price avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexPrice, $_POST['price'])) {
             $price->price = htmlspecialchars($_POST['price']);
@@ -291,48 +292,44 @@ if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) {
 
 //----------------Ajout photo------------
 if (isset($_POST['addPictureSubmit'])) {
-    $picture = NEW pictures();
+    echo '0';
     if (!empty($_FILES['picture'])) {
-        //variable qui stock les infos du fichier récupérées par la fonction pathinfo
-        $fileInfo = pathinfo($_FILES['picture']['name']);
-        //variable qui récupère la valeur de l'extension du fichier
-        $extensionUpload = $fileInfo['extension'];
-        //déclaration de la variable contenant l'extension autorisée
+//déclaration de la variable contenant l'extension autorisée
         $autorizedExtension = array('jpg', 'jpeg', 'png');
-        //vérification de la validité de l'extension
-        if ($extensionUpload == $autorizedExtension) {
-            if ($_FILES['picture']['size'] <= 500000) { //500ko max par image 
-                $picture->picture = htmlspecialchars($_FILES['picture']);
-            } else {
-                $formError['picture'] = 'L\'image sélectionnée est trop volumineuse, veuillez en choisir une autre (500ko max)';
+        $temp = explode('.', $_FILES['picture']['name']);
+        $file_extension = end($temp);
+//        echo '1';
+        if ($_FILES['picture']['size'] <= 500000) {//500ko max par image 
+//            echo '2';
+            if (in_array($file_extension, $autorizedExtension)) {//vérification si l'extension png est bien présente dans le tableau file_extension
+//                echo '3';
+                if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
+                    $image = $_FILES['picture'];
+                    $sourcePath = $image['tmp_name'];
+                    $targetPath = path::getPlaceImage() . $image['name'];
+//                    echo '4';
+                    if (move_uploaded_file($sourcePath, $targetPath)) {
+//                        echo '5';
+                        $picture = NEW pictures();
+                        $picture->picture = $image['name'];
+                        //vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut id de l'objet $getPlaceInfo avec la sécurité htmlspecialchars
+                        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                            $picture->idPlaces = htmlspecialchars($_GET['id']);
+                        }
+//                        var_dump($picture);
+                        $picture->addPicture();
+                    }
+                }
+            } else { //si mauvaise extension
+                $formError['picture'] = 'L\'image sélectionnée n\'est pas au bon format, veuillez utiliser les formats .jpg, .jpeg ou .png';
             }
-        } else {
-            $formError['picture'] = 'L\'image sélectionnée n\'est pas au bon format, veuillez utiliser les formats .jpg, .jpeg ou .png';
+        } else { //si taille supérieure à 500ko
+            $formError['picture'] = 'L\'image sélectionnée est trop volumineuse, veuillez en choisir une autre (500ko max)';
         }
-    } else {
+    } else { //si le champ est vide
         $formError['picture'] = 'Veuillez sélectionner une image';
     }
-    if (!empty($_POST['idPlace']) && is_numeric($_POST['idPlace'])) {
-        $picture->idPlaces = htmlspecialchars($_POST['idPlace']);
-    }
-    if (count($formError) == 0) {
-        $addPicture = $picture->addPicture();
-    }
-}    
+}
 
 //écriture des données de session et fermeture de la session 
 session_write_close();
-
-//  if (!empty($_FILES['file']) && isset($_POST['submit'])) {
-//  if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-//    $img = $_FILES['file'];
-//    $start_path = $img['tmp_name'];
-//    $end_path = 'files/' . $img['name'];
-//    if (move_uploaded_file($start_path, $end_path)) {
-//      //insertion en base du nom
-//      $photo = new photo();
-//      $photo->name = $img['name'];
-//      $photo->uploadFile();
-//    }
-//  }
-//}

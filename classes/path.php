@@ -10,6 +10,7 @@ class path {
     const CLASSES = 'classes/';
     const CONTROLLERS = 'controllers/';
     const MODELS = 'models/';
+    const PLACEIMAGES = 'assets/img/placeImages/';
 
     /**
      * Méthode permettant de décomposer le chemin
@@ -44,6 +45,14 @@ class path {
      */
     public static function getModelsPath() {
         return self::getAbsolutePath() . self::MODELS;
+    }
+
+    /**
+     * Méthode permettant d'avoir le chemin absolu vers le dossier userImages
+     * @return type
+     */
+    public static function getPlaceImage() {
+        return self::getAbsolutePath() . self::PLACEIMAGES;
     }
 
     /**
