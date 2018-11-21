@@ -19,8 +19,7 @@ if (isset($_GET['idPlaceDelete']) && is_numeric($_GET['idPlaceDelete'])) {
     $deletePlaceToSee->id = htmlspecialchars($_GET['idPlaceDelete']);
     //appel de la méthode deletePlaceToSee() permettant la suppression d'un lieu à voir d'un utilisateur
     $removePlaceToSee = $deletePlaceToSee->deletePlaceToSee();
-    if ($removePlaceToSee == TRUE) { //si la méthode s'exécute 
-    //redirection vers la page des lieux à voir de l'utilisateur
+    if ($removePlaceToSee == TRUE) { //si la méthode s'exécute redirection vers la page des lieux à voir de l'utilisateur
         header('Location: A-voir');
         exit();
     } elseif ($removePlaceToSee === FALSE) { //affichage d'un message d'erreur si la requête ne s'est pas exécutée

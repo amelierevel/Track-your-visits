@@ -17,7 +17,7 @@ include_once path::getRootPath() . 'header.php';
                     </div>
                     <div class="card-stacked">
                         <div class="card-content">
-                            <a href="A-voir?idPlaceDelete=<?= $placeDetail->idPlaceToSee ?>" class="btn-floating waves-effect waves-light red accent-4 secondary-content"><i class="material-icons">delete</i></a>
+                            <a href="A-voir?idPlaceDelete=<?= $placeDetail->idPlaceToSee ?>" class="btn-floating waves-effect waves-light red accent-4 secondary-content deleteButton"><i class="material-icons">delete</i></a>
                             <?php
                             if (isset($deleteError)) { //affichage du message d'erreur s'il existe
                                 ?>  

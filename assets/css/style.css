@@ -10,7 +10,7 @@ body{
 }
 /*taille police des liens de la barre de navigation*/
 body nav ul a{
-     font-size: 120%;
+    font-size: 120%;
 }
 /*taille et couleur police des liens du dropdown de la barre de navigation*/
 body nav ul a:hover{
@@ -87,5 +87,20 @@ nav.fixed{
 }
 table,th,td{
     border: solid black 1px !important;
+}
+#timetableForm,#priceForm{
+    padding-left: 12%;
+    padding-right: 12%;
+    padding-top: 1%;
+}
+.bgForm{
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2%;
+}
+#addTimetablesSubmit,#addPricesSubmit{
+    margin-bottom: 1%;
+}
+#addTimetableButton,#addPriceButton{
+    margin-left: 8%;
 }
 /*----------------------------------------------------------Page -------------------------------------------------------*/

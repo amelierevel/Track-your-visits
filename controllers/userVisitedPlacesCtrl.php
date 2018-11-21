@@ -19,8 +19,7 @@ if (isset($_GET['idPlaceDelete']) && is_numeric($_GET['idPlaceDelete'])) {
     $deleteVisitedPlace->id = htmlspecialchars($_GET['idPlaceDelete']);
     //appel de la méthode deleteVisitedPlaces() permettant la suppression d'un lieu visité d'un utilisateur
     $removeVisitedPlace = $deleteVisitedPlace->deleteVisitedPlaces();
-    if ($removeVisitedPlace == TRUE) { //si la méthode s'exécute 
-    //redirection vers la page des lieux visités de l'utilisateur
+    if ($removeVisitedPlace == TRUE) { //si la méthode s'exécute redirection vers la page des lieux visités de l'utilisateur
         header('Location: Mes-visites');
         exit();
     } elseif ($removeVisitedPlace === FALSE) { //affichage d'un message d'erreur si la requête ne s'est pas exécutée

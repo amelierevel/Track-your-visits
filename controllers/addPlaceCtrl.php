@@ -6,7 +6,7 @@ include_once path::getModelsPath() . 'categories.php';
 include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
 
-//instanciation pour l'affichage de la liste des catégories de sites touristiques
+//instanciation pour l'affichage de la liste des catégories de lieus
 $categorie = NEW categories();
 $categoriesList = $categorie->getCategoriesList();
 
@@ -29,7 +29,7 @@ if (isset($_POST['addPlaceSubmit'])) {
     if (!empty($_POST['placeName'])) {
         $place->name = htmlspecialchars($_POST['placeName']);
     } else { //si le champ est vide affichage d'un message d'erreur
-        $formError['placeName'] = 'Veuillez indiquer un nom pour le site touristique';
+        $formError['placeName'] = 'Veuillez indiquer un nom pour le lieu';
     }
     //vérification que le champ idCategories n'est pas vide 
     if (!empty($_POST['idCategories'])) {
@@ -106,11 +106,11 @@ if (isset($_POST['addPlaceSubmit'])) {
     if (!empty($_POST['description'])) {
         $place->description = htmlspecialchars($_POST['description']);
     } else { //si le champ est vide affichage d'un message d'erreur
-        $formError['description'] = 'Veuillez renseigner une description du site touristique';
+        $formError['description'] = 'Veuillez renseigner une description du lieu';
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un lieu après avoir vérifié qu'il n'existe pas déjà
     if (count($formError) == 0) {
-        //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDate de l'objet $place
+        //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $place
         $place->createDate = date('Y-m-d H:i:s');
         //appel de la méthode vérifiant que le lieu n'existe pas déjà dans la base de données
         $checkExistingPlace = $place->checkIfPlaceExist();

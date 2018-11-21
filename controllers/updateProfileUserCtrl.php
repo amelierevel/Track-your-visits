@@ -59,7 +59,7 @@ if (isset($_POST['updateUserSubmit'])) {
 //-------------modification du mot de passe de l'utilisateur---------------
 //verification que les données ont été envoyés
 if (isset($_POST['updatePasswordSubmit'])) {
-    //instanciation de l'objet user
+    //instanciation de l'objet user pour la modification
     $updateUserPassword = NEW users();
     //récupération des valeurs non modifiables par l'utilisateur
     $updateUserPassword->id = $_SESSION['id'];
@@ -114,6 +114,8 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
     //appel de la méthode deleteUser() permettant la suppression d'un utilisateur
     $removeUser = $deleteUser->deleteUser();
     if ($removeUser == TRUE) { //si la méthode s'exécute 
+        //destruction de toutes les variables de la session
+        session_unset();
         //destruction de la session
         session_destroy();
         //redirection vers la page d'inscription

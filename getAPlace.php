@@ -1,5 +1,5 @@
 <?php
-//insertion du fichier path, du controller puis du controller
+//insertion du fichier path, du controller puis du header
 include_once 'classes/path.php';
 include_once path::getControllersPath() . 'getAPlaceCtrl.php';
 include_once path::getRootPath() . 'header.php';
@@ -24,7 +24,7 @@ include_once path::getRootPath() . 'header.php';
                     <div class="iconPlaceForUser">
                         <form action="#" method="POST" class="col m1 offset-m10" id="addPlaceToSeeForm">
                             <?php
-                            //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
+                            //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage de l'icone en vert
                             if (isset($_POST['addPlaceToSeeSubmit']) && (count($formError) === 0)) {
                                 ?>
                                 <button class="btn-flat btn-large white" title="Lieux à voir"><i class="fas fa-eye greenIcon"></i></button>
@@ -40,7 +40,7 @@ include_once path::getRootPath() . 'header.php';
                         </form>
                         <form action="#" method="POST" class="col m1" id="addVisitedPlaceForm">
                             <?php
-                            //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
+                            //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage de l'icone en vert
                             if (isset($_POST['addVisitedPlaceSubmit']) && (count($formError) === 0)) {
                                 ?>
                                 <button class="btn-flat btn-large white" title="Lieux visités"><i class="fas fa-check-circle greenIcon"></i></button>
@@ -57,7 +57,7 @@ include_once path::getRootPath() . 'header.php';
                     </div>
                     <p class="red-text text-darken-1 right-align">
                         <?php
-                        //ternaire permettant l'affichage du message d'erreur si le lieu fait déjà parti des lieux à voir de l'utilisateur
+                        //ternaire permettant l'affichage du message d'erreur si le lieu fait déjà parti des lieux à voir/visités de l'utilisateur
                         echo isset($formError['alreadyAdded']) ? $formError['alreadyAdded'] : '';
                         //ternaires permettant l'affichage des messages d'erreur si les tableaux d'erreur existent
                         echo isset($formError['idPlace']) ? $formError['idPlace'] : '';
@@ -74,42 +74,44 @@ include_once path::getRootPath() . 'header.php';
     </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle">Contact</h3>
-            <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">home</i>Adresse</div>
-                    <div class="collapsible-body white"><?= $placeInfo->address ?> - <?= $placeInfo->postalCode ?> <?= $placeInfo->city ?></div>
-                </li>
-                <?php if (isset($placeInfo->phone)) { ?>
+            <h3 class="sectionTitle center-align">Contact</h3>
+            <div class="row">
+                <ul class="collapsible col m10 offset-m1">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">phone</i>Téléphone</div>
-                        <div class="collapsible-body white"><?= $placeInfo->phone ?></div>
+                        <div class="collapsible-header"><i class="material-icons">home</i>Adresse</div>
+                        <div class="collapsible-body white"><?= $placeInfo->address ?> - <?= $placeInfo->postalCode ?> <?= $placeInfo->city ?></div>
                     </li>
-                    <?php
-                }
-                if (isset($placeInfo->mail)) {
-                    ?>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">email</i>Mail</div>
-                        <div class="collapsible-body white"><?= $placeInfo->mail ?></div>
-                    </li>
-                    <?php
-                }
-                if (isset($placeInfo->website)) {
-                    ?>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">desktop_windows</i>Site internet</div>
-                        <div class="collapsible-body white">
-                            <a href="<?= $placeInfo->website ?>" title="Lien vers le site de <?= $placeInfo->name ?>" target="_blank"><?= $placeInfo->website ?></a>
-                        </div>
-                    </li>
-                <?php } ?>
-            </ul>
+                    <?php if (isset($placeInfo->phone)) { ?>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">phone</i>Téléphone</div>
+                            <div class="collapsible-body white"><?= $placeInfo->phone ?></div>
+                        </li>
+                        <?php
+                    }
+                    if (isset($placeInfo->mail)) {
+                        ?>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">email</i>Mail</div>
+                            <div class="collapsible-body white"><?= $placeInfo->mail ?></div>
+                        </li>
+                        <?php
+                    }
+                    if (isset($placeInfo->website)) {
+                        ?>
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">desktop_windows</i>Site internet</div>
+                            <div class="collapsible-body white">
+                                <a href="<?= $placeInfo->website ?>" title="Lien vers le site de <?= $placeInfo->name ?>" target="_blank"><?= $placeInfo->website ?></a>
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle">Horaires</h3>
+            <h3 class="sectionTitle center-align">Horaires</h3>
             <div class="row">
                 <table class="striped centered responsive-table col m10 offset-m1">
                     <thead>
@@ -145,7 +147,7 @@ include_once path::getRootPath() . 'header.php';
                                     if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                                         ?>
                                         <td>
-                                            <a href="Lieu?id=<?= $placeInfo->id ?>&idTimetableDelete=<?= $timetableDetail->id ?>" class="btn-floating waves-effect waves-light red accent-4"><i class="material-icons">delete</i></a>
+                                            <a href="Lieu?id=<?= $placeInfo->id ?>&idTimetableDelete=<?= $timetableDetail->id ?>" class="btn-floating btn-small waves-effect waves-light red accent-4 deleteButton"><i class="material-icons">delete</i></a>
                                             <?php
                                             if (isset($deleteTimetableError)) { //affichage du message d'erreur s'il existe
                                                 ?>  
@@ -165,12 +167,12 @@ include_once path::getRootPath() . 'header.php';
             if (isset($_SESSION['isConnect'])) {
                 if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                     ?>
-                    <div class="center-align">
-                        <a title="Lien pour l'ajout d'un horaire" class="btn lime darken-3 boldText" id="addTimetableButton"><i class="large material-icons right">expand_more</i>Ajouter un horaire</a>
+                    <div class="left-align">
+                        <a title="Lien pour l'ajout d'un horaire" class="btn lime darken-3 boldText" id="addTimetableButton">Ajouter un horaire</a>
                         <div id="timetableForm">
                             <!-----------------Formulaire d'ajout d'horaire----------------->
-                            <form action="#" method="POST" class="col s12">
-                                <div class="input-field col m2 offset-m2 s12">
+                            <form action="#" method="POST" class="col s12 bgForm">
+                                <div class="input-field col m4 s12">
                                     <select name="idDays">
                                         <option value="0" disabled selected>Jour</option>
                                         <?php
@@ -186,7 +188,7 @@ include_once path::getRootPath() . 'header.php';
                                         <p class="boldText red-text text-darken-1 center-align"><?= $formError['idDays']; ?></p>
                                     <?php } ?>
                                 </div>
-                                <div class="input-field col m2 s12">
+                                <div class="input-field col m4 s12">
                                     <select name="idTimetableTypes">
                                         <option value="0" disabled selected>Période</option>
                                         <?php
@@ -241,7 +243,7 @@ include_once path::getRootPath() . 'header.php';
     </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle">Tarifs</h3>
+            <h3 class="sectionTitle center-align">Tarifs</h3>
             <div class="row">
                 <table class="striped centered responsive-table col m10 offset-m1">
                     <thead>
@@ -275,7 +277,7 @@ include_once path::getRootPath() . 'header.php';
                                     if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                                         ?>
                                         <td>
-                                            <a href="Lieu?id=<?= $placeInfo->id ?>&idPriceDelete=<?= $priceDetail->id ?>" class="btn-floating waves-effect waves-light red accent-4"><i class="material-icons">delete</i></a>
+                                            <a href="Lieu?id=<?= $placeInfo->id ?>&idPriceDelete=<?= $priceDetail->id ?>" class="btn-floating btn-small waves-effect waves-light red accent-4 deleteButton"><i class="material-icons">delete</i></a>
                                             <?php
                                             if (isset($deletePriceError)) { //affichage du message d'erreur s'il existe
                                                 ?>  
@@ -295,12 +297,11 @@ include_once path::getRootPath() . 'header.php';
             if (isset($_SESSION['isConnect'])) {
                 if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                     ?>
-                    <div class="center-align">
-                        <a title="Lien pour l'ajout d'un tarif" class="btn lime darken-3 boldText" id="addPriceButton"><i class="large material-icons right">expand_more</i>Ajouter un tarif</a>
-                        <div id="priceForm">
-                            <form action="#" method="POST" class="col s12" id="pricesForm">
-                                <div class="row">
-                                    <div class="input-field col m2 offset-m2 s12">
+                    <div class="left-align">
+                        <a title="Lien pour l'ajout d'un tarif" class="btn lime darken-3 boldText" id="addPriceButton">Ajouter un tarif</a>
+                          <div id="priceForm">
+                                <form action="#" method="POST" class="col s12 bgForm">
+                                    <div class="input-field col m2 s12">
                                         <input type="text" name="price" id="price" placeholder="12.50€" class="validate" value="" />
                                         <label for="price">Tarif</label>
                                         <?php
@@ -309,7 +310,7 @@ include_once path::getRootPath() . 'header.php';
                                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['price']; ?></p>
                                         <?php } ?>
                                     </div>
-                                    <div class="input-field col m2 s12">
+                                    <div class="input-field col m4 s12">
                                         <select name="idPriceTypes">
                                             <option value="0" disabled selected>Type de tarif</option>
                                             <?php
@@ -325,7 +326,7 @@ include_once path::getRootPath() . 'header.php';
                                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['idPriceTypes']; ?></p>
                                         <?php } ?>
                                     </div>
-                                    <div class="input-field col m4 s12">
+                                    <div class="input-field col m6 s12">
                                         <input type="text" name="priceName" id="priceName" value="<?= isset($place->name) ? $place->name : '' ?>" />
                                         <label for="priceName">Nom du tarif (facultatif)</label>
                                         <?php
@@ -334,13 +335,12 @@ include_once path::getRootPath() . 'header.php';
                                             <p class="boldText red-text text-darken-1 center-align"><?= $formError['priceName']; ?></p>
                                         <?php } ?>
                                     </div>
-                                </div>
-                                <!--Bouton de validation du formulaire-->
-                                <div class="center-align">
-                                    <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPricesSubmit" id="addPricesSubmit">Enregistrer les tarifs</button>
-                                </div>
-                            </form>
-                        </div>
+                                    <!--Bouton de validation du formulaire-->
+                                    <div class="center-align">
+                                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPricesSubmit" id="addPricesSubmit">Enregistrer le tarif</button>
+                                    </div>
+                                </form>
+                            </div>
                         <p class="boldText red-text text-darken-1 center-align">
                             <?php
                             //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
