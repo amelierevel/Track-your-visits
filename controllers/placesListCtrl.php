@@ -1,10 +1,26 @@
 <?php
 
-//insertion de la class database et du model places
+//insertion de la class database et des models cities et places
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
 
+//-------------Recherche de lieu par nom----------
+//vérification que les données ont été envoyés
+if (isset($_POST['searchPlaceSubmit'])) {
+    //instanciation pour l'affichage du résultat de la recherche
+    $placeNameSearch = NEW places();
+    //vérification que le champ searchName n'est pas vide
+    if (!empty($_POST['searchName'])) {
+        //attribution de la valeur à l'attribut searchName (créé dans la méthode) de l'objet $placeNameSearch avec la sécurité htmlspecialchars
+        $placeNameSearch->searchName = htmlspecialchars($_POST['searchName']);
+    } else { //si le champ est vide affichage d'un message d'erreur
+        $errorMessage = 'Veuillez remplir le champ pour faire une recherche';
+    }
+    $placesFindList = $placeNameSearch->searchPlaces();
+}
+
+//--------------Affichage des lieux avec la pagination-----------
 //déclaration de la variable indiquant le nombre de lieux par page (notre choix)
 $limit = 10;
 //instanciation de l'objet $place pour l'affichage de la liste des lieux et la pagination

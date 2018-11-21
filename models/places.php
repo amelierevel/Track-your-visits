@@ -190,7 +190,8 @@ class places extends database {
                 . 'FROM `F396V_places` AS `pl` '
                 . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
                 . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
-                . 'LIMIT :limit OFFSET :offset';
+                . 'ORDER BY `pl`.`name` ASC '
+                . 'LIMIT :limit OFFSET :offset ';
         //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $placesPaging
         $placesPaging = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
@@ -208,6 +209,36 @@ class places extends database {
             $resultPaging = FALSE;
         }
         return $resultPaging;
+    }
+
+    public function searchPlaces() {
+        //initialisation d'un tableau vide
+        $resultArray = array();
+        //déclaration de la requête sql
+        $request = 'SELECT `pl`.`id`,`pl`.`name`,`pl`.`address`,`pl`.`description`,`pl`.`createDate`,`pl`.`idCategories`,`pl`.`idCities`, '
+                . '`cit`.`city`,`cit`.`postalCode`, '
+                . '`cat`.`name` AS `category` '
+                . 'FROM `F396V_places` AS `pl` '
+                . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
+                . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
+                . 'WHERE `pl`.`name` LIKE :searchName '
+                . 'ORDER BY `pl`.`name` ASC';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $searchPlaces
+        $searchPlaces = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
+        $searchPlaces->bindValue(':searchName', '%' . $this->searchName . '%', PDO::PARAM_STR);
+        //vérification que la requête s'est bien exécutée
+        if ($searchPlaces->execute()) {
+            //on vérifie que $searchPlaces est un objet
+            if (is_object($searchPlaces)) {
+                $resultArray = $searchPlaces->fetchAll(PDO::FETCH_OBJ);
+            } else {
+                $resultArray = FALSE;
+            }
+        }else{
+            $resultArray =FALSE;
+        }
+        return$resultArray;
     }
 
     /**
