@@ -12,6 +12,7 @@ RewriteRule ^Profil$ profile.php
 RewriteRule ^Inscription-contributeur$ registerContributorForm.php
 RewriteRule ^Inscription-utilisateur$ registerUser.php
 RewriteRule ^Inscription-visiteur$ registerVisitorForm.php
+RewriteRule ^Modification-lieu$ updatePlace.php
 RewriteRule ^Modification-profil$ updateProfileUser.php
 RewriteRule ^A-voir$ userPlacesToSee.php
 RewriteRule ^Mes-visites$ userVisitedPlaces.php

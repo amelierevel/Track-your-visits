@@ -12,7 +12,7 @@ include_once path::getRootPath() . 'header.php';
                 <h3 class="red-text text-accent-4">Dommage...</h3>
                 <p>Vous n'avez pas encore de lieux enregistrés pour le moment.</p> 
                 <p>Vous pouvez consulter la liste des lieux pour commencer à remplir cette section.</p>
-                <a href="Liste-des-lieux" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers laliste des lieux">Voir la liste des lieux</a>
+                <a href="Liste-des-lieux" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la liste des lieux">Voir la liste des lieux</a>
                 <?php
             } else {
                 foreach ($visitedPlacesList as $placeDetail) { //boucle permettant d'afficher la liste des lieux

@@ -237,10 +237,33 @@ class places extends database {
             } else {
                 $resultArray = FALSE;
             }
-        }else{
-            $resultArray =FALSE;
+        } else {
+            $resultArray = FALSE;
         }
         return$resultArray;
+    }
+
+    public function updatePlace() {
+        //déclaration de la requête sql
+        $request = 'UPDATE `F396V_places` '
+                . 'SET `idCategories` = :idCategories,`phone` = :phone, `mail` = :mail, `website` = :website, `description` = :description '
+                . 'WHERE `id` = :id';
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $updatePlace
+        $updatePlace = $this->db->prepare($request);
+        //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
+        $updatePlace->bindValue(':id', $this->id, PDO::PARAM_INT);
+        $updatePlace->bindValue(':idCategories', $this->idCategories, PDO::PARAM_INT);
+        $updatePlace->bindValue(':phone', $this->phone, PDO::PARAM_STR);
+        $updatePlace->bindValue(':mail', $this->mail, PDO::PARAM_STR);
+        $updatePlace->bindValue(':website', $this->website, PDO::PARAM_STR);
+        $updatePlace->bindValue(':description', $this->description, PDO::PARAM_STR);
+        //vérification que la requête s'est bien exécutée
+        if ($updatePlace->execute()) {
+            //vérification qu'il s'agit bien d'un objet
+            if (is_object($updatePlace)) {
+                return $updatePlace;
+            }
+        }
     }
 
     /**

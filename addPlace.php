@@ -15,7 +15,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                 <h4 class="green-text boldText">Félicitation !</h4>
                 <p>Votre lieu <span class="boldText">"<?= $place->name ?>"</span> a bien été enregistré.</p>
                 <p>Vous pouvez désormais consulter la page de ce lieu pour y ajouter une photo ainsi que les horaires et les tarifs.</p>
-                <a href="Lieu?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers l'ajout des horaires">Accéder à la page de <?= $place->name ?></a>
+                <a href="Lieu?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la page du lieu <?= $place->name ?>">Accéder à la page de <?= $place->name ?></a>
             </div>
             <?php
         } else { //sinon affichage des messages d'erreurs
@@ -118,7 +118,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                     </div>
                     <div class="input-field col m3 s12">
                         <i class="material-icons prefix">desktop_windows</i>
-                        <input type="text" name="website" id="website" value="<?= isset($place->website) ? $place->website : '' ?>" />
+                        <input type="text" name="website" id="website" value="<?= isset($place->website) ? $place->website : '' ?>" placeholder="https://materializecss.com/" />
                         <label for="placeWebsite">Site web du lieu (facultatif)</label>
                         <?php
                         if (isset($formError['website'])) { //affichage du message d'erreur si le tableau d'erreur existe
@@ -131,7 +131,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                 <div class="row">
                     <div class="input-field col m8 offset-m2 s12">
                         <i class="material-icons prefix">create</i>
-                        <textarea class="materialize-textarea" name="description" id="description" value="<?= isset($place->description) ? $place->description : '' ?>" required></textarea>
+                        <textarea class="materialize-textarea" name="description" id="description" required><?= isset($place->description) ? $place->description : '' ?></textarea>
                         <label for="description">Description du lieu</label>
                         <?php
                         if (isset($formError['description'])) { //affichage du message d'erreur si le tableau d'erreur existe

@@ -106,7 +106,7 @@ include_once path::getRootPath() . 'header.php';
     </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle center-align">Contact</h3>
+            <h3 class="sectionTitle center-align boldText">Contact</h3>
             <div class="row">
                 <ul class="collection col m10 offset-m1 center-align">
                     <li class="collection-item"><i class="material-icons">home</i>Adresse : <?= $placeInfo->address ?> - <?= $placeInfo->postalCode ?> <?= $placeInfo->city ?></li>
@@ -129,7 +129,7 @@ include_once path::getRootPath() . 'header.php';
     </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle center-align">Horaires</h3>
+            <h3 class="sectionTitle center-align boldText">Horaires</h3>
             <div class="row">
                 <?php if (empty($timetablesList)) { ?>
                     <p class="center-align"><span class="boldText red-text text-accent-4">Dommage...</span>
@@ -195,7 +195,7 @@ include_once path::getRootPath() . 'header.php';
                 if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                     ?>
                     <div class="left-align">
-                        <a title="Lien pour l'ajout d'un horaire" class="btn lime darken-3 boldText" id="addTimetableButton">Ajouter un horaire</a>
+                        <h4 class="col m6 offset-m3 s12 center-align lime darken-3 white-text">Ajouter un horaire</h4>
                         <div id="timetableForm">
                             <!-----------------Formulaire d'ajout d'horaire----------------->
                             <form action="#" method="POST" class="col s12 bgForm">
@@ -270,7 +270,7 @@ include_once path::getRootPath() . 'header.php';
     </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle center-align">Tarifs</h3>
+            <h3 class="sectionTitle center-align boldText">Tarifs</h3>
             <div class="row">
                 <?php if (empty($pricesList)) { ?>
                     <p class="center-align"><span class="boldText red-text text-accent-4">Dommage...</span>
@@ -334,7 +334,7 @@ include_once path::getRootPath() . 'header.php';
                 if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                     ?>
                     <div class="left-align">
-                        <a title="Lien pour l'ajout d'un tarif" class="btn lime darken-3 boldText" id="addPriceButton">Ajouter un tarif</a>
+                        <h4 class="col m6 offset-m3 s12 center-align lime darken-3 white-text" >Ajouter un tarif</h4>
                         <div id="priceForm">
                             <form action="#" method="POST" class="col s12 bgForm">
                                 <div class="input-field col m2 s12">
@@ -376,6 +376,11 @@ include_once path::getRootPath() . 'header.php';
                 }
             }
             ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m10 offset-m1 s12 center-align">
+            <a href="Modification-lieu?id=<?= $placeInfo->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la page de modification du lieu">Modifier les renseignements du lieu</a>
         </div>
     </div>
 </div>
