@@ -73,11 +73,13 @@ class visitedPlaces extends database {
         $request = 'SELECT `vPl`.`idPlaces`,`vPl`.`id` AS `idVisitedPlace`,'
                 . '`pl`.`id`,`pl`.`name`,`pl`.`idCities`, '
                 . '`cit`.`city`,`cit`.`postalCode`, '
-                . '`cat`.`name` AS `category` '
+                . '`cat`.`name` AS `category`, '
+                . '`pic`.`picture` '
                 . 'FROM `F396V_visitedPlaces` AS `vPl` '
                 . 'LEFT JOIN `F396V_places` AS `pl` ON `vPl`.`idPlaces` = `pl`.`id` '
                 . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
                 . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
+                . 'LEFT JOIN `F396V_pictures` AS `pic` ON `pic`.`idPlaces` = `pl`.`id` '
                 . 'WHERE `vPl`.`idUsers` = :idUsers';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $visitedPlacesList
         $visitedPlacesList = $this->db->prepare($request);

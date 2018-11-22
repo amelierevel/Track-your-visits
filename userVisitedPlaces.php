@@ -13,7 +13,11 @@ include_once path::getRootPath() . 'header.php';
                 ?>
                 <div class="card  col m4 s12">
                     <div class="card-image">
-                        <img src="assets/img/berger_picard.jpg" class="responsive-img" />
+                        <?php if (isset($placeDetail->picture)) { ?>
+                        <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" alt="" class="responsive-img" />
+                    <?php } else { ?>
+                        <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                    <?php } ?>
                     </div>
                     <div class="card-stacked">
                         <div class="card-content">

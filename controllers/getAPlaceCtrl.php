@@ -243,14 +243,9 @@ if (isset($_POST['addPricesSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idPriceTypes'] = 'Veuillez sélectionner un type de tarif';
     }
-    //vérification que le champ priceName n'est pas vide (peut être vide)
+    //vérification que le champ priceName n'est pas vide (peut être vide) et attribution de sa valeur à l'attribut name de l'objet $price avec la sécurité htmlspecialchars (évite injection de code)
     if (!empty($_POST['priceName'])) {
-        //vérification de la validité de la valeur et attribution de cette valeur à l'attribut name de l'objet $price avec la sécurité htmlspecialchars (évite injection de code)
-        if (preg_match($regexPhone, $_POST['priceName'])) {
-            $price->name = htmlspecialchars($_POST['priceName']);
-        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
-            $formError['priceName'] = 'La saisie du numéro de téléphone est invalide';
-        }
+        $price->name = htmlspecialchars($_POST['priceName']);
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un tarif après avoir vérifié qu'il n'existait pas déjà
     if (count($formError) == 0) {
@@ -269,7 +264,7 @@ if (isset($_POST['addPricesSubmit'])) {
             $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             //sinon la méthode checkIfPriceExist() retourne 1, le tarif existe déjà dans la base de données, affichage d'un message d'erreur
         } else {
-            $formError['addPricesSubmit'] = 'Il y a déjà un tarif enregistré pour ce type de tarif';
+            $formError['addPricesSubmit'] = 'Il y a déjà un prix enregistré pour ce type de tarif';
         }
     }
 }
@@ -290,46 +285,67 @@ if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) {
     }
 }
 
-//----------------Ajout photo------------
+//--------------------------Ajout photo-----------------------
+//vérification que les données ont été envoyés
 if (isset($_POST['addPictureSubmit'])) {
-    echo '0';
+    //vérification que le champ picture n'est pas vide
     if (!empty($_FILES['picture'])) {
-//déclaration de la variable contenant l'extension autorisée
+        //déclaration de la variable contenant le tableau des extensions autorisées
         $autorizedExtension = array('jpg', 'jpeg', 'png');
-        $temp = explode('.', $_FILES['picture']['name']);
-        $file_extension = end($temp);
-//        echo '1';
-        if ($_FILES['picture']['size'] <= 500000) {//500ko max par image 
-//            echo '2';
-            if (in_array($file_extension, $autorizedExtension)) {//vérification si l'extension png est bien présente dans le tableau file_extension
-//                echo '3';
-                if (is_uploaded_file($_FILES['picture']['tmp_name'])) {
-                    $image = $_FILES['picture'];
-                    $sourcePath = $image['tmp_name'];
+        //découpage du nom du fichier au niveau des '.'
+        $temporary = explode('.', $_FILES['picture']['name']);
+        //récupération de la partie finale du nom du fichier (l'extension)
+        $file_extension = end($temporary);
+        if ($_FILES['picture']['size'] <= 500000) { //vérification que la taille du fichier ne dépasse pas 500ko
+            if (in_array($file_extension, $autorizedExtension)) { //vérification que l'extension du fichier fait bien partie du tableau d'extensions autorisées
+                if (is_uploaded_file($_FILES['picture']['tmp_name'])) { //vérification que le fichier a été téléchargé 
+                    $image = $_FILES['picture']; //stockage du fichier dans la variable $image
+                    $sourcePath = $image['tmp_name']; 
                     $targetPath = path::getPlaceImage() . $image['name'];
-//                    echo '4';
-                    if (move_uploaded_file($sourcePath, $targetPath)) {
-//                        echo '5';
-                        $picture = NEW pictures();
-                        $picture->picture = $image['name'];
-                        //vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut id de l'objet $getPlaceInfo avec la sécurité htmlspecialchars
+                    if (move_uploaded_file($sourcePath, $targetPath)) { //déplacement du fichier vers le dossier cible
+                        $picture = NEW pictures(); //instanciation pour l'ajout de l'image
+                        $picture->picture = $image['name']; //attribution du nom de l'image à l'attribut picture de l'objet $picture
+                        //vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $picture avec la sécurité htmlspecialchars
                         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                             $picture->idPlaces = htmlspecialchars($_GET['id']);
+                        } else { //si l'id n'est pas présent dans l'url ou s'il n'est pas un nom, affichage d'un message d'erreur
+                            $formError['picture'] = 'Une erreur s\'est produite lors de l\'ajout de votre image';
                         }
-//                        var_dump($picture);
-                        $picture->addPicture();
+                        //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'une image après avoir vérifié qu'il n'en existe pas déjà une pour ce lieu
+                        if (count($formError) == 0) {
+                            $checkExistingPicturePlace = $picture->checkIfPicturePlaceExist(); //appel de la méthode vérifiant que le lieu ne possède pas déjà une image
+                            //si la méthode checkIfPicturePlaceExist() retourne 0 le lieu n'a pas encore d'image et elle peut être ajoutée à la base de données
+                            if ($checkExistingPicturePlace === '0') {
+                                if (!$picture->addPicture()) { //affichage d'un message d'erreur si la méthode addPicture() ne s'exécute pas
+                                    $formError['picture'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+                                }
+                            } elseif ($checkExistingPicturePlace === FALSE) { //si la méthode checkIfPicturePlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+                                $formError['picture'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
+                            } else { //sinon la méthode checkIfPicturePlaceExist() retourne 1, le lieu a déjà une image répertoriée dans la base de données, affichage d'un message d'erreur
+                                $formError['picture'] = 'Le lieu possède déjà une image';
+                            }
+                        }
                     }
                 }
-            } else { //si mauvaise extension
+            } else { //si l'extension ne correspond pas aux extensions autorisées affichage d'un message d'erreur
                 $formError['picture'] = 'L\'image sélectionnée n\'est pas au bon format, veuillez utiliser les formats .jpg, .jpeg ou .png';
             }
-        } else { //si taille supérieure à 500ko
+        } else { //si la taille du fichier est supérieure à 500ko affichage d'un message d'erreur
             $formError['picture'] = 'L\'image sélectionnée est trop volumineuse, veuillez en choisir une autre (500ko max)';
         }
-    } else { //si le champ est vide
+    } else { //si le champ est vide affichage d'un message d'erreur
         $formError['picture'] = 'Veuillez sélectionner une image';
     }
 }
+
+//---------------------------Affichage photo-------------------
+//instanciation pour l'affichage de l'image du lieu
+$getPicture = NEW pictures();
+//vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $getPicture avec la sécurité htmlspecialchars
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $getPicture->idPlaces = htmlspecialchars($_GET['id']);
+}
+$picturePlace = $getPicture->getPictureById();
 
 //écriture des données de session et fermeture de la session 
 session_write_close();

@@ -11,7 +11,9 @@ include_once path::getControllersPath() . 'registerContributorFormCtrl.php';
         //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
         if (isset($_POST['registerContributorSubmit']) && (count($formError) === 0)) {
             ?>
-            <p class="boldText green-text center-align">Votre inscription a bien été prise en compte</p>
+            <h3 class="boldText green-text center-align">Félicitation !</h3>
+            <p class="center-align">Votre inscription a bien été prise en compte.</p>
+            <p class="center-align">Vous pouvez maintenant vous connecter pour découvrir toutes les fonctionnalités du site.</p>
             <?php
         } else { //sinon affichage des messages d'erreurs
             ?>

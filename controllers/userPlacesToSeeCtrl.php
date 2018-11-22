@@ -2,7 +2,7 @@
 
 //démarrage de la session
 session_start();
-//insertion de la class database et du model placesToSee
+//insertion de la class database et des models placesToSee et pictures
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'placesToSee.php';
 
@@ -26,5 +26,6 @@ if (isset($_GET['idPlaceDelete']) && is_numeric($_GET['idPlaceDelete'])) {
         $deleteError = 'Le lieu à voir n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
     }
 }
+
 //écriture des données de session et fermeture de la session
 session_write_close();

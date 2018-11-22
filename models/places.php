@@ -186,10 +186,12 @@ class places extends database {
         //déclaration de la requête sql
         $request = 'SELECT `pl`.`id`,`pl`.`name`,`pl`.`address`,`pl`.`phone`,`pl`.`mail`,`pl`.`website`,`pl`.`description`,`pl`.`createDate`,`pl`.`idCategories`,`pl`.`idCities`, '
                 . '`cit`.`city`,`cit`.`postalCode`, '
-                . '`cat`.`name` AS `category` '
+                . '`cat`.`name` AS `category`, '
+                . '`pic`.`picture` '
                 . 'FROM `F396V_places` AS `pl` '
                 . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
                 . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
+                . 'LEFT JOIN `F396V_pictures` AS `pic` ON `pic`.`idPlaces` = `pl`.`id` '
                 . 'ORDER BY `pl`.`name` ASC '
                 . 'LIMIT :limit OFFSET :offset ';
         //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $placesPaging

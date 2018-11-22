@@ -9,42 +9,16 @@ include_once path::getRootPath() . 'header.php';
         <div class="col m3 offset-m1 s12 placeImgCard">
             <div class="card">
                 <div class="card-image">
-                    <img src="assets/img/berger_picard.jpg">
-                    <a href="#addPictureModal" class="btn-floating halfway-fab waves-effect waves-light orange darken-3 modal-trigger"><i class="material-icons">add</i></a>
+                    <?php if (isset($picturePlace->picture)) { ?>
+                        <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="" class="responsive-img" />
+                    <?php } else { ?>
+                        <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                    <?php } ?>
+                    <a class="btn-floating halfway-fab waves-effect waves-light orange darken-3" id="addPictureFormButton"><i class="material-icons">add</i></a>
                 </div>
             </div>
         </div>
         <div class="col m7 s12">
-            
-<!--            <h3 class="center-align">Ajouter une photo</h3>
-            <form action="#" method="POST" enctype="multipart/form-data" class="col s12" id="addPicture">
-                <div class="row">
-                    <div class="file-field input-field">
-                        <div class="btn orange darken-3 boldText col m2 s12">
-                            <span>Parcourir</span>
-                            <input type="file" name="picture" id="picture" />
-                        </div>
-                        <div class="file-path-wrapper col m10 s12">
-                            <input type="text"  class="file-path validate"  />
-                        </div>
-                        <?php
-                        if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe
-                            ?>
-                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['picture']; ?></p>
-                        <?php } ?>
-                    </div>
-                    <div class="input-field hide">
-                        <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
-                        <label for="idPlace"></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field center-align col s8 offset-s2">
-                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPictureSubmit" id="addPictureSubmit">Ajouter la photo</button>
-                    </div>
-                </div>
-            </form>-->
-            
             <h2 class="PlaceTitle"><?= $placeInfo->name ?></h2>
             <p class="categoryText"><?= $placeInfo->category ?></p>
             <?php
@@ -102,38 +76,52 @@ include_once path::getRootPath() . 'header.php';
             <p><span class="boldText">Description : </span><?= $placeInfo->description ?></p>
         </div>
     </div>
+    <?php
+    if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe
+        ?>
+        <p class="boldText red-text text-darken-1 center-align"><?= $formError['picture']; ?></p>
+    <?php } ?>
+    <div class="row" id="addPictureForm">
+        <div class="col m10 offset-m1 s12 lime lighten-2">
+            <h3 class="sectionTitle center-align">Ajouter une photo</h3>
+            <form action="#" method="POST" enctype="multipart/form-data" class="col s12" id="addPicture">
+                <div class="row">
+                    <div class="file-field input-field col s10 offset-s1">
+                        <div class="btn orange darken-3 boldText ">
+                            <span>Parcourir</span>
+                            <input type="file" name="picture" id="picture" />
+                        </div>
+                        <div class="file-path-wrapper ">
+                            <input type="text"  class="file-path validate"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field center-align col s8 offset-s2">
+                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPictureSubmit" id="addPictureSubmit">Ajouter la photo</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align">Contact</h3>
             <div class="row">
-                <ul class="collapsible col m10 offset-m1">
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">home</i>Adresse</div>
-                        <div class="collapsible-body white"><?= $placeInfo->address ?> - <?= $placeInfo->postalCode ?> <?= $placeInfo->city ?></div>
-                    </li>
+                <ul class="collection col m10 offset-m1 center-align">
+                    <li class="collection-item"><i class="material-icons">home</i>Adresse : <?= $placeInfo->address ?> - <?= $placeInfo->postalCode ?> <?= $placeInfo->city ?></li>
                     <?php if (isset($placeInfo->phone)) { ?>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">phone</i>Téléphone</div>
-                            <div class="collapsible-body white"><?= $placeInfo->phone ?></div>
-                        </li>
+                        <li class="collection-item"><i class="material-icons">phone</i>Téléphone : <?= $placeInfo->phone ?></li>
                         <?php
                     }
                     if (isset($placeInfo->mail)) {
                         ?>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">email</i>Mail</div>
-                            <div class="collapsible-body white"><?= $placeInfo->mail ?></div>
-                        </li>
+                        <li class="collection-item"><i class="material-icons">email</i>Mail : <?= $placeInfo->mail ?></li>
                         <?php
                     }
                     if (isset($placeInfo->website)) {
                         ?>
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">desktop_windows</i>Site internet</div>
-                            <div class="collapsible-body white">
-                                <a href="<?= $placeInfo->website ?>" title="Lien vers le site de <?= $placeInfo->name ?>" target="_blank"><?= $placeInfo->website ?></a>
-                            </div>
-                        </li>
+                        <li class="collection-item"><i class="material-icons">desktop_windows</i>Site internet : <a href="<?= $placeInfo->website ?>" title="Lien vers le site de <?= $placeInfo->name ?>" target="_blank"><?= $placeInfo->website ?></a></li>
                     <?php } ?>
                 </ul>
             </div>
@@ -252,18 +240,18 @@ include_once path::getRootPath() . 'header.php';
                                         <p class="boldText red-text text-darken-1 center-align"><?= $formError['closing']; ?></p>
                                     <?php } ?>
                                 </div>
+                                <p class="boldText red-text text-darken-1 center-align">
+                                    <?php
+                                    //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
+                                    echo isset($formError['addTimetablesSubmit']) ? $formError['addTimetablesSubmit'] : '';
+                                    ?>
+                                </p>
                                 <!--Bouton de validation du formulaire-->
                                 <div class="center-align">
                                     <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addTimetablesSubmit" id="addTimetablesSubmit">Enregistrer les horaires</button>
                                 </div>
                             </form>
                         </div>
-                        <p class="boldText red-text text-darken-1 center-align">
-                            <?php
-                            //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
-                            echo isset($formError['addTimetablesSubmit']) ? $formError['addTimetablesSubmit'] : '';
-                            ?>
-                        </p>
                     </div>
                     <?php
                 }
@@ -278,8 +266,8 @@ include_once path::getRootPath() . 'header.php';
                 <table class="striped centered responsive-table col m10 offset-m1">
                     <thead>
                         <tr class="white">
+                            <th>Prix</th>
                             <th>Tarif</th>
-                            <th>Type de tarif</th>
                             <th>Nom du tarif</th>
                             <th>Dernière mise à jour</th>
                             <?php
@@ -329,54 +317,42 @@ include_once path::getRootPath() . 'header.php';
                     ?>
                     <div class="left-align">
                         <a title="Lien pour l'ajout d'un tarif" class="btn lime darken-3 boldText" id="addPriceButton">Ajouter un tarif</a>
-                          <div id="priceForm">
-                                <form action="#" method="POST" class="col s12 bgForm">
-                                    <div class="input-field col m2 s12">
-                                        <input type="text" name="price" id="price" placeholder="12.50€" class="validate" value="" />
-                                        <label for="price">Tarif</label>
+                        <div id="priceForm">
+                            <form action="#" method="POST" class="col s12 bgForm">
+                                <div class="input-field col m2 s12">
+                                    <input type="text" name="price" id="price" placeholder="12.50€" class="validate" value="" />
+                                    <label for="price">Tarif</label>
+                                </div>
+                                <div class="input-field col m4 s12">
+                                    <select name="idPriceTypes">
+                                        <option value="0" disabled selected>Type de tarif</option>
                                         <?php
-                                        if (isset($formError['price'])) { //affichage du message d'erreur si le tableau d'erreur existe
+                                        foreach ($priceTypesList as $priceTypeDetail) { //boucle permettant d'afficher la liste des jours de la semaine
                                             ?>
-                                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['price']; ?></p>
+                                            <option value="<?= $priceTypeDetail->id ?>"><?= $priceTypeDetail->name ?></option>
                                         <?php } ?>
-                                    </div>
-                                    <div class="input-field col m4 s12">
-                                        <select name="idPriceTypes">
-                                            <option value="0" disabled selected>Type de tarif</option>
-                                            <?php
-                                            foreach ($priceTypesList as $priceTypeDetail) { //boucle permettant d'afficher la liste des jours de la semaine
-                                                ?>
-                                                <option value="<?= $priceTypeDetail->id ?>"><?= $priceTypeDetail->name ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <label for="idPriceTypes">Sélectionner un type de tarif</label>
-                                        <?php
-                                        if (isset($formError['idPriceTypes'])) { //affichage du message d'erreur si le tableau d'erreur existe
-                                            ?>
-                                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['idPriceTypes']; ?></p>
-                                        <?php } ?>
-                                    </div>
-                                    <div class="input-field col m6 s12">
-                                        <input type="text" name="priceName" id="priceName" value="<?= isset($place->name) ? $place->name : '' ?>" />
-                                        <label for="priceName">Nom du tarif (facultatif)</label>
-                                        <?php
-                                        if (isset($formError['priceName'])) { //affichage du message d'erreur si le tableau d'erreur existe
-                                            ?>
-                                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['priceName']; ?></p>
-                                        <?php } ?>
-                                    </div>
-                                    <!--Bouton de validation du formulaire-->
-                                    <div class="center-align">
-                                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPricesSubmit" id="addPricesSubmit">Enregistrer le tarif</button>
-                                    </div>
-                                </form>
-                            </div>
-                        <p class="boldText red-text text-darken-1 center-align">
-                            <?php
-                            //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
-                            echo isset($formError['addPricesSubmit']) ? $formError['addPricesSubmit'] : '';
-                            ?>
-                        </p>
+                                    </select>
+                                    <label for="idPriceTypes">Sélectionner un type de tarif</label>
+                                </div>
+                                <div class="input-field col m6 s12">
+                                    <input type="text" name="priceName" id="priceName" value="<?= isset($place->name) ? $place->name : '' ?>" />
+                                    <label for="priceName">Nom du tarif (facultatif)</label>
+                                </div>
+                                <p class="boldText red-text text-darken-1 center-align">
+                                    <?php
+                                    //affichage des messages d'erreur si le tableau d'erreur existe
+                                    echo isset($formError['price']) ? $formError['price'] : '';
+                                    echo isset($formError['idPriceTypes']) ? $formError['idPriceTypes'] : '';
+                                    //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
+                                    echo isset($formError['addPricesSubmit']) ? $formError['addPricesSubmit'] : '';
+                                    ?>
+                                </p>
+                                <!--Bouton de validation du formulaire-->
+                                <div class="center-align">
+                                    <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPricesSubmit" id="addPricesSubmit">Enregistrer le tarif</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <?php
                 }
@@ -384,45 +360,6 @@ include_once path::getRootPath() . 'header.php';
             ?>
         </div>
     </div>
-
-
-    <!--Modal pour l'ajout d'une photo-->
-    <div id="addPictureModal" class="modal">
-        <div class="modal-content">
-            <h3 class="center-align">Ajouter une photo</h3>
-            <form action="#" method="POST" enctype="multipart/form-data" class="col s12" id="addPicture">
-                <div class="row">
-                    <div class="file-field input-field">
-                        <div class="btn orange darken-3 boldText col m2 s12">
-                            <span>Parcourir</span>
-                            <input type="file" name="picture" id="picture" />
-                        </div>
-                        <div class="file-path-wrapper col m10 s12">
-                            <input type="text" class="file-path validate"  />
-                        </div>
-                        <?php
-                        if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe
-                            ?>
-                            <p class="boldText red-text text-darken-1 center-align"><?= $formError['picture']; ?></p>
-                        <?php } ?>
-                    </div>
-                    <div class="input-field hide">
-                        <input type="text" name="idPlace" id="idPlace" value="<?= $placeInfo->id ?>" required />
-                        <label for="idPlace"></label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field center-align col s8 offset-s2">
-                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPictureSubmit" id="addPictureSubmit">Ajouter la photo</button>
-                    </div>
-                </div>
-            </form>
-            <div class="modal-footer col s12">
-                <a href="#!" class="modal-close waves-effect waves-green btn grey boldText">Annuler</a>
-            </div>
-        </div>
-    </div>
-
 </div>
 <?php
 //insertion du footer

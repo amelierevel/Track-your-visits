@@ -8,7 +8,7 @@ include_once path::getRootPath() . 'header.php';
     <h2 class="center-align">Liste des sites touristiques</h2>
     <div class="row">
         <form method="POST" action="#">
-            <div class="center-align col m9 offset-m1 s12" id="bgSearchForm">
+            <div class="center-align col m10 offset-m1 s12" id="bgSearchForm">
                 Rechercher un lieu :
                 <div class="input-field inline">
                     <input type="text" name="searchName" id="searchName" class="validate" />
@@ -18,7 +18,7 @@ include_once path::getRootPath() . 'header.php';
                     <i class="material-icons">search</i>
                 </button>
             </div>
-            <p class="red-text text-darken-1 right-align"><?= isset($errorMessage) ? $errorMessage : ''; //ternaire permettant l'affichage du message d'erreur s'il existe ?></p>
+            <p class="red-text text-darken-1 right-align"><?= isset($errorMessage) ? $errorMessage : ''; //ternaire permettant l'affichage du message d'erreur s'il existe  ?></p>
         </form>
     </div>
     <ul class="collection col s12 m10 offset-m1">
@@ -29,7 +29,11 @@ include_once path::getRootPath() . 'header.php';
                 <li class="collection-item avatar">
                     <div class="row">
                         <div class="col s3">
-                            <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                            <?php if (isset($placeFindDetail->picture)) { ?>
+                                <img src="assets/img/placeImages/<?= $placeFindDetail->picture ?>" alt="" class="responsive-img" />
+                            <?php } else { ?>
+                                <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                            <?php } ?>
                         </div>
                         <div class="col s9">
                             <h3 class="placesName"><?= $placeFindDetail->name ?></h3>
@@ -48,7 +52,11 @@ include_once path::getRootPath() . 'header.php';
                 <li class="collection-item avatar">
                     <div class="row">
                         <div class="col s3">
-                            <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                            <?php if (isset($placeDetail->picture)) { ?>
+                                <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" alt="" class="responsive-img" />
+                            <?php } else { ?>
+                                <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                            <?php } ?>
                         </div>
                         <div class="col s9">
                             <h3 class="placesName"><?= $placeDetail->name ?></h3>

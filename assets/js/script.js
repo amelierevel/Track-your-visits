@@ -34,4 +34,10 @@ $(document).ready(function () {
             return false;
         }
     });
+    //on masque le formulaire d'ajout d'horaire de la page getAPlace
+    $('#addPictureForm').hide();
+    //fonction permettant l'affichage au click du formulaire d'ajout d'horaire de la page getAPlace
+    $('#addPictureFormButton').click(function(){
+        $('#addPictureForm').show();
+    });
 });

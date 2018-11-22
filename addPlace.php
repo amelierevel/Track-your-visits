@@ -7,19 +7,20 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
 <div>
     <h2 class="center-align">Ajout d'un nouveau lieu</h2>
     <div class="row">
-        <h3 class="col s10 offset-s2">Informations générales</h3>
         <?php
         //vérification de l'envoi du formulaire et qu'il n'y a pas d'erreurs puis affichage d'un message de succès
         if (isset($_POST['addPlaceSubmit']) && (count($formError) === 0)) {
             ?> 
             <div class="center-align">
-                <p>Votre lieu <span class="boldText">"<?= $place->name ?>"</span> a bien été enregistré. Vous pouvez désormais ajouter ses horaires et ses tarifs</p>
-                <a href="Ajout-horaires?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers l'ajout des horaires">Ajouter les horaires</a>
-                <a href="Ajout-tarifs?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers l'ajout des tarifs">Ajouter les tarifs</a>
+                <h4 class="green-text boldText">Félicitation !</h4>
+                <p>Votre lieu <span class="boldText">"<?= $place->name ?>"</span> a bien été enregistré.</p>
+                <p>Vous pouvez désormais consulter la page de ce lieu pour y ajouter une photo ainsi que les horaires et les tarifs.</p>
+                <a href="Lieu?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers l'ajout des horaires">Accéder à la page de <?= $place->name ?></a>
             </div>
             <?php
         } else { //sinon affichage des messages d'erreurs
             ?>  
+        <h3 class="col s10 offset-s2">Informations générales</h3>
             <form action="#" method="POST" class="col s12" id="addPlace">
                 <!--Champs nom et catégorie-->
                 <div class="row">

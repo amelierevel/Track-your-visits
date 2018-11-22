@@ -73,11 +73,13 @@ class placesToSee extends database {
         $request = 'SELECT `pTs`.`idPlaces`,`pTs`.`id` AS `idPlaceToSee`,'
                 . '`pl`.`id`,`pl`.`name`,`pl`.`idCities`, '
                 . '`cit`.`city`,`cit`.`postalCode`, '
-                . '`cat`.`name` AS `category` '
+                . '`cat`.`name` AS `category`, '
+                . '`pic`.`picture` '
                 . 'FROM `F396V_placesToSee` AS `pTs` '
                 . 'LEFT JOIN `F396V_places` AS `pl` ON `pTs`.`idPlaces` = `pl`.`id` '
                 . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
                 . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
+                . 'LEFT JOIN `F396V_pictures` AS `pic` ON `pic`.`idPlaces` = `pl`.`id` '
                 . 'WHERE `pTs`.`idUsers` = :idUsers';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $placesToSeeList
         $placesToSeeList = $this->db->prepare($request);

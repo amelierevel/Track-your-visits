@@ -44,3 +44,4 @@ if (!empty($_GET['page'])) {
 $offset = ($page - 1) * $limit;
 //appel de la méthode pagingPlaces() prenant pour paramètres les variables $limit et $offset permettant l'affichage du nombre de notre de choix de lieux par page
 $pagingPlacesList = $place->pagingPlaces($limit, $offset);
+
