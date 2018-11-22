@@ -131,53 +131,62 @@ include_once path::getRootPath() . 'header.php';
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align">Horaires</h3>
             <div class="row">
-                <table class="striped centered responsive-table col m10 offset-m1">
-                    <thead>
-                        <tr class="white">
-                            <th>Jour</th>
-                            <th>Période</th>
-                            <th>Ouverture</th>
-                            <th>Fermeture</th>
-                            <th>Dernière mise à jour</th>
-                            <?php
-                            if (isset($_SESSION['isConnect'])) {
-                                if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
-                                    ?>
-                                    <th>Supprimer l'horaire</th>
-                                    <?php
-                                }
-                            }
-                            ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($timetablesList as $timetableDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
-                            ?>
-                            <tr>
-                                <td class="boldText"><?= $timetableDetail->day ?></td>
-                                <td><?= $timetableDetail->period ?></td>
-                                <td><?= $timetableDetail->opening ?></td>
-                                <td><?= $timetableDetail->closing ?></td>
-                                <td><?= $timetableDetail->editDate ?></td>
+                <?php if (empty($timetablesList)) { ?>
+                    <p class="center-align"><span class="boldText red-text text-accent-4">Dommage...</span>
+                        <br />Il n'y pas encore d'horaires enregistrés pour ce lieu pour le moment.</p> 
+                    <?php
+                } else {
+                    ?>
+                    <table class="striped centered responsive-table col m10 offset-m1">
+                        <thead>
+                            <tr class="white">
+                                <th>Jour</th>
+                                <th>Période</th>
+                                <th>Ouverture</th>
+                                <th>Fermeture</th>
+                                <th>Dernière mise à jour</th>
                                 <?php
                                 if (isset($_SESSION['isConnect'])) {
                                     if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                                         ?>
-                                        <td>
-                                            <a href="Lieu?id=<?= $placeInfo->id ?>&idTimetableDelete=<?= $timetableDetail->id ?>" class="btn-floating btn-small waves-effect waves-light red accent-4 deleteButton"><i class="material-icons">delete</i></a>
-                                            <?php
-                                            if (isset($deleteTimetableError)) { //affichage du message d'erreur s'il existe
-                                                ?>  
-                                                <p class="red-text text-darken-1 center-align"><?= $deleteTimetableError; ?></p>
-                                            <?php } ?>
-                                        </td>
+                                        <th>Supprimer l'horaire</th>
                                         <?php
                                     }
                                 }
                                 ?>
                             </tr>
-                        <?php } ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($timetablesList as $timetableDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
+                                ?>
+                                <tr>
+                                    <td class="boldText"><?= $timetableDetail->day ?></td>
+                                    <td><?= $timetableDetail->period ?></td>
+                                    <td><?= $timetableDetail->opening ?></td>
+                                    <td><?= $timetableDetail->closing ?></td>
+                                    <td><?= $timetableDetail->editDate ?></td>
+                                    <?php
+                                    if (isset($_SESSION['isConnect'])) {
+                                        if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
+                                            ?>
+                                            <td>
+                                                <a href="Lieu?id=<?= $placeInfo->id ?>&idTimetableDelete=<?= $timetableDetail->id ?>" class="btn-floating btn-small waves-effect waves-light red accent-4 deleteButton"><i class="material-icons">delete</i></a>
+                                                <?php
+                                                if (isset($deleteTimetableError)) { //affichage du message d'erreur s'il existe
+                                                    ?>  
+                                                    <p class="red-text text-darken-1 center-align"><?= $deleteTimetableError; ?></p>
+                                                <?php } ?>
+                                            </td>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -263,51 +272,60 @@ include_once path::getRootPath() . 'header.php';
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align">Tarifs</h3>
             <div class="row">
-                <table class="striped centered responsive-table col m10 offset-m1">
-                    <thead>
-                        <tr class="white">
-                            <th>Prix</th>
-                            <th>Tarif</th>
-                            <th>Nom du tarif</th>
-                            <th>Dernière mise à jour</th>
-                            <?php
-                            if (isset($_SESSION['isConnect'])) {
-                                if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
-                                    ?>
-                                    <th>Supprimer le tarif</th>
-                                    <?php
-                                }
-                            }
-                            ?>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($pricesList as $priceDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
-                            ?>
-                            <tr>
-                                <td><?= $priceDetail->price ?></td>
-                                <td><?= $priceDetail->priceType ?></td>
-                                <td><?= $priceDetail->name ?></td>
-                                <td><?= $priceDetail->editDatePrices ?></td>
+                <?php if (empty($pricesList)) { ?>
+                    <p class="center-align"><span class="boldText red-text text-accent-4">Dommage...</span>
+                        <br />Il n'y pas encore de tarifs enregistrés pour ce lieu pour le moment.</p> 
+                    <?php
+                } else {
+                    ?>
+                    <table class="striped centered responsive-table col m10 offset-m1">
+                        <thead>
+                            <tr class="white">
+                                <th>Prix</th>
+                                <th>Tarif</th>
+                                <th>Nom du tarif</th>
+                                <th>Dernière mise à jour</th>
                                 <?php
                                 if (isset($_SESSION['isConnect'])) {
                                     if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                                         ?>
-                                        <td>
-                                            <a href="Lieu?id=<?= $placeInfo->id ?>&idPriceDelete=<?= $priceDetail->id ?>" class="btn-floating btn-small waves-effect waves-light red accent-4 deleteButton"><i class="material-icons">delete</i></a>
-                                            <?php
-                                            if (isset($deletePriceError)) { //affichage du message d'erreur s'il existe
-                                                ?>  
-                                                <p class="red-text text-darken-1 center-align"><?= $deletePriceError; ?></p>
-                                            <?php } ?>
-                                        </td>
+                                        <th>Supprimer le tarif</th>
                                         <?php
                                     }
                                 }
                                 ?>
                             </tr>
-                        <?php } ?>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($pricesList as $priceDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
+                                ?>
+                                <tr>
+                                    <td><?= $priceDetail->price ?></td>
+                                    <td><?= $priceDetail->priceType ?></td>
+                                    <td><?= $priceDetail->name ?></td>
+                                    <td><?= $priceDetail->editDatePrices ?></td>
+                                    <?php
+                                    if (isset($_SESSION['isConnect'])) {
+                                        if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
+                                            ?>
+                                            <td>
+                                                <a href="Lieu?id=<?= $placeInfo->id ?>&idPriceDelete=<?= $priceDetail->id ?>" class="btn-floating btn-small waves-effect waves-light red accent-4 deleteButton"><i class="material-icons">delete</i></a>
+                                                <?php
+                                                if (isset($deletePriceError)) { //affichage du message d'erreur s'il existe
+                                                    ?>  
+                                                    <p class="red-text text-darken-1 center-align"><?= $deletePriceError; ?></p>
+                                                <?php } ?>
+                                            </td>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
