@@ -1,8 +1,8 @@
 <?php
 //insertion du fichier path, du header et du controller
 include_once 'classes/path.php';
+include_once path::getControllersPath() . 'addPlaceCtrl.php';
 include_once path::getRootPath() . 'header.php';
-include_once path::getControllersPath() . 'addPlaceCtrl.php'
 ?>
 <div>
     <h2 class="center-align">Ajout d'un nouveau lieu</h2>
@@ -68,11 +68,7 @@ include_once path::getControllersPath() . 'addPlaceCtrl.php'
                         <i class="material-icons prefix">explore</i>
                         <select name="idCities" id="idCities" required>
                             <option value="0" disabled selected>Veuillez sélectionner une ville</option>
-                            <?php
-                            foreach ($citiesList as $cityDetail) { //boucle permettant d'afficher la liste des villes
-                                ?>
-                                <option value="<?= $cityDetail->id ?>" <?= ((isset($place->idCities)) && ($place->idCities == $cityDetail->id)) ? 'selected' : '' ?>><?= $cityDetail->city ?></option>
-                            <?php } ?>
+                           
                         </select>
                         <label for="idCities">Adresse (Ville)</label>
                         <?php

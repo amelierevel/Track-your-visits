@@ -378,11 +378,19 @@ include_once path::getRootPath() . 'header.php';
             ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col m10 offset-m1 s12 center-align">
-            <a href="Modification-lieu?id=<?= $placeInfo->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la page de modification du lieu">Modifier les renseignements du lieu</a>
-        </div>
-    </div>
+    <?php
+    if (isset($_SESSION['isConnect'])) {
+        if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
+            ?>
+            <div class="row">
+                <div class="col m10 offset-m1 s12 center-align">
+                    <a href="Modification-lieu?id=<?= $placeInfo->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la page de modification du lieu">Modifier les renseignements du lieu</a>
+                </div>
+            </div>
+            <?php
+        }
+    }
+    ?>
 </div>
 <?php
 //insertion du footer

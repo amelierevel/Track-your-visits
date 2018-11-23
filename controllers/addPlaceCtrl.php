@@ -11,8 +11,8 @@ $categorie = NEW categories();
 $categoriesList = $categorie->getCategoriesList();
 
 //instanciation pour l'affichage de la liste des villes
-$city = NEW cities();
-$citiesList = $city->getCitiesList();
+//$city = NEW cities();
+//$citiesList = $city->getCitiesList();
 
 //déclaration de la regex code postal
 $regexPostalCode = '/^[0-9]{5}$/';
@@ -43,16 +43,16 @@ if (isset($_POST['addPlaceSubmit'])) {
         $formError['idCategories'] = 'Veuillez indiquer une catégorie';
     }
     //vérification que le champ postalCode n'est pas vide 
-    if (!empty($_POST['postalCode'])) {
-        //vérification de la validité de la valeur et attribution de cette valeur à la variable $postalCode avec la sécurité htmlspecialchars (évite injection de code)
-        if (preg_match($regexPostalCode, $_POST['postalCode'])) {
-            $postalCode = htmlspecialchars($_POST['postalCode']);
-        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
-            $formError['postalCode'] = 'La saisie du code postal est invalide';
-        }
-    } else { //si le champ est vide affichage d'un message d'erreur
-        $formError['postalCode'] = 'Veuillez indiquer un code postal';
-    }
+//    if (!empty($_POST['postalCode'])) {
+//        //vérification de la validité de la valeur et attribution de cette valeur à la variable $postalCode avec la sécurité htmlspecialchars (évite injection de code)
+//        if (preg_match($regexPostalCode, $_POST['postalCode'])) {
+//            $postalCode = htmlspecialchars($_POST['postalCode']);
+//        } else { //si la valeur n'est pas valide affichage d'un message d'erreur
+//            $formError['postalCode'] = 'La saisie du code postal est invalide';
+//        }
+//    } else { //si le champ est vide affichage d'un message d'erreur
+//        $formError['postalCode'] = 'Veuillez indiquer un code postal';
+//    }
     //vérification que le champ idCities n'est pas vide
     if (!empty($_POST['idCities'])) {
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idCities de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)

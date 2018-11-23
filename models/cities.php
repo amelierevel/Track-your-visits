@@ -34,7 +34,7 @@ class cities extends database {
         $citiesResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($citiesResult->execute()) {
-        //on vérifie que $citiesResult est un objet
+            //on vérifie que $citiesResult est un objet
             if (is_object($citiesResult)) {
                 //on stocke le résultat de la requête dans la variable $resultArray
                 $resultArray = $citiesResult->fetchAll(PDO::FETCH_OBJ);
@@ -43,6 +43,21 @@ class cities extends database {
         return $resultArray;
     }
 
+    public function getCitiesListByPostalCode() {
+         //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
+        $resultArray = array();
+        $request = 'SELECT `id`,`city`,`postalCode` '
+                . 'FROM `F396V_cities` '
+                . 'WHERE `postalCode` LIKE :postalCode '
+                . 'ORDER BY `city` ASC';
+        $citiesResult = $this->db->prepare($request);
+        $citiesResult->bindValue(':postalCode', $this->postalCode . '%', PDO::PARAM_STR);
+        if($citiesResult->execute()){
+            $resultArray = $citiesResult->fetchAll(PDO::FETCH_OBJ);
+        } 
+        return $resultArray;
+    }
+    
     /**
      * Méthode magique destruct héritée du parent database
      */

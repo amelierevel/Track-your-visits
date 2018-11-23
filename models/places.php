@@ -213,16 +213,22 @@ class places extends database {
         return $resultPaging;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function searchPlaces() {
         //initialisation d'un tableau vide
         $resultArray = array();
         //déclaration de la requête sql
         $request = 'SELECT `pl`.`id`,`pl`.`name`,`pl`.`address`,`pl`.`description`,`pl`.`createDate`,`pl`.`idCategories`,`pl`.`idCities`, '
                 . '`cit`.`city`,`cit`.`postalCode`, '
-                . '`cat`.`name` AS `category` '
+                . '`cat`.`name` AS `category`, '
+                . '`pic`.`picture` '
                 . 'FROM `F396V_places` AS `pl` '
                 . 'LEFT JOIN `F396V_cities` AS `cit` ON `pl`.`idCities` = `cit`.`id` '
                 . 'LEFT JOIN `F396V_categories` AS `cat` ON `pl`.`idCategories` = `cat`.`id` '
+                . 'LEFT JOIN `F396V_pictures` AS `pic` ON `pic`.`idPlaces` = `pl`.`id` '
                 . 'WHERE `pl`.`name` LIKE :searchName '
                 . 'ORDER BY `pl`.`name` ASC';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $searchPlaces
