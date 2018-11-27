@@ -43,8 +43,8 @@ class places extends database {
         $insertPlace->bindValue(':website', $this->website, PDO::PARAM_STR);
         $insertPlace->bindValue(':description', $this->description, PDO::PARAM_STR);
         $insertPlace->bindValue(':createDate', $this->createDate, PDO::PARAM_STR);
-        $insertPlace->bindValue(':idCategories', $this->idCategories, PDO::PARAM_STR);
-        $insertPlace->bindValue(':idCities', $this->idCities, PDO::PARAM_STR);
+        $insertPlace->bindValue(':idCategories', $this->idCategories, PDO::PARAM_INT);
+        $insertPlace->bindValue(':idCities', $this->idCities, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
         if ($insertPlace->execute()) {
             return $insertPlace;
@@ -78,7 +78,7 @@ class places extends database {
     }
 
     /**
-     * Méthode permettant l'affichage de la liste des lieux
+     * Méthode permettant l'affichage de la liste des lieux (plus utilisée ???)
      * @return type
      */
     public function getPlacesList() {
@@ -133,7 +133,7 @@ class places extends database {
     }
 
     /**
-     * Méthode permettant de récupérer le dernier id inséré pour faire les liens vers l'ajout des horaires et des tarifs
+     * Méthode permettant de récupérer le dernier id inséré pour faire le lien vers la page du lieu
      * @return type
      */
     public function getLastInsertIdPlace() {
@@ -204,17 +204,13 @@ class places extends database {
             //on vérifie que $placesPaging est un objet
             if (is_object($placesPaging)) {
                 $resultPaging = $placesPaging->fetchAll(PDO::FETCH_OBJ);
-            } else {
-                $resultPaging = FALSE;
             }
-        } else {
-            $resultPaging = FALSE;
         }
         return $resultPaging;
     }
 
     /**
-     * 
+     * Méthode permettant la reherche de lieu par leur nom
      * @return boolean
      */
     public function searchPlaces() {
@@ -240,15 +236,15 @@ class places extends database {
             //on vérifie que $searchPlaces est un objet
             if (is_object($searchPlaces)) {
                 $resultArray = $searchPlaces->fetchAll(PDO::FETCH_OBJ);
-            } else {
-                $resultArray = FALSE;
             }
-        } else {
-            $resultArray = FALSE;
         }
         return$resultArray;
     }
 
+    /**
+     * Méthode permettant la modification d'un lieu
+     * @return type
+     */
     public function updatePlace() {
         //déclaration de la requête sql
         $request = 'UPDATE `F396V_places` '

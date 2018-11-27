@@ -18,7 +18,7 @@ class regions extends database {
     }
 
     /**
-     * Méthode permettant d'afficher la liste des régions
+     * Méthode permettant d'afficher la liste des régions par ordre alphabétique
      * @return type
      */
     public function getRegionsList() {
@@ -28,7 +28,7 @@ class regions extends database {
         $request = 'SELECT `id`,`region` '
                 . 'FROM `F396V_regions` '
                 . 'ORDER BY `region` ASC';
-        //appel de la requête avec un query que l'on stocke dans la variable $regionsResult
+        //appel de la requête avec un query que l'on stocke dans l'objet $regionsResult
         $regionsResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($regionsResult->execute()) {

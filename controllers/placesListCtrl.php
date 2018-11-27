@@ -10,6 +10,8 @@ include_once path::getModelsPath() . 'places.php';
 if (isset($_POST['searchPlaceSubmit'])) {
     //instanciation pour l'affichage du résultat de la recherche
     $placeNameSearch = NEW places();
+    //attribution d'une valeur vide à l'attribut searchName de l'objet $placeNameSearch
+    $placeNameSearch->searchName = '';
     //vérification que le champ searchName n'est pas vide
     if (!empty($_POST['searchName'])) {
         //attribution de la valeur à l'attribut searchName (créé dans la méthode) de l'objet $placeNameSearch avec la sécurité htmlspecialchars
@@ -22,7 +24,7 @@ if (isset($_POST['searchPlaceSubmit'])) {
 
 //--------------Affichage des lieux avec la pagination-----------
 //déclaration de la variable indiquant le nombre de lieux par page (notre choix)
-$limit = 10;
+$limit = 3;
 //instanciation de l'objet $place pour l'affichage de la liste des lieux et la pagination
 $place = NEW places();
 //appel de la méthode countPlaces() indiquant le nombre de lieux

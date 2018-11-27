@@ -14,6 +14,7 @@ body nav ul a{
 }
 /*taille et couleur police des liens du dropdown de la barre de navigation*/
 body nav ul a:hover{
+    min-width: 250px;
     font-size: 100%;
     background-color: #F57C00;
 }
@@ -27,7 +28,7 @@ body nav ul a:hover{
 }
 /*position du header*/
 .header{
-    padding-bottom: 0.1%; 
+    padding-bottom: 0.1%;
 }
 /*dimensions du logo dans le header*/
 #headerLogo{
@@ -60,15 +61,14 @@ nav.fixed{
     padding-bottom: 2%;
 }
 /*---------------------------------------------------Page placesList & getAPlace-----------------------------------------------*/
+/*taille et position de la catégorie du lieu*/
 .categoryText{
     font-size: 80%;
     margin-top: -2%;
 }
-.placesName {
-    margin-bottom: -0.1%;
-}
 /*----------------------------------------------------------Page getAPlace-------------------------------------------------------*/
-.placeImgCard{
+/*position de l'image du lieu dans la card*/
+#placeImgCard{
     margin-top: 2%;
 }
 /*taille de la police des sections contact, horaires, tarifs*/
@@ -79,31 +79,39 @@ nav.fixed{
 .iconPlaceForUser{
     margin-top : -10%;
 }
+/*icones pour ajouter un lieu à voir ou un lieu visité*/
 .blackIcon{
     color: black;
 }
+/*icones pour ajouter un lieu à voir ou un lieu visité quand ajout validé*/
 .greenIcon{
     color: #9E9D24;
 }
-table,th,td{
-    border: solid black 1px !important;
+/*tableau des horaires et des tarifs'*/
+table.centered thead tr th, table.centered tbody tr td{
+    border: solid black 1px;
 }
+/*position des formulaires pour les horaires et les tarifs*/
 #timetableForm,#priceForm{
     padding-left: 12%;
     padding-right: 12%;
     padding-top: 1%;
 }
+/*couleur de fond des formulaires horaires et tarifs*/
 .bgForm{
     background-color: rgba(255, 255, 255, 0.6);
     margin-bottom: 2%;
 }
+/*marge sous le bouton submit des formulaires d'ajout d'horaires et de tarifs*/
 #addTimetablesSubmit,#addPricesSubmit{
     margin-bottom: 1%;
 }
-#addTimetableButton,#addPriceButton{
-    margin-left: 8%;
-}
 /*----------------------------------------------------------Page PlaceList-------------------------------------------------------*/
+/*couleur de fond du formulaire de recherche de lieux*/
 #bgSearchForm{
     background-color: #E6EE9C;
+}
+/*position du nom du lieu*/
+.placesName {
+    margin-bottom: -0.1%;
 }

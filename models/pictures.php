@@ -19,22 +19,26 @@ class pictures extends database {
     }
 
     /**
-     * Méthode permettant l'ajout d'une photo
+     * Méthode permettant l'ajout d'une photo pour un lieu
      * @return type
      */
     public function addPicture() {
+        //déclaration de la requête sql
         $request = 'INSERT INTO `F396V_pictures`(`picture`,`idPlaces`) '
                 . 'VALUES (:picture, :idPlaces)';
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $insertPicture
         $insertPicture = $this->db->prepare($request);
+        //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $insertPicture->bindValue(':picture', $this->picture, PDO::PARAM_STR);
         $insertPicture->bindValue(':idPlaces', $this->idPlaces, PDO::PARAM_INT);
+        //vérification que la requête s'est bien exécutée
         if ($insertPicture->execute()) {
             return $insertPicture;
         }
     }
 
     /**
-     * Méthode permettant de vérifier si un lieu possède une photo
+     * Méthode permettant de vérifier si un lieu possède déjà une photo
      * @return type
      */
     public function checkIfPicturePlaceExist() {
@@ -58,10 +62,10 @@ class pictures extends database {
     }
 
     /**
-     * Méthode permettant l'affichage de la 1ère photo d'un lieu
+     * Méthode permettant l'affichage de la photo d'un lieu
      * @return type
      */
-    public function getPictureById() {
+    public function getPictureByPlace() {
         //initialisation de la variable $result avec la valeur false
         $result = FALSE;
         //déclaration de la requête sql

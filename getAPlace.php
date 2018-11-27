@@ -6,13 +6,13 @@ include_once path::getRootPath() . 'header.php';
 ?>
 <div class="row">
     <div class="row">
-        <div class="col m3 offset-m1 s12 placeImgCard">
+        <div class="col m3 offset-m1 s12" id="placeImgCard">
             <div class="card">
                 <div class="card-image">
                     <?php if (isset($picturePlace->picture)) { ?>
-                        <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="" class="responsive-img" />
+                    <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img" />
                     <?php } else { ?>
-                        <img src="assets/img/noImg.jpg" alt="" class="responsive-img" />
+                        <img src="assets/img/noImg.jpg" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img" />
                     <?php } ?>
                     <a class="btn-floating halfway-fab waves-effect waves-light orange darken-3" id="addPictureFormButton"><i class="material-icons">add</i></a>
                 </div>
@@ -81,6 +81,7 @@ include_once path::getRootPath() . 'header.php';
         ?>
         <p class="boldText red-text text-darken-1 center-align"><?= $formError['picture']; ?></p>
     <?php } ?>
+        <!--Formulaire ajout photo-->
     <div class="row" id="addPictureForm">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align">Ajouter une photo</h3>

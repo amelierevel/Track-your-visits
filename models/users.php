@@ -32,7 +32,7 @@ class users extends database {
         //déclaration de la requête sql
         $request = 'INSERT INTO `F396V_users`(`firstname`,`lastname`,`birthDate`,`mail`,`username`,`password`,`createDate`,`idUserTypes`) '
                 . 'VALUES (:firstname, :lastname, :birthDate, :mail, :username, :password, :createDate, :idUserTypes)';
-        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $insertUser
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $insertUser
         $insertUser = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $insertUser->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
@@ -46,6 +46,8 @@ class users extends database {
         //vérification que la requête s'est bien exécutée
         if ($insertUser->execute()) {
             return $insertUser;
+        } else { //affichage d'un message d'erreur si la méthode ne s'exécute pas
+            $formError['execute'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
         }
     }
 
@@ -60,7 +62,7 @@ class users extends database {
         $request = 'SELECT COUNT(`id`) AS `count` '
                 . 'FROM `F396V_users` '
                 . 'WHERE `username` = :username';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $result
         $result = $this->db->prepare($request);
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $result->bindValue(':username', $this->username, PDO::PARAM_STR);
@@ -74,7 +76,7 @@ class users extends database {
     }
 
     /**
-     * Méthode permettant de faire la connexion de l'utilisateur
+     * Méthode permettant d'afficher les informations d'un utilisateur après sa connexion
      * @return boolean
      */
     public function connectionUser() {
@@ -87,7 +89,7 @@ class users extends database {
                 . 'FROM `F396V_users` AS `us` '
                 . 'LEFT JOIN `F396V_userTypes` AS `usTypes` ON `us`.`idUserTypes` = `usTypes`.`id` '
                 . 'WHERE `us`.`username` = :username';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $result
         $result = $this->db->prepare($request);
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $result->bindValue(':username', $this->username, PDO::PARAM_STR);
@@ -127,7 +129,7 @@ class users extends database {
                 . 'LEFT JOIN `F396V_userTypes` AS `usTypes` '
                 . 'ON `us`.`idUserTypes` = `usTypes`.`id` '
                 . 'WHERE `us`.`id` = :id';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $result
         $result = $this->db->prepare($request);
         //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $result->bindValue(':id', $this->id, PDO::PARAM_INT);
@@ -142,7 +144,7 @@ class users extends database {
     }
 
     /**
-     * Méthode permettant de modifier les informations générales de l'utilisateur
+     * Méthode permettant de modifier les informations (mail, type et mot de passe) de l'utilisateur
      * @return type
      */
     public function updateProfileUser() {

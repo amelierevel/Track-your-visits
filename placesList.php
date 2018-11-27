@@ -17,8 +17,8 @@ include_once path::getRootPath() . 'header.php';
                 <button class="btn waves-effect waves-light lime darken-3" type="submit" name="searchPlaceSubmit" id="searchPlaceSubmit">
                     <i class="material-icons">search</i>
                 </button>
+                <p class="red-text text-darken-1 center-align"><?= isset($errorMessage) ? $errorMessage : ''; //ternaire permettant l'affichage du message d'erreur s'il existe     ?></p>
             </div>
-            <p class="red-text text-darken-1 right-align"><?= isset($errorMessage) ? $errorMessage : ''; //ternaire permettant l'affichage du message d'erreur s'il existe  ?></p>
         </form>
     </div>
     <ul class="collection col s12 m10 offset-m1">
@@ -30,9 +30,9 @@ include_once path::getRootPath() . 'header.php';
                     <div class="row">
                         <div class="col s3">
                             <?php if (isset($placeFindDetail->picture)) { ?>
-                            <img src="assets/img/placeImages/<?= $placeFindDetail->picture ?>" title="" alt="" class="responsive-img" />
+                                <img src="assets/img/placeImages/<?= $placeFindDetail->picture ?>" title="" alt="" class="responsive-img" />
                             <?php } else { ?>
-                            <img src="assets/img/noImg.jpg" title="" alt="" class="responsive-img" />
+                                <img src="assets/img/noImg.jpg" title="" alt="" class="responsive-img" />
                             <?php } ?>
                         </div>
                         <div class="col s9">
@@ -53,13 +53,13 @@ include_once path::getRootPath() . 'header.php';
                     <div class="row">
                         <div class="col s3">
                             <?php if (isset($placeDetail->picture)) { ?>
-                            <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" title="" alt="" class="responsive-img" />
+                                <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" title="" alt="" class="responsive-img" />
                             <?php } else { ?>
-                            <img src="assets/img/noImg.jpg" title="" alt="" class="responsive-img" />
+                                <img src="assets/img/noImg.jpg" title="Pas d'image disponible" alt="Pas d'image disponible" class="responsive-img" />
                             <?php } ?>
                         </div>
                         <div class="col s9">
-                            <h3 class="placesName"><a href="Lieu?id=<?= $placeDetail->id ?>" title="" class="black-text"><?= $placeDetail->name ?></a></h3>
+                            <h3 class="placesName"><a href="Lieu?id=<?= $placeDetail->id ?>" title="Lien vers la page du lieu <?= $placeDetail->name ?>" class="black-text"><?= $placeDetail->name ?></a></h3>
                             <p class="categoryText"><?= $placeDetail->category ?></p>
                             <p><?= $placeDetail->description ?></p>
                             <p class="grey-text text-darken-1"><?= $placeDetail->city ?> (<?= $placeDetail->postalCode ?>)</p>
@@ -75,19 +75,25 @@ include_once path::getRootPath() . 'header.php';
 </div>
 <!--Pagination-->
 <ul class="pagination center-align">
-    <li class="waves-effect <?= $offset <= 1 ? 'disabled' : '' ?>">
-        <a href="Liste-des-lieux?page=<?= $page - 1 ?>"><i class="material-icons">chevron_left</i></a>
-    </li>
-    <?php
+    <?php if ($offset > 1) { ?>
+        <li class="waves-effect">
+            <a href="Liste-des-lieux?page=<?= $page - 1 ?>"><i class="material-icons">chevron_left</i></a>
+        </li>
+        <?php
+    }
     for ($pageNumber = 1; $pageNumber <= $totalPages; $pageNumber++) { //boucle permettant d'afficher le nombre de page
         ?>
         <li class="waves-effect">
             <a href="Liste-des-lieux?page=<?= $pageNumber ?>"><?= $pageNumber ?></a>
         </li>
-    <?php } ?>
-    <li class="waves-effect <?= $offset >= $totalPages ? 'disabled' : '' ?>">
-        <a href="Liste-des-lieux?page=<?= $page + 1 ?>"><i class="material-icons">chevron_right</i></a>
-    </li>
+        <?php
+    }
+    if ($offset < $totalPages) {
+        ?>
+        <li class="waves-effect">
+            <a href="Liste-des-lieux?page=<?= $page + 1 ?>"><i class="material-icons">chevron_right</i></a>
+        </li>
+<?php } ?>
 </ul>
 <?php
 //insertion du footer

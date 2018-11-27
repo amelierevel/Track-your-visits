@@ -26,7 +26,7 @@ class userTypes extends database {
         $resultArray = array();
         //déclaration de la requête sql
         $request = 'SELECT `id`,`name` FROM `F396V_userTypes`';
-        //appel de la requête avec un query que l'on stocke dans la variable $userTypeResult
+        //appel de la requête avec un query que l'on stocke dans l'objet $userTypeResult
         $userTypeResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($userTypeResult->execute()) {

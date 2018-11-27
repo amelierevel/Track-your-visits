@@ -12,7 +12,7 @@ include_once path::getControllersPath() . 'updatePlaceCtrl.php'
         if (isset($_POST['updatePlaceSubmit']) && (count($formError) === 0)) {
             ?> 
             <div class="center-align">
-                <h3 class="green-text boldText">Félicitation !</h3>
+                <h3 class="green-text boldText">Félicitations !</h3>
                 <p>Les informations de <span class="boldText">"<?= $placeInfo->name ?>"</span> ont bien été modifiées.</p>
                 <p>Vous pouvez désormais consulter la page de ce lieu pour y modifier les horaires et les tarifs.</p>
                 <a href="Lieu?id=<?= $placeInfo->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la page du lieu <?= $placeInfo->name ?>">Accéder à la page de <?= $placeInfo->name ?></a>

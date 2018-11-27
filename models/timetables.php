@@ -30,7 +30,7 @@ class timetables extends database {
         //déclaration de la requête sql
         $request = 'INSERT INTO `F396V_timetables`(`opening`,`closing`,`idDays`,`idPlaces`,`idTimetableTypes`,`editDate`) '
                 . 'VALUES (:opening, :closing, :idDays, :idPlaces, :idTimetableTypes, :editDate)';
-        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $insertTimetable
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $insertTimetable
         $insertTimetable = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $insertTimetable->bindValue(':opening', $this->opening, PDO::PARAM_STR);
@@ -46,7 +46,7 @@ class timetables extends database {
     }
 
     /**
-     * Méthode permettant de vérifier qu'un horaire n'existe pas déjà
+     * Méthode permettant de vérifier qu'un horaire n'existe pas déjà pour un lieu
      * @return type
      */
     public function checkIfTimetableExist() {
@@ -56,7 +56,7 @@ class timetables extends database {
         $request = 'SELECT COUNT(`id`) AS `count` '
                 . 'FROM `F396V_timetables` '
                 . 'WHERE `idPlaces` = :idPlaces AND `idDays` = :idDays AND `idTimetableTypes` = :idTimetableTypes';
-        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $result
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $result
         $result = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $result->bindValue(':idPlaces', $this->idPlaces, PDO::PARAM_INT);
@@ -72,7 +72,7 @@ class timetables extends database {
     }
 
     /**
-     * DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`
+     * Méthode permettant d'afficher la liste des horaires d'un lieu par ordre alphabétique
      * @return type
      */
     public function getTimetablesList() {

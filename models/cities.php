@@ -20,44 +20,29 @@ class cities extends database {
     }
 
     /**
-     * Méthode permettant d'afficher la liste des villes
+     * Méthode permettant d'afficher la liste des villes en fonction du code postal
      * @return type
      */
-    public function getCitiesList() {
+    public function getCitiesListByPostalCode() {
         //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
         $resultArray = array();
         //déclaration de la requête sql
-        $request = 'SELECT `id`,`city`,`postalCode`,`idDepartments` '
-                . 'FROM `F396V_cities` '
-                . 'ORDER BY `city` ASC';
-        //appel de la requête avec un query que l'on stocke dans la variable $citiesResult
-        $citiesResult = $this->db->query($request);
-        //vérification que la requête s'est bien exécutée
-        if ($citiesResult->execute()) {
-            //on vérifie que $citiesResult est un objet
-            if (is_object($citiesResult)) {
-                //on stocke le résultat de la requête dans la variable $resultArray
-                $resultArray = $citiesResult->fetchAll(PDO::FETCH_OBJ);
-            }
-        }
-        return $resultArray;
-    }
-
-    public function getCitiesListByPostalCode() {
-         //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
-        $resultArray = array();
         $request = 'SELECT `id`,`city`,`postalCode` '
                 . 'FROM `F396V_cities` '
                 . 'WHERE `postalCode` LIKE :postalCode '
                 . 'ORDER BY `city` ASC';
+        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $citiesResult
         $citiesResult = $this->db->prepare($request);
+        //attribution de la valeur au marqueur nominatif avec bindValue (protection contre les injections de sql)
         $citiesResult->bindValue(':postalCode', $this->postalCode . '%', PDO::PARAM_STR);
-        if($citiesResult->execute()){
+        //vérification que la requête s'est bien exécutée
+        if ($citiesResult->execute()) {
+            //on stocke le résultat de la requête dans la variable $resultArray
             $resultArray = $citiesResult->fetchAll(PDO::FETCH_OBJ);
-        } 
+        }
         return $resultArray;
     }
-    
+
     /**
      * Méthode magique destruct héritée du parent database
      */

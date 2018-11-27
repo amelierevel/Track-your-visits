@@ -30,7 +30,7 @@ class departments extends database {
         $request = 'SELECT `id`,`department`,`code`,`idRegions` '
                 . 'FROM `F396V_departments` '
                 . 'ORDER BY `code` ASC';
-        //appel de la requête avec un query que l'on stocke dans la variable $departmentsResult
+        //appel de la requête avec un query que l'on stocke dans l'objet $departmentsResult
         $departmentsResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($departmentsResult->execute()) {

@@ -16,16 +16,17 @@ class days extends database {
         parent::__construct();
         $this->dbConnect();
     }
+
     /**
      * Méthode permettant d'afficher la liste des jours de la semaine
      * @return type
      */
-    public function getDaysList(){
-         //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
+    public function getDaysList() {
+        //initialisation d'un tableau vide (car fetchAll nous donne un tableau)
         $resultArray = array();
         //déclaration de la requête sql
         $request = 'SELECT `id`,`day` FROM `F396V_days`';
-        //appel de la requête avec un query que l'on stocke dans la variable $daysResult
+        //appel de la requête avec un query que l'on stocke dans l'objet $daysResult
         $daysResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($daysResult->execute()) {

@@ -345,7 +345,7 @@ $getPicture = NEW pictures();
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getPicture->idPlaces = htmlspecialchars($_GET['id']);
 }
-$picturePlace = $getPicture->getPictureById();
+$picturePlace = $getPicture->getPictureByPlace();
 
 //écriture des données de session et fermeture de la session 
 session_write_close();

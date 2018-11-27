@@ -5,7 +5,7 @@
  */
 class prices extends database {
 
-//Liste des attributs
+    //Liste des attributs
     public $id;
     public $price;
     public $name;
@@ -22,14 +22,14 @@ class prices extends database {
     }
 
     /**
-     * Méthode permettant d'ajouter un tarif
+     * Méthode permettant d'ajouter un tarif à un lieu
      * @return type
      */
     public function addPrices() {
         //déclaration de la requête sql
         $request = 'INSERT INTO `F396V_prices`(`price`,`name`,`idPlaces`,`idPriceTypes`,`editDatePrices`) '
                 . 'VALUES (:price, :name, :idPlaces, :idPriceTypes, :editDatePrices)';
-        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans la variable $insertPrice
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $insertPrice
         $insertPrice = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $insertPrice->bindValue(':price', $this->price, PDO::PARAM_STR);
@@ -44,7 +44,7 @@ class prices extends database {
     }
 
     /**
-     * Méthode permettant de vérifier qu'un tarif n'existe pas déjà 
+     * Méthode permettant de vérifier qu'un tarif n'existe pas déjà pour un lieu
      * @return type
      */
     public function checkIfPriceExist() {
@@ -53,11 +53,12 @@ class prices extends database {
         //déclaration de la requête sql
         $request = 'SELECT COUNT(`id`) AS `count` '
                 . 'FROM `F396V_prices` '
-                . 'WHERE `idPriceTypes` = :idPriceTypes';
-        //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans la variable $result
+                . 'WHERE `idPriceTypes` = :idPriceTypes AND `idPlaces` = :idPlaces';
+        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $result
         $result = $this->db->prepare($request);
         //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
         $result->bindValue(':idPriceTypes', $this->idPriceTypes, PDO::PARAM_INT);
+        $result->bindValue(':idPlaces', $this->idPlaces, PDO::PARAM_INT);
         //vérification que la requête s'est bien exécutée
         if ($result->execute()) {
             $selectResult = $result->fetch(PDO::FETCH_OBJ);
@@ -68,7 +69,7 @@ class prices extends database {
     }
 
     /**
-     * 
+     * Méthode permettant d'afficher la liste des tarifs d'un lieu
      * @return type
      */
     public function getPricesList() {
@@ -97,7 +98,7 @@ class prices extends database {
     }
 
     /**
-     * 
+     * Méthode permettant la suppression d'un tarif
      * @return boolean
      */
     public function deletePrice() {

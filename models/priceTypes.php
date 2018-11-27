@@ -26,7 +26,7 @@ class priceTypes extends database {
         $resultArray = array();
         //déclaration de la requête sql
         $request = 'SELECT `id`,`name` FROM `F396V_priceTypes`';
-        //appel de la requête avec un query que l'on stocke dans la variable $priceTypesResult
+        //appel de la requête avec un query que l'on stocke dans l'objet $priceTypesResult
         $priceTypesResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($priceTypesResult->execute()) {

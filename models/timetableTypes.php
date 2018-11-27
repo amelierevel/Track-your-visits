@@ -26,7 +26,7 @@ class timetableTypes extends database {
         $resultArray = array();
         //déclaration de la requête sql
         $request = 'SELECT `id`,`name` FROM `F396V_timetableTypes`';
-        //appel de la requête avec un query que l'on stocke dans la variable $timetableTypesResult
+        //appel de la requête avec un query que l'on stocke dans l'objet $timetableTypesResult
         $timetableTypesResult = $this->db->query($request);
         //vérification que la requête s'est bien exécutée
         if ($timetableTypesResult->execute()) {

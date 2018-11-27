@@ -110,7 +110,7 @@ if (isset($_POST['updatePasswordSubmit'])) {
 if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
     //instanciation pour la suppression
     $deleteUser = NEW users();
-    $deleteUser->id = htmlspecialchars($_GET['idDelete']);
+    $deleteUser->id = $_SESSION['id'];
     //appel de la méthode deleteUser() permettant la suppression d'un utilisateur
     $removeUser = $deleteUser->deleteUser();
     if ($removeUser == TRUE) { //si la méthode s'exécute 

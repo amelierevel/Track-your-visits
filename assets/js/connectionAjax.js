@@ -28,7 +28,7 @@ $(document).ready(function () {
         e.preventDefault();
         //appel ajax 
         $.ajax({
-            //on définit les paramètres
+            //définition des paramètres
             url: 'ajax/connectionAjax.php', //chemin vers le controller ajax
             type: 'POST', //le type de la requête
             data: {

@@ -12,7 +12,7 @@ include_once path::getRootPath() . 'header.php';
         if (isset($_POST['addPlaceSubmit']) && (count($formError) === 0)) {
             ?> 
             <div class="center-align">
-                <h4 class="green-text boldText">Félicitation !</h4>
+                <h4 class="green-text boldText">Félicitations !</h4>
                 <p>Votre lieu <span class="boldText">"<?= $place->name ?>"</span> a bien été enregistré.</p>
                 <p>Vous pouvez désormais consulter la page de ce lieu pour y ajouter une photo ainsi que les horaires et les tarifs.</p>
                 <a href="Lieu?id=<?= $lastInsertIdPlace->id ?>" class="boldText btn waves-effect waves-light lime darken-3" title="Lien vers la page du lieu <?= $place->name ?>">Accéder à la page de <?= $place->name ?></a>
