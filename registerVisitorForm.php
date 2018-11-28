@@ -19,7 +19,7 @@ include_once path::getControllersPath() . 'registerVisitorFormCtrl.php';
             ?>
             <!--Formulaire d'inscription d'un utilisateur-->
             <form action="#" method="POST" class="col s8 offset-s2">
-                <!--Champs nom et prénom-->
+                <!--Champ nom-->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
@@ -32,6 +32,7 @@ include_once path::getControllersPath() . 'registerVisitorFormCtrl.php';
                         <?php } ?>
                     </div>
                 </div>
+                <!--Champ prénom-->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
@@ -57,7 +58,7 @@ include_once path::getControllersPath() . 'registerVisitorFormCtrl.php';
                         <?php } ?>
                     </div>
                 </div>
-                <!--Champs date de naissance et email-->
+                <!--Champ date de naissance-->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">date_range</i>
@@ -70,6 +71,7 @@ include_once path::getControllersPath() . 'registerVisitorFormCtrl.php';
                         <?php } ?>
                     </div>
                 </div>
+                <!--Champ email-->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>

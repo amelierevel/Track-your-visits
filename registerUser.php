@@ -6,10 +6,10 @@ include_once path::getRootPath() . 'header.php';
 <div class="container-fluid white">
     <h2 class="center-align">Inscription d'un nouvel utilisateur</h2>
     <div class="row center-align">
-        <div class="col m5 offset-m1 s6">
+        <div class="col m5 offset-m1 s12">
             <div class="card">
                 <div class="card-image">
-                    <img src="assets/img/2.jpg" title="" alt="" />
+                    <img src="assets/img/visitorCard.jpg" alt="Image représentant une carte avec des punaises" title="Image visiteur" />
                 </div>
                 <div class="card-content">
                     <p class="cardTitle">Visiteur</p>
@@ -20,10 +20,10 @@ include_once path::getRootPath() . 'header.php';
                 </div>
             </div>
         </div> 
-        <div class="col m5 s6">
+        <div class="col m5 s12">
             <div class="card">
                 <div class="card-image">
-                    <img src="assets/img/4.jpg" title="" alt="" />
+                    <img src="assets/img/contributorCard.jpg" alt="Image représentant le château de Pierrefonds" title="Image contributeur" />
                 </div>
                 <div class="card-content">
                     <p class="cardTitle">Contributeur</p>

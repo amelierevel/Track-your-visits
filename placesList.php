@@ -32,7 +32,7 @@ include_once path::getRootPath() . 'header.php';
                             <?php if (isset($placeFindDetail->picture)) { ?>
                                 <img src="assets/img/placeImages/<?= $placeFindDetail->picture ?>" title="" alt="" class="responsive-img" />
                             <?php } else { ?>
-                                <img src="assets/img/noImg.jpg" title="" alt="" class="responsive-img" />
+                                <img src="assets/img/noImg.jpg" title="Pas d'image disponible" alt="Pas d'image disponible" class="responsive-img" />
                             <?php } ?>
                         </div>
                         <div class="col s9">

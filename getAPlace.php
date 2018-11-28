@@ -6,11 +6,12 @@ include_once path::getRootPath() . 'header.php';
 ?>
 <div class="row">
     <div class="row">
+    <!--Card image--> 
         <div class="col m3 offset-m1 s12" id="placeImgCard">
             <div class="card">
                 <div class="card-image">
                     <?php if (isset($picturePlace->picture)) { ?>
-                    <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img" />
+                    <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="" title="" class="responsive-img" />
                     <?php } else { ?>
                         <img src="assets/img/noImg.jpg" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img" />
                     <?php } ?>
@@ -18,6 +19,8 @@ include_once path::getRootPath() . 'header.php';
                 </div>
             </div>
         </div>
+    <!--Fin card image-->
+    <!--Section Nom, catégorie et description du lieu-->
         <div class="col m7 s12">
             <h2 class="PlaceTitle"><?= $placeInfo->name ?></h2>
             <p class="categoryText"><?= $placeInfo->category ?></p>
@@ -74,8 +77,8 @@ include_once path::getRootPath() . 'header.php';
                 </div>
             <?php } ?>
             <p><span class="boldText">Description : </span><?= $placeInfo->description ?></p>
-        </div>
-    </div>
+        </div> <!--Fin section Nom, catégorie et description du lieu-->
+    </div> 
     <?php
     if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe
         ?>
@@ -105,11 +108,12 @@ include_once path::getRootPath() . 'header.php';
             </form>
         </div>
     </div>
+        <!--Section contact-->
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align boldText">Contact</h3>
             <div class="row">
-                <ul class="collection col m10 offset-m1 center-align">
+                <ul class="collection col m10 offset-m1 s12 center-align">
                     <li class="collection-item"><i class="material-icons">home</i>Adresse : <?= $placeInfo->address ?> - <?= $placeInfo->postalCode ?> <?= $placeInfo->city ?></li>
                     <?php if (isset($placeInfo->phone)) { ?>
                         <li class="collection-item"><i class="material-icons">phone</i>Téléphone : <?= $placeInfo->phone ?></li>
@@ -128,6 +132,7 @@ include_once path::getRootPath() . 'header.php';
             </div>
         </div>
     </div>
+        <!--Section horaires-->
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align boldText">Horaires</h3>
@@ -268,7 +273,8 @@ include_once path::getRootPath() . 'header.php';
             }
             ?>
         </div>
-    </div>
+    </div> <!--Fin section horaires-->
+    <!--Section tarifs-->
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align boldText">Tarifs</h3>

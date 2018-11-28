@@ -26,8 +26,8 @@ class database {
      */
     protected function dbConnect() {
         try {
-            $this->db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';charset=UTF8'
-                    . ';', $this->login, $this->password);
+            $this->db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';'
+                    . 'charset=UTF8;', $this->login, $this->password);
             //affichage des erreurs SQL
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $error) { //affichage d'un message d'erreur

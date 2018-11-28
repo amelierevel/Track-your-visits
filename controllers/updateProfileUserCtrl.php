@@ -9,14 +9,9 @@ include_once path::getModelsPath() . 'userTypes.php';
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userTypes();
 $userTypeList = $userType->getUserType();
-
-//déclaration d'un tableau d'erreur
-$formError = array();
-
-//verification que les données ont été envoyés
-if (isset($_POST['updateUserSubmit'])) {
-    //instanciation de l'objet user
-    $user = NEW users();
+$formError = array(); //déclaration d'un tableau d'erreur
+if (isset($_POST['updateUserSubmit'])) { //verification que les données ont été envoyés
+    $user = NEW users(); //instanciation de l'objet user
     //récupération des valeurs non modifiables par l'utilisateur
     $user->id = $_SESSION['id'];
     $user->username = $_SESSION['username'];
@@ -27,16 +22,15 @@ if (isset($_POST['updateUserSubmit'])) {
     $user->password = $_SESSION['password'];
     /* vérification que le champ mail n'est pas vide et 
      * vérification de la validité du mail avec un filtre puis
-     * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
-     */
+     * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)*/
     if (!empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
         $user->mail = htmlspecialchars($_POST['mail']);
     } else { //si le champ est vide ou s'il n'est pas valide affichage d'un message d'erreur
         $formError['mail'] = 'Veuillez indiquer votre mail';
     }
-    //vérification que le champ idUserTypes n'est pas vide
-    if (!empty($_POST['idUserTypes'])) {
-        //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idUserTypes de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
+    if (!empty($_POST['idUserTypes'])) { //vérification que le champ idUserTypes n'est pas vide
+        /*vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idUserTypes de 
+        l'objet $user avec la sécurité htmlspecialchars (évite injection de code)*/
         if (is_numeric($_POST['idUserTypes'])) {
             $user->idUserTypes = htmlspecialchars($_POST['idUserTypes']);
         } else { //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
@@ -45,8 +39,7 @@ if (isset($_POST['updateUserSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur';
     }
-    //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
-    if (count($formError) == 0) {
+    if (count($formError) == 0) { //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
         if (!$user->updateProfileUser()) { //affichage d'un message d'erreur si la méthode ne s'exécute pas
             $formError['updateUserSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
         } else { //si la méthode s'exécute, réattribution des nouvelles valeurs (modifiées par l'utilisateur) à la session
@@ -57,10 +50,8 @@ if (isset($_POST['updateUserSubmit'])) {
 }
 
 //-------------modification du mot de passe de l'utilisateur---------------
-//verification que les données ont été envoyés
-if (isset($_POST['updatePasswordSubmit'])) {
-    //instanciation de l'objet user pour la modification
-    $updateUserPassword = NEW users();
+if (isset($_POST['updatePasswordSubmit'])) { //verification que les données ont été envoyés
+    $updateUserPassword = NEW users(); //instanciation de l'objet user pour la modification
     //récupération des valeurs non modifiables par l'utilisateur
     $updateUserPassword->id = $_SESSION['id'];
     $updateUserPassword->username = $_SESSION['username'];
@@ -70,16 +61,15 @@ if (isset($_POST['updatePasswordSubmit'])) {
     $updateUserPassword->createDate = $_SESSION['createDate'];
     $updateUserPassword->mail = $_SESSION['mail'];
     $updateUserPassword->idUserTypes = $_SESSION['idUserTypes'];
-    //appel de la méthode pour récupérer le password de l'user
-    $getPassword = $updateUserPassword->getUserById();
-    //vérification que le champ oldPassword n'est pas vide et attribution de sa valeur à la variable $oldPassword avec la sécurité htmlspecialchars (évite injection de code)
+    $getPassword = $updateUserPassword->getUserById(); //appel de la méthode pour récupérer le password de l'user
+    /*vérification que le champ oldPassword n'est pas vide et attribution de sa valeur à la variable $oldPassword 
+    avec la sécurité htmlspecialchars (évite injection de code)*/
     if (!empty($_POST['oldPassword'])) {
         $oldPassword = htmlspecialchars($_POST['oldPassword']);
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['password'] = 'Veuillez renseigner votre mot de passe actuel';
     }
-    //vérification que le mot de passe correspond à celui de l'utilisateur
-    if (password_verify($oldPassword, $getPassword->password)) {
+    if (password_verify($oldPassword, $getPassword->password)) {  //vérification que le mot de passe correspond à celui de l'utilisateur
         //vérification que les champs newPassword et newPasswordVerify ne sont pas vides
         if (!empty($_POST['newPassword']) && !empty($_POST['newPasswordVerify'])) {
             /*vérification que les champs sont identiques 
@@ -95,8 +85,7 @@ if (isset($_POST['updatePasswordSubmit'])) {
     } else { //si le mot de passe ne correspond pas à celui de l'utilisateur affichage d'un message d'erreur
         $formError['password'] = 'Le mot de passe actuel est incorrect';
     }
-    //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
-    if (count($formError) == 0) {
+    if (count($formError) == 0) { //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un utilisateur
         if (!$updateUserPassword->updateProfileUser()) { //affichage d'un message d'erreur si la méthode ne s'exécute pas
             $formError['updatePasswordSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
         } else { //réattribution de la nouvelle valeur du mot de passe à la session

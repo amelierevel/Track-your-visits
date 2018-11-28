@@ -22,6 +22,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 //appel de la méthode permettant l'affichage des informations d'un lieu
 $placeInfo = $getPlaceInfo->getPlaceById();
+//redirection vers la liste des lieux en cas de modification du nombre de l'id dans l'url
+if ($placeInfo == FALSE) {
+    header('Location: Liste-des-lieux');
+    exit;
+}
 
 //déclaration d'un tableau d'erreur
 $formError = array();
@@ -300,7 +305,7 @@ if (isset($_POST['addPictureSubmit'])) {
             if (in_array($file_extension, $autorizedExtension)) { //vérification que l'extension du fichier fait bien partie du tableau d'extensions autorisées
                 if (is_uploaded_file($_FILES['picture']['tmp_name'])) { //vérification que le fichier a été téléchargé 
                     $image = $_FILES['picture']; //stockage du fichier dans la variable $image
-                    $sourcePath = $image['tmp_name']; 
+                    $sourcePath = $image['tmp_name'];
                     $targetPath = path::getPlaceImage() . $image['name'];
                     if (move_uploaded_file($sourcePath, $targetPath)) { //déplacement du fichier vers le dossier cible
                         $picture = NEW pictures(); //instanciation pour l'ajout de l'image

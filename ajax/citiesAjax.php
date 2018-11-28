@@ -9,7 +9,7 @@ include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
 
 //déclaration de la regex code postal
-$regexPostalCode = '/^[0-9]+$/';
+$regexPostalCode = '/^[0-9\-]+$/';
 //déclaration d'un tableau d'erreur
 $formError = array();
 //déclaration d'un tableau vide qui récupèrera les valeurs de la méthode getCitiesListByPostalCode()
