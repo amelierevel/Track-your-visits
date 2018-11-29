@@ -21,26 +21,26 @@ include_once path::getRootPath() . 'header.php';
             </div>
         </form>
     </div>
-    <ul class="collection col s12 m10 offset-m1">
+    <ul class="collection col m10 offset-m1 s12">
         <?php
         if (!empty($_POST['searchName'])) {
             foreach ($placesFindList as $placeFindDetail) {
                 ?>
                 <li class="collection-item avatar">
                     <div class="row">
-                        <div class="col s3">
+                        <div class="col m3 s12">
                             <?php if (isset($placeFindDetail->picture)) { ?>
                                 <img src="assets/img/placeImages/<?= $placeFindDetail->picture ?>" title="" alt="" class="responsive-img" />
                             <?php } else { ?>
                                 <img src="assets/img/noImg.jpg" title="Pas d'image disponible" alt="Pas d'image disponible" class="responsive-img" />
                             <?php } ?>
                         </div>
-                        <div class="col s9">
-                            <h3 class="placesName"><a href="Lieu?id=<?= $placeFindDetail->id ?>" title="" class="black-text"><?= $placeFindDetail->name ?></a></h3>
+                        <div class="col m9 s12">
+                            <h3 class="placesName truncate"><a href="Lieu?id=<?= $placeFindDetail->id ?>" title="" class="black-text"><?= $placeFindDetail->name ?></a></h3>
                             <p class="categoryText"><?= $placeFindDetail->category ?></p>
                             <p><?= $placeFindDetail->description ?></p>
                             <p class="grey-text text-darken-1"><?= $placeFindDetail->city ?> (<?= $placeFindDetail->postalCode ?>)</p>
-                            <a href="Lieu?id=<?= $placeFindDetail->id ?>" title="" class="secondary-content">Plus d'info</a>
+                            <a href="Lieu?id=<?= $placeFindDetail->id ?>" title="" class="secondary-content hide-on-small-only">Plus d'info</a>
                         </div>
                     </div>
                 </li>
@@ -51,19 +51,19 @@ include_once path::getRootPath() . 'header.php';
                 ?>
                 <li class="collection-item avatar">
                     <div class="row">
-                        <div class="col s3">
+                        <div class="col m3 s12">
                             <?php if (isset($placeDetail->picture)) { ?>
                                 <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" title="" alt="" class="responsive-img" />
                             <?php } else { ?>
                                 <img src="assets/img/noImg.jpg" title="Pas d'image disponible" alt="Pas d'image disponible" class="responsive-img" />
                             <?php } ?>
                         </div>
-                        <div class="col s9">
-                            <h3 class="placesName"><a href="Lieu?id=<?= $placeDetail->id ?>" title="Lien vers la page du lieu <?= $placeDetail->name ?>" class="black-text"><?= $placeDetail->name ?></a></h3>
+                        <div class="col m9 s12">
+                            <h3 class="placesName truncate"><a href="Lieu?id=<?= $placeDetail->id ?>" title="Lien vers la page du lieu <?= $placeDetail->name ?>" class="black-text"><?= $placeDetail->name ?></a></h3>
                             <p class="categoryText"><?= $placeDetail->category ?></p>
                             <p><?= $placeDetail->description ?></p>
                             <p class="grey-text text-darken-1"><?= $placeDetail->city ?> (<?= $placeDetail->postalCode ?>)</p>
-                            <a href="Lieu?id=<?= $placeDetail->id ?>" class="secondary-content">Plus d'info</a>
+                            <a href="Lieu?id=<?= $placeDetail->id ?>" class="secondary-content hide-on-small-only">Plus d'info</a>
                         </div>
                     </div>
                 </li>

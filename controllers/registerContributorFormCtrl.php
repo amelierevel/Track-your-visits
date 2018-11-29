@@ -6,7 +6,7 @@ include_once path::getModelsPath() . 'users.php';
 
 //déclaration de la regex nom
 $regexName = '/^[A-Za-zäâéèëêîïôöüÿç\-\']+$/';
-//déclaration de la regex username
+//déclaration de la regex username le limitant à 25 caractères
 $regexUsername = '/^[a-zA-Z0-9àáâãäéèêëîïìíØøòóôõöùúûüýÿñçßæœ_\'\-]{1,25}$/';
 //déclaration de la regex date de naissance autorisant la naissance de 1920 à 2018
 $regexBirthDate = '/^(([1][9][2-9][0-9])|([2][0][0][0-9])|([2][0][1][0-8]))\-(([0][\d])|([1][0-2]))\-(([0-2][\d])|([3][0-1]))$/';
@@ -15,8 +15,7 @@ $formError = array();
 
 //verification que les données ont été envoyés
 if (isset($_POST['registerContributorSubmit'])) {
-    //instanciation de l'objet user
-    $user = NEW users();
+    $user = NEW users(); //instanciation de l'objet user
     //vérification que le champ lastname n'est pas vide
     if (!empty($_POST['lastname'])) {
         //vérification de la validité de la valeur et attribution de sa valeur à l'attribut lastname de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)
@@ -81,14 +80,10 @@ if (isset($_POST['registerContributorSubmit'])) {
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un utilisateur après vérification de la disponibilité du nom d'utilisateur
     if (count($formError) == 0) {
-        //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $user
-        $user->createDate = date('Y-m-d H:i:s');
-        //attribution de la valeur 2 (contributeur) à l'attribut idUserTypes de l'objet $user
-        $user->idUserTypes = 2;
-        //appel de la méthode vérifiant la disponibilité du nom d'utilisateur
-        $checkUsername = $user->checkIfUserExist();
-        //si la méthode retourne 0 le nom d'utilisateur est disponible et l'utilisateur peut être ajouté à la base de données
-        if ($checkUsername === '0') {
+        $user->createDate = date('Y-m-d H:i:s'); //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $user
+        $user->idUserTypes = 2; //attribution de la valeur 2 (contributeur) à l'attribut idUserTypes de l'objet $user
+        $checkUsername = $user->checkIfUserExist();  //appel de la méthode vérifiant la disponibilité du nom d'utilisateur
+        if ($checkUsername === '0') { //si la méthode retourne 0 le nom d'utilisateur est disponible et l'utilisateur peut être ajouté à la base de données
             if (!$user->addUser()) { //affichage d'un message d'erreur si la méthode ne s'exécute pas
                 $formError['registerContributorSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             }

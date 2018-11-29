@@ -16,16 +16,14 @@ $formError = array();
 
 //vérification que les données ont été envoyés
 if (isset($_POST['addPlaceSubmit'])) {
-    //instanciation de l'objet place
-    $place = NEW places();
+    $place = NEW places(); //instanciation de l'objet $place
     //vérification que le champ placeName n'est pas vide et attribution de sa valeur à l'attribut name de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
     if (!empty($_POST['placeName'])) {
         $place->name = htmlspecialchars($_POST['placeName']);
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['placeName'] = 'Veuillez indiquer un nom pour le lieu';
     }
-    //vérification que le champ idCategories n'est pas vide 
-    if (!empty($_POST['idCategories'])) {
+    if (!empty($_POST['idCategories'])) { //vérification que le champ idCategories n'est pas vide 
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idCategories de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         if (is_numeric($_POST['idCategories'])) {
             $place->idCategories = htmlspecialchars($_POST['idCategories']);
@@ -35,8 +33,7 @@ if (isset($_POST['addPlaceSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idCategories'] = 'Veuillez indiquer une catégorie';
     }
-    //vérification que le champ idCities n'est pas vide
-    if (!empty($_POST['idCities'])) {
+    if (!empty($_POST['idCities'])) { //vérification que le champ idCities n'est pas vide
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idCities de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         if (is_numeric($_POST['idCities'])) {
             $place->idCities = htmlspecialchars($_POST['idCities']);
@@ -46,15 +43,13 @@ if (isset($_POST['addPlaceSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idCities'] = 'Veuillez sélectionner une ville';
     }
-    //vérification que le champ address n'est pas vide 
-    if (!empty($_POST['address'])) {
+    if (!empty($_POST['address'])) { //vérification que le champ address n'est pas vide 
         //attribution de sa valeur à l'attribut address de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         $place->address = htmlspecialchars($_POST['address']);
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['address'] = 'Veuillez indiquer une adresse';
     }
-    //vérification que le champ phone n'est pas vide (peut être vide)
-    if (!empty($_POST['phone'])) {
+    if (!empty($_POST['phone'])) { //vérification que le champ phone n'est pas vide (peut être vide)
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut phone de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexPhone, $_POST['phone'])) {
             $place->phone = htmlspecialchars($_POST['phone']);
@@ -62,7 +57,7 @@ if (isset($_POST['addPlaceSubmit'])) {
             $formError['phone'] = 'La saisie du numéro de téléphone est invalide';
         }
     }
-    /* vérification que le champ mail n'est pas vide (peut être vide) et 
+    /* vérification que le champ mail n'est pas vide (peut être vide) et
      * vérification de la validité du mail avec un filtre puis
      * attribution de sa valeur à l'attribut mail de l'objet $place avec la sécurité htmlspecialchars (évite injection de code)
      */
@@ -92,12 +87,9 @@ if (isset($_POST['addPlaceSubmit'])) {
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un lieu après avoir vérifié qu'il n'existe pas déjà
     if (count($formError) == 0) {
-        //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $place
-        $place->createDate = date('Y-m-d H:i:s');
-        //appel de la méthode vérifiant que le lieu n'existe pas déjà dans la base de données
-        $checkExistingPlace = $place->checkIfPlaceExist();
-        //si la méthode checkIfPlaceExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
-        if ($checkExistingPlace === '0') {
+        $place->createDate = date('Y-m-d H:i:s'); //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut createDate de l'objet $place
+        $checkExistingPlace = $place->checkIfPlaceExist(); //appel de la méthode vérifiant que le lieu n'existe pas déjà dans la base de données
+        if ($checkExistingPlace === '0') { //si la méthode checkIfPlaceExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
             if (!$place->addPlace()) { //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
                 $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             } 
@@ -107,7 +99,6 @@ if (isset($_POST['addPlaceSubmit'])) {
             $formError['placeName'] = 'Ce site touristique existe déjà';
         }
     }
-    //instanciation pour récupérer l'id du dernier lieu ajouté
-    $addedPlace = NEW places();
+    $addedPlace = NEW places(); //instanciation pour récupérer l'id du dernier lieu ajouté
     $lastInsertIdPlace = $addedPlace->getLastInsertIdPlace();
 }

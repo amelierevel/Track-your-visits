@@ -5,15 +5,12 @@ include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'cities.php';
 include_once path::getModelsPath() . 'places.php';
 
-//-------------Recherche de lieu par nom----------
+//-----------------------Recherche de lieu par nom---------------------
 //vérification que les données ont été envoyés
 if (isset($_POST['searchPlaceSubmit'])) {
-    //instanciation pour l'affichage du résultat de la recherche
-    $placeNameSearch = NEW places();
-    //attribution d'une valeur vide à l'attribut searchName de l'objet $placeNameSearch
-    $placeNameSearch->searchName = '';
-    //vérification que le champ searchName n'est pas vide
-    if (!empty($_POST['searchName'])) {
+    $placeNameSearch = NEW places(); //instanciation pour l'affichage du résultat de la recherche
+    $placeNameSearch->searchName = ''; //attribution d'une valeur vide à l'attribut searchName de l'objet $placeNameSearch
+    if (!empty($_POST['searchName'])) {  //vérification que le champ searchName n'est pas vide
         //attribution de la valeur à l'attribut searchName (créé dans la méthode) de l'objet $placeNameSearch avec la sécurité htmlspecialchars
         $placeNameSearch->searchName = htmlspecialchars($_POST['searchName']);
     } else { //si le champ est vide affichage d'un message d'erreur
@@ -22,17 +19,13 @@ if (isset($_POST['searchPlaceSubmit'])) {
     $placesFindList = $placeNameSearch->searchPlaces();
 }
 
-//--------------Affichage des lieux avec la pagination-----------
-//déclaration de la variable indiquant le nombre de lieux par page (notre choix)
-$limit = 3;
-//instanciation de l'objet $place pour l'affichage de la liste des lieux et la pagination
-$place = NEW places();
-//appel de la méthode countPlaces() indiquant le nombre de lieux
-$numberOfResult = $place->countPlaces();
+//------------------------Affichage des lieux avec la pagination----------------------
+$limit = 5; //déclaration de la variable indiquant le nombre de lieux par page (notre choix)
+$place = NEW places(); //instanciation de l'objet $place pour l'affichage de la liste des lieux avec la pagination
+$numberOfResult = $place->countPlaces(); //appel de la méthode countPlaces() indiquant le nombre de lieux
 //calcul du nombre de pages total (ceil pour arrondir à l'entier supérieur pour ajouter une page de plus)
 $totalPages = ceil($numberOfResult->placesNumber / $limit);
-//vérification de la présence de "page" dans l'url et qu'il n'est pas vide
-if (!empty($_GET['page'])) {
+if (!empty($_GET['page'])) { //vérification de la présence de "page" dans l'url et qu'il n'est pas vide
     //si ce n'est pas un nombre ou qu'il est supérieur au nombre total de page ou qu'il est inférieur à 0, attribution de la valeur 1 à la variable $page
     if (!is_numeric($_GET['page']) || $_GET['page'] > $totalPages || $_GET['page'] <= 0) {
         $page = 1;

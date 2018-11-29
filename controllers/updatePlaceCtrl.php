@@ -82,9 +82,9 @@ if (isset($_POST['updatePlaceSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['description'] = 'Veuillez renseigner une description du lieu';
     }
-    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un lieu après avoir vérifié qu'il n'existe pas déjà
+    //s'il n'y a pas d'erreur on appelle la méthode pour la modification d'un lieu 
     if (count($formError) == 0) {
-        if (!$updatePlace->updatePlace()) { //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
+        if (!$updatePlace->updatePlace()) { //affichage d'un message d'erreur si la méthode updatePlace() ne s'exécute pas
             $formError['updatePlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
         }
     }

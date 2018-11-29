@@ -2,6 +2,11 @@
 .boldText{
     font-weight: bold;
 }
+/*taille des images des cards page placesToSee & visitedPlaces*/
+.imgSize{
+    min-height: 16em;
+    max-height: 16em;
+}
 /*------------------------------------------------------------Page header---------------------------------------------------------*/
 /*police du site*/
 body{
@@ -77,7 +82,7 @@ nav.fixed{
 }
 /*position des icones pour l'ajout aux lieux à voir et lieux visités*/
 .iconPlaceForUser{
-    margin-top : -10%;
+    margin-top : -8%;
 }
 /*icones pour ajouter un lieu à voir ou un lieu visité*/
 .blackIcon{
@@ -105,6 +110,10 @@ table.centered thead tr th, table.centered tbody tr td{
 /*marge sous le bouton submit des formulaires d'ajout d'horaires et de tarifs*/
 #addTimetablesSubmit,#addPricesSubmit{
     margin-bottom: 1%;
+}
+#responsability{
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 80%;
 }
 /*----------------------------------------------------------Page PlaceList-------------------------------------------------------*/
 /*couleur de fond du formulaire de recherche de lieux*/

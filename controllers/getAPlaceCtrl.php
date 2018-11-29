@@ -20,22 +20,19 @@ $getPlaceInfo = NEW places();
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getPlaceInfo->id = htmlspecialchars($_GET['id']);
 }
-//appel de la méthode permettant l'affichage des informations d'un lieu
-$placeInfo = $getPlaceInfo->getPlaceById();
+$placeInfo = $getPlaceInfo->getPlaceById(); //appel de la méthode permettant l'affichage des informations d'un lieu
 //redirection vers la liste des lieux en cas de modification du nombre de l'id dans l'url
 if ($placeInfo == FALSE) {
     header('Location: Liste-des-lieux');
     exit;
 }
-
 //déclaration d'un tableau d'erreur
 $formError = array();
 
 //----------------------------Ajout lieu à voir-----------------------------------
 //vérification que les données ont été envoyés
 if (isset($_POST['addPlaceToSeeSubmit'])) {
-    //instanciation de l'objet $placeToSee
-    $placeToSee = NEW placesToSee();
+    $placeToSee = NEW placesToSee(); //instanciation de l'objet $placeToSee
     //vérification que chaque champ idPlace n'est pas vide et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $placeToSee avec la sécurité htmlspecialchars
     if (!empty($_POST['idPlace']) && is_numeric($_POST['idPlace'])) {
         $placeToSee->idPlaces = htmlspecialchars($_POST['idPlace']);
@@ -65,8 +62,7 @@ if (isset($_POST['addPlaceToSeeSubmit'])) {
 //----------------------------Ajout lieu visité-----------------------------------
 //vérification que les données ont été envoyés
 if (isset($_POST['addVisitedPlaceSubmit'])) {
-    //instanciation de l'objet $visitedPlace
-    $visitedPlace = NEW visitedPlaces();
+    $visitedPlace = NEW visitedPlaces(); //instanciation de l'objet $visitedPlace
     //vérification que chaque champ idPlace n'est pas vide et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $visitedPlace avec la sécurité htmlspecialchars
     if (!empty($_POST['idPlace']) && is_numeric($_POST['idPlace'])) {
         $visitedPlace->idPlaces = htmlspecialchars($_POST['idPlace']);
@@ -93,35 +89,29 @@ if (isset($_POST['addVisitedPlaceSubmit'])) {
     }
 }
 
-//----------------Affichage des horaires------------
-//instanciation pour l'affichage des horaires 
-$getTimetable = NEW timetables();
+//------------------------------Affichage des horaires-------------------------
+$getTimetable = NEW timetables(); //instanciation pour l'affichage des horaires 
 //vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut id de l'objet $getTimetable avec la sécurité htmlspecialchars
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getTimetable->id = htmlspecialchars($_GET['id']);
 }
 $timetablesList = $getTimetable->getTimetablesList();
 
-//----------------------------Ajout d'horaire------------------- 
-//instanciation pour l'affichage de la liste des jours de la semaine
-$day = NEW days();
+//-------------------------------Ajout d'horaire------------------------ 
+$day = NEW days(); //instanciation pour l'affichage de la liste des jours de la semaine
 $daysList = $day->getDaysList();
 
-//instanciation pour l'affichage de la liste des périodes horaires (timetableTypes)
-$timetableType = NEW timetableTypes();
+$timetableType = NEW timetableTypes(); //instanciation pour l'affichage de la liste des périodes horaires (timetableTypes)
 $timetableTypesList = $timetableType->getTimetableTypesList();
 
 //vérification que les données ont été envoyés
 if (isset($_POST['addTimetablesSubmit'])) {
-    //instanciation de l'objet timetable
-    $timetable = NEW timetables();
-    //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDate de l'objet $timetable
-    $timetable->editDate = date('Y-m-d H:i:s');
+    $timetable = NEW timetables(); //instanciation de l'objet timetable
+    $timetable->editDate = date('Y-m-d H:i:s'); //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDate de l'objet $timetable
     //vérification de la présence d'un id dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $timetable avec la sécurité htmlspecialchars
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $timetable->idPlaces = htmlspecialchars($_GET['id']);
     }
-
     //vérification que le champ idDays n'est pas vide
     if (!empty($_POST['idDays'])) {
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idDays de l'objet $timetable avec la sécurité htmlspecialchars (évite injection de code)
@@ -162,7 +152,7 @@ if (isset($_POST['addTimetablesSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idTimetableTypes'] = 'Veuillez sélectionner une période horaire';
     }
-    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout des horaires après avoir vérifié qu'il n'existait pas déjà
+    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout des horaires après avoir vérifié qu'ils n'existaient pas déjà
     if (count($formError) == 0) {
         //appel de la méthode vérifiant que l'horaire n'existe pas déjà dans la base de données
         $checkExistingTimetable = $timetable->checkIfTimetableExist();
@@ -177,21 +167,18 @@ if (isset($_POST['addTimetablesSubmit'])) {
             //si la méthode checkIfTimetableExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
         } elseif ($checkExistingTimetable === FALSE) {
             $formError['addTimetablesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            //sinon la méthode checkIfTimetableExist() retourne 1, l'horaire existe déjà dans la base de données, affichage d'un message d'erreur
-        } else {
+        } else { //sinon la méthode checkIfTimetableExist() retourne 1, l'horaire existe déjà dans la base de données, affichage d'un message d'erreur
             $formError['addTimetablesSubmit'] = 'Il y a déjà des horaires enregistrés pour ce jour à cette période';
         }
     }
 }
 
-//------------------------Suppression d'un horaire--------------------
+//---------------------------Suppression d'un horaire---------------------------
 //vérification de la présence de idTimetableDelete dans l'url et qu'il s'agit bien d'un nombre
 if (isset($_GET['idTimetableDelete']) && is_numeric($_GET['idTimetableDelete'])) {
-    //instanciation pour la suppression d'un horaire
-    $deleteTimetable = NEW timetables();
+    $deleteTimetable = NEW timetables(); //instanciation pour la suppression d'un horaire
     $deleteTimetable->id = htmlspecialchars($_GET['idTimetableDelete']);
-    //appel de la méthode deleteTimetable() permettant la suppression d'un horaire
-    $removeTimetable = $deleteTimetable->deleteTimetable();
+    $removeTimetable = $deleteTimetable->deleteTimetable(); //appel de la méthode deleteTimetable() permettant la suppression d'un horaire
     if ($removeTimetable == TRUE) { //si la méthode s'exécute redirection vers la page du lieu
         header('Location: Lieu?id=' . $getPlaceInfo->id);
         exit();
@@ -200,34 +187,28 @@ if (isset($_GET['idTimetableDelete']) && is_numeric($_GET['idTimetableDelete']))
     }
 }
 
-//------------------------Affichage des tarifs-----------------------
-//instanciation pour l'affichage des tarifs
-$getPrices = NEW prices();
+//-------------------------------Affichage des tarifs-----------------------------
+$getPrices = NEW prices(); //instanciation pour l'affichage des tarifs
 //vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut id de l'objet $getPrices avec la sécurité htmlspecialchars
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getPrices->id = htmlspecialchars($_GET['id']);
 }
 $pricesList = $getPrices->getPricesList();
 
-//---------------------------Ajout d'un tarif-------------------------------  
-//instanciation pour l'affichage de la liste des jours de la semaine
-$priceType = NEW priceTypes();
+//---------------------------------Ajout d'un tarif-----------------------------------
+$priceType = NEW priceTypes(); //instanciation pour l'affichage de la liste des jours de la semaine
 $priceTypesList = $priceType->getPriceTypesList();
 //déclaration de la regex pour les tarifs
 $regexPrice = '/^[0-9]+[.]?[0-9]{0,2}$/';
 
-//vérification que les données ont été envoyés
-if (isset($_POST['addPricesSubmit'])) {
-    //instanciation de l'objet $price
-    $price = NEW prices();
-    //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDatePrices de l'objet $price
-    $price->editDatePrices = date('Y-m-d H:i:s');
+if (isset($_POST['addPricesSubmit'])) { //vérification que les données ont été envoyés
+    $price = NEW prices(); //instanciation de l'objet $price
+    $price->editDatePrices = date('Y-m-d H:i:s'); //attribution de la date du jour au format sql (aaaa-mm-jj hh:mm:ss) à l'attribut editDatePrices de l'objet $price
     //vérification de la présence de l'id dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $price avec la sécurité htmlspecialchars
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $price->idPlaces = htmlspecialchars($_GET['id']);
     }
-    //vérification que le champ price n'est pas vide
-    if (!empty($_POST['price'])) {
+    if (!empty($_POST['price'])) { //vérification que le champ price n'est pas vide
         //vérification de la validité de la valeur et attribution de cette valeur à l'attribut price de l'objet $price avec la sécurité htmlspecialchars (évite injection de code)
         if (preg_match($regexPrice, $_POST['price'])) {
             $price->price = htmlspecialchars($_POST['price']);
@@ -237,8 +218,7 @@ if (isset($_POST['addPricesSubmit'])) {
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['price'] = 'Veuillez indiquer un tarif';
     }
-    //vérification que le champ idPriceTypes n'est pas vide
-    if (!empty($_POST['idPriceTypes'])) {
+    if (!empty($_POST['idPriceTypes'])) { //vérification que le champ idPriceTypes n'est pas vide
         //vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idPriceTypes de l'objet $price avec la sécurité htmlspecialchars (évite injection de code)
         if (is_numeric($_POST['idPriceTypes'])) {
             $price->idPriceTypes = htmlspecialchars($_POST['idPriceTypes']);
@@ -254,10 +234,8 @@ if (isset($_POST['addPricesSubmit'])) {
     }
     //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un tarif après avoir vérifié qu'il n'existait pas déjà
     if (count($formError) == 0) {
-        //appel de la méthode vérifiant que le tarif n'existe pas déjà dans la base de données
-        $checkExistingPrice = $price->checkIfPriceExist();
-        //si la méthode checkIfPriceExist() retourne 0 le tarif n'existe pas encore et il peut être ajouté à la base de données
-        if ($checkExistingPrice === '0') {
+        $checkExistingPrice = $price->checkIfPriceExist(); //appel de la méthode vérifiant que le tarif n'existe pas déjà dans la base de données
+        if ($checkExistingPrice === '0') { //si la méthode checkIfPriceExist() retourne 0 le tarif n'existe pas encore et il peut être ajouté à la base de données
             if (!$price->addPrices()) { //affichage d'un message d'erreur si la méthode addPrices() ne s'exécute pas
                 $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
             } else { //si la méthode addPrices() s'exécute redirection vers la page du lieu
@@ -267,21 +245,17 @@ if (isset($_POST['addPricesSubmit'])) {
             //si la méthode checkIfPriceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
         } elseif ($checkExistingPrice === FALSE) {
             $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            //sinon la méthode checkIfPriceExist() retourne 1, le tarif existe déjà dans la base de données, affichage d'un message d'erreur
-        } else {
+        } else { //sinon la méthode checkIfPriceExist() retourne 1, le tarif existe déjà dans la base de données, affichage d'un message d'erreur
             $formError['addPricesSubmit'] = 'Il y a déjà un prix enregistré pour ce type de tarif';
         }
     }
 }
 
-//------------------------Suppression d'un tarif--------------------
-//vérification de la présence de idPriceDelete et qu'il s'agit bien d'un nombre
-if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) {
-    //instanciation pour la suppression d'un tarif
-    $deletePrice = NEW prices();
+//----------------------------Suppression d'un tarif---------------------------
+if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) { //vérification de la présence de idPriceDelete et qu'il s'agit bien d'un nombre
+    $deletePrice = NEW prices(); //instanciation pour la suppression d'un tarif
     $deletePrice->id = htmlspecialchars($_GET['idPriceDelete']);
-    //appel de la méthode deletePrice() permettant la suppression d'un tarif
-    $removePrice = $deletePrice->deletePrice();
+    $removePrice = $deletePrice->deletePrice(); //appel de la méthode deletePrice() permettant la suppression d'un tarif
     if ($removePrice == TRUE) { //si la méthode s'exécute redirection vers la page du lieu
         header('Location: Lieu?id=' . $getPlaceInfo->id);
         exit();
@@ -290,17 +264,12 @@ if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) {
     }
 }
 
-//--------------------------Ajout photo-----------------------
-//vérification que les données ont été envoyés
-if (isset($_POST['addPictureSubmit'])) {
-    //vérification que le champ picture n'est pas vide
-    if (!empty($_FILES['picture'])) {
-        //déclaration de la variable contenant le tableau des extensions autorisées
-        $autorizedExtension = array('jpg', 'jpeg', 'png');
-        //découpage du nom du fichier au niveau des '.'
-        $temporary = explode('.', $_FILES['picture']['name']);
-        //récupération de la partie finale du nom du fichier (l'extension)
-        $file_extension = end($temporary);
+//----------------------------------Ajout photo---------------------------------
+if (isset($_POST['addPictureSubmit'])) { //vérification que les données ont été envoyés
+    if (!empty($_FILES['picture'])) { //vérification que le champ picture n'est pas vide
+        $autorizedExtension = array('jpg', 'jpeg', 'png'); //déclaration de la variable contenant le tableau des extensions autorisées
+        $temporary = explode('.', $_FILES['picture']['name']); //découpage du nom du fichier au niveau des '.'
+        $file_extension = end($temporary); //récupération de la partie finale du nom du fichier (l'extension)
         if ($_FILES['picture']['size'] <= 500000) { //vérification que la taille du fichier ne dépasse pas 500ko
             if (in_array($file_extension, $autorizedExtension)) { //vérification que l'extension du fichier fait bien partie du tableau d'extensions autorisées
                 if (is_uploaded_file($_FILES['picture']['tmp_name'])) { //vérification que le fichier a été téléchargé 
@@ -324,7 +293,8 @@ if (isset($_POST['addPictureSubmit'])) {
                                 if (!$picture->addPicture()) { //affichage d'un message d'erreur si la méthode addPicture() ne s'exécute pas
                                     $formError['picture'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
                                 }
-                            } elseif ($checkExistingPicturePlace === FALSE) { //si la méthode checkIfPicturePlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+                                //si la méthode checkIfPicturePlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
+                            } elseif ($checkExistingPicturePlace === FALSE) {
                                 $formError['picture'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
                             } else { //sinon la méthode checkIfPicturePlaceExist() retourne 1, le lieu a déjà une image répertoriée dans la base de données, affichage d'un message d'erreur
                                 $formError['picture'] = 'Le lieu possède déjà une image';
@@ -343,9 +313,8 @@ if (isset($_POST['addPictureSubmit'])) {
     }
 }
 
-//---------------------------Affichage photo-------------------
-//instanciation pour l'affichage de l'image du lieu
-$getPicture = NEW pictures();
+//--------------------------------------Affichage photo---------------------------------
+$getPicture = NEW pictures(); //instanciation pour l'affichage de l'image du lieu
 //vérification de la présence de l'id du lieu dans l'url et qu'il s'agit d'un nombre puis attribution de sa valeur à l'attribut idPlaces de l'objet $getPicture avec la sécurité htmlspecialchars
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $getPicture->idPlaces = htmlspecialchars($_GET['id']);

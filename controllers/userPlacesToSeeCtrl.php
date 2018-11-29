@@ -2,7 +2,7 @@
 
 //démarrage de la session
 session_start();
-//insertion de la class database et des models placesToSee et pictures
+//insertion de la class database et du model placesToSee
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'placesToSee.php';
 

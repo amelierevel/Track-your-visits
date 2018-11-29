@@ -20,9 +20,9 @@ include_once path::getRootPath() . 'header.php';
                     <div class="card col m4 s12">
                         <div class="card-image">
                             <?php if (isset($placeDetail->picture)) { ?>
-                            <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" alt="" title="" class="responsive-img" />
+                            <img src="assets/img/placeImages/<?= $placeDetail->picture ?>" alt="" title="" class="responsive-img imgSize" />
                             <?php } else { ?>
-                                <img src="assets/img/noImg.jpg" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img" />
+                                <img src="assets/img/noImg.jpg" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img imgSize" />
                             <?php } ?>
                         </div>
                         <div class="card-stacked">
@@ -33,7 +33,7 @@ include_once path::getRootPath() . 'header.php';
                                     ?>  
                                     <p class="red-text text-darken-1 center-align"><?= $deleteError; ?></p>
                                 <?php } ?>
-                                <h3><?= $placeDetail->name ?></h3>
+                                    <h3 class="truncate"><?= $placeDetail->name ?></h3>
                                 <p><?= $placeDetail->category ?></p>
                                 <p class="grey-text text-darken-1"><?= $placeDetail->city ?> (<?= $placeDetail->postalCode ?>)</p>
                             </div>

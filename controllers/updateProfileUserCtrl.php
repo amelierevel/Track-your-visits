@@ -1,4 +1,5 @@
 <?php
+
 //ouverture de la session
 session_start();
 //insertion de la class database et des models users et userTypes
@@ -9,7 +10,9 @@ include_once path::getModelsPath() . 'userTypes.php';
 //instanciation pour l'affichage de la liste des types d'utilisateur
 $userType = NEW userTypes();
 $userTypeList = $userType->getUserType();
-$formError = array(); //déclaration d'un tableau d'erreur
+//déclaration d'un tableau d'erreur
+$formError = array();
+
 if (isset($_POST['updateUserSubmit'])) { //verification que les données ont été envoyés
     $user = NEW users(); //instanciation de l'objet user
     //récupération des valeurs non modifiables par l'utilisateur
@@ -22,20 +25,20 @@ if (isset($_POST['updateUserSubmit'])) { //verification que les données ont ét
     $user->password = $_SESSION['password'];
     /* vérification que le champ mail n'est pas vide et 
      * vérification de la validité du mail avec un filtre puis
-     * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code)*/
+     * attribution de sa valeur à l'attribut mail de l'objet $user avec la sécurité htmlspecialchars (évite injection de code) */
     if (!empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
         $user->mail = htmlspecialchars($_POST['mail']);
     } else { //si le champ est vide ou s'il n'est pas valide affichage d'un message d'erreur
         $formError['mail'] = 'Veuillez indiquer votre mail';
     }
     if (!empty($_POST['idUserTypes'])) { //vérification que le champ idUserTypes n'est pas vide
-        /*vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idUserTypes de 
-        l'objet $user avec la sécurité htmlspecialchars (évite injection de code)*/
+        /* vérification de la validité de la valeur (doit être un nombre) et attribution de sa valeur à l'attribut idUserTypes de 
+          l'objet $user avec la sécurité htmlspecialchars (évite injection de code) */
         if (is_numeric($_POST['idUserTypes'])) {
             $user->idUserTypes = htmlspecialchars($_POST['idUserTypes']);
         } else { //si la valeur n'est pas valide (pas un nombre) affichage d'un message d'erreur
             $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur valide';
-        } 
+        }
     } else { //si le champ est vide affichage d'un message d'erreur
         $formError['idUserTypes'] = 'Veuillez sélectionner un type d\'utilisateur';
     }
@@ -62,8 +65,8 @@ if (isset($_POST['updatePasswordSubmit'])) { //verification que les données ont
     $updateUserPassword->mail = $_SESSION['mail'];
     $updateUserPassword->idUserTypes = $_SESSION['idUserTypes'];
     $getPassword = $updateUserPassword->getUserById(); //appel de la méthode pour récupérer le password de l'user
-    /*vérification que le champ oldPassword n'est pas vide et attribution de sa valeur à la variable $oldPassword 
-    avec la sécurité htmlspecialchars (évite injection de code)*/
+    /* vérification que le champ oldPassword n'est pas vide et attribution de sa valeur à la variable $oldPassword 
+      avec la sécurité htmlspecialchars (évite injection de code) */
     if (!empty($_POST['oldPassword'])) {
         $oldPassword = htmlspecialchars($_POST['oldPassword']);
     } else { //si le champ est vide affichage d'un message d'erreur
@@ -72,8 +75,8 @@ if (isset($_POST['updatePasswordSubmit'])) { //verification que les données ont
     if (password_verify($oldPassword, $getPassword->password)) {  //vérification que le mot de passe correspond à celui de l'utilisateur
         //vérification que les champs newPassword et newPasswordVerify ne sont pas vides
         if (!empty($_POST['newPassword']) && !empty($_POST['newPasswordVerify'])) {
-            /*vérification que les champs sont identiques 
-               et attribution de la nouvelle valeur hachée du mot de passe à l'attribut password de l'objet $updateUserPassword */
+            /* vérification que les champs sont identiques 
+              et attribution de la nouvelle valeur hachée du mot de passe à l'attribut password de l'objet $updateUserPassword */
             if ($_POST['newPassword'] == $_POST['newPasswordVerify']) {
                 $updateUserPassword->password = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
             } else { //si les champs ne sont pas identiques affichage d'un message d'erreur
@@ -114,5 +117,6 @@ if (isset($_GET['idDelete']) && is_numeric($_GET['idDelete'])) {
         $deleteError = 'L\'utilisateur n\'a pas pu être supprimé, veuillez contacter l\'administrateur du site';
     }
 }
+
 //écriture des données de session et fermeture de la session 
 session_write_close();

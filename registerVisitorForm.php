@@ -107,8 +107,9 @@ include_once path::getControllersPath() . 'registerVisitorFormCtrl.php';
         <?php } ?>
         <p class="boldText red-text text-darken-1 center-align">
             <?php
-            //ternaire permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
+            //ternaires permettant l'affichage du message d'erreur si la méthode ne s'exécute pas
             echo isset($formError['registerVisitorSubmit']) ? $formError['registerVisitorSubmit'] : '';
+            echo isset($formError['execute']) ? $formError['execute'] : '';
             ?>
         </p>
     </div>

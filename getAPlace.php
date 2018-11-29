@@ -6,23 +6,31 @@ include_once path::getRootPath() . 'header.php';
 ?>
 <div class="row">
     <div class="row">
-    <!--Card image--> 
+        <!--Card image--> 
         <div class="col m3 offset-m1 s12" id="placeImgCard">
             <div class="card">
                 <div class="card-image">
                     <?php if (isset($picturePlace->picture)) { ?>
-                    <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="" title="" class="responsive-img" />
+                        <img src="assets/img/placeImages/<?= $picturePlace->picture ?>" alt="" title="" class="responsive-img" />
                     <?php } else { ?>
                         <img src="assets/img/noImg.jpg" alt="Pas d'image disponible" title="Pas d'image disponible" class="responsive-img" />
-                    <?php } ?>
-                    <a class="btn-floating halfway-fab waves-effect waves-light orange darken-3" id="addPictureFormButton"><i class="material-icons">add</i></a>
+                        <?php
+                    }
+                    if (isset($_SESSION['isConnect'])) {
+                        if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
+                            ?>
+                            <a class="btn-floating halfway-fab waves-effect waves-light orange darken-3" id="addPictureFormButton"><i class="material-icons">add</i></a>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
-    <!--Fin card image-->
-    <!--Section Nom, catégorie et description du lieu-->
+        <!--Fin card image-->
+        <!--Section Nom, catégorie et description du lieu-->
         <div class="col m7 s12">
-            <h2 class="PlaceTitle"><?= $placeInfo->name ?></h2>
+            <h2 class="truncate"><?= $placeInfo->name ?></h2>
             <p class="categoryText"><?= $placeInfo->category ?></p>
             <?php
             if (isset($_SESSION['isConnect'])) { //si l'utilisateur est connecté affichage des icones
@@ -83,32 +91,40 @@ include_once path::getRootPath() . 'header.php';
     if (isset($formError['picture'])) { //affichage du message d'erreur si le tableau d'erreur existe
         ?>
         <p class="boldText red-text text-darken-1 center-align"><?= $formError['picture']; ?></p>
-    <?php } ?>
-        <!--Formulaire ajout photo-->
-    <div class="row" id="addPictureForm">
-        <div class="col m10 offset-m1 s12 lime lighten-2">
-            <h3 class="sectionTitle center-align">Ajouter une photo</h3>
-            <form action="#" method="POST" enctype="multipart/form-data" class="col s12" id="addPicture">
-                <div class="row">
-                    <div class="file-field input-field col s10 offset-s1">
-                        <div class="btn orange darken-3 boldText ">
-                            <span>Parcourir</span>
-                            <input type="file" name="picture" id="picture" />
+        <?php
+    }
+    if (isset($_SESSION['isConnect'])) {
+        if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
+            ?>
+            <!--Formulaire ajout photo-->
+            <div class="row" id="addPictureForm">
+                <div class="col m10 offset-m1 s12 lime lighten-2">
+                    <h3 class="sectionTitle center-align">Ajouter une photo</h3>
+                    <form action="#" method="POST" enctype="multipart/form-data" class="col s12" id="addPicture">
+                        <div class="row">
+                            <div class="file-field input-field col s10 offset-s1">
+                                <div class="btn orange darken-3 boldText ">
+                                    <span>Parcourir</span>
+                                    <input type="file" name="picture" id="picture" />
+                                </div>
+                                <div class="file-path-wrapper ">
+                                    <input type="text"  class="file-path validate"  />
+                                </div>
+                            </div>
                         </div>
-                        <div class="file-path-wrapper ">
-                            <input type="text"  class="file-path validate"  />
+                        <div class="row">
+                            <div class="input-field center-align col s8 offset-s2">
+                                <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPictureSubmit" id="addPictureSubmit">Ajouter la photo</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="row">
-                    <div class="input-field center-align col s8 offset-s2">
-                        <button class="btn waves-effect waves-light lime darken-3" type="submit" name="addPictureSubmit" id="addPictureSubmit">Ajouter la photo</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-        <!--Section contact-->
+            </div>
+            <?php
+        }
+    }
+    ?>
+    <!--Section contact-->
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align boldText">Contact</h3>
@@ -121,7 +137,7 @@ include_once path::getRootPath() . 'header.php';
                     }
                     if (isset($placeInfo->mail)) {
                         ?>
-                        <li class="collection-item"><i class="material-icons">email</i>Mail : <?= $placeInfo->mail ?></li>
+                        <li class="collection-item truncate"><i class="material-icons">email</i>Mail : <?= $placeInfo->mail ?></li>
                         <?php
                     }
                     if (isset($placeInfo->website)) {
@@ -132,7 +148,7 @@ include_once path::getRootPath() . 'header.php';
             </div>
         </div>
     </div>
-        <!--Section horaires-->
+    <!--Section horaires-->
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align boldText">Horaires</h3>
@@ -399,6 +415,7 @@ include_once path::getRootPath() . 'header.php';
     }
     ?>
 </div>
+<p class="center-align grey-text" id="responsability">Ce contenu n'est ni rédigé, ni cautionné par Track your visits. Signaler un cas d'utilisation abusive.</p>
 <?php
 //insertion du footer
 include_once path::getRootPath() . 'footer.php';
