@@ -111,6 +111,7 @@ table.centered thead tr th, table.centered tbody tr td{
 #addTimetablesSubmit,#addPricesSubmit{
     margin-bottom: 1%;
 }
+/*police de la petite ligne en bas de page*/
 #responsability{
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 80%;

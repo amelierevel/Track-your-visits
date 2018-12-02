@@ -16,9 +16,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <!--CDN Font-->
         <link href="https://fonts.googleapis.com/css?family=Handlee" rel="stylesheet" />
-        
-        <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet" /> 
-        <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow" rel="stylesheet" /> 
         <!--CDN icone fontawesome-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />   
         <title>Track Your Visits</title>

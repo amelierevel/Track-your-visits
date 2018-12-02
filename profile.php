@@ -1,11 +1,11 @@
 <?php
-//insertion du fichier path et du header
+//insertion du fichier path, du controller et du header
 include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
 ?>
-<div class="content">
-    <div class="row">
-        <div class="col s10 offset-s1 center-align">
+<div class="row">
+    <div class="col s10 offset-s1 center-align">
+        <?php if (isset($_SESSION['isConnect'])) { ?>
             <h2 class="center-align">Profil de <?= $_SESSION['username'] ?></h2>
             <ul>
                 <li><span class="boldText">Nom d'utilisateur : </span><?= $_SESSION['username'] ?></li>
@@ -20,8 +20,15 @@ include_once path::getRootPath() . 'header.php';
             if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                 ?>
                 <a href="Ajout-lieu" class="waves-effect waves-light btn lime darken-3 boldText"><i class="material-icons right">add_location</i>Ajouter un lieu</a>
-            <?php } ?>
-        </div>
+                <?php
+            }
+        } else {
+            ?>
+            <h3 class="red-text text-accent-4">Dommage...</h3>
+            <p>Connectez-vous pour avoir accès à cette page</p>
+            <p>Si vous n'avez pas encore de compte utilisateur vous pouvez vous inscrire en cliquant ci-dessous</p>
+            <a href="Inscription-utilisateur" class="waves-effect waves-light btn lime darken-3 boldText">Inscription</a>
+        <?php } ?>
     </div>
 </div>
 <?php

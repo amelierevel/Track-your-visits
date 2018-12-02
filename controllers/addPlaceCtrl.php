@@ -92,7 +92,7 @@ if (isset($_POST['addPlaceSubmit'])) {
         if ($checkExistingPlace === '0') { //si la méthode checkIfPlaceExist() retourne 0 le lieu n'existe pas encore et il peut être ajouté à la base de données
             if (!$place->addPlace()) { //affichage d'un message d'erreur si la méthode addPlace() ne s'exécute pas
                 $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            } 
+            }
         } elseif ($checkExistingPlace === FALSE) { //si la méthode checkIfPlaceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
             $formError['addPlaceSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
         } else { //sinon la méthode checkIfPlaceExist() retourne 1, le lieu existe déjà dans la base de données, affichage d'un message d'erreur

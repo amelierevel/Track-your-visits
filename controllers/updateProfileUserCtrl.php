@@ -13,6 +13,12 @@ $userTypeList = $userType->getUserType();
 //déclaration d'un tableau d'erreur
 $formError = array();
 
+//redirection sur la page 404 si un user non connecté essaye d'accéder à la page
+if($_SESSION['isConnect'] == FALSE){
+    header('Location: error404.php');
+    exit;
+}
+
 if (isset($_POST['updateUserSubmit'])) { //verification que les données ont été envoyés
     $user = NEW users(); //instanciation de l'objet user
     //récupération des valeurs non modifiables par l'utilisateur

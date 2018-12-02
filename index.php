@@ -3,7 +3,7 @@
 include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
 ?>
-<div class="content">
+<div>
     <p>
         Le Chien (Canis lupus familiaris) est la sous-espèce domestique de Canis lupus, un mammifère de la famille 
         des Canidés (Canidae), laquelle comprend également le Loup gris et le dingo, chien domestique redevenu sauvage.

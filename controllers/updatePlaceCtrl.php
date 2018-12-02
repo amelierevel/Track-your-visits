@@ -1,5 +1,7 @@
 <?php
 
+//ouverture de la session
+session_start();
 //insertion de la class database et des models categories et places
 include_once path::getClassesPath() . 'database.php';
 include_once path::getModelsPath() . 'categories.php';
@@ -89,3 +91,6 @@ if (isset($_POST['updatePlaceSubmit'])) {
         }
     }
 }
+
+//écriture des données de session et fermeture de la session 
+session_write_close();
