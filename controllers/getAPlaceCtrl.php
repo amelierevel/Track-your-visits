@@ -267,7 +267,7 @@ if (isset($_GET['idPriceDelete']) && is_numeric($_GET['idPriceDelete'])) { //vé
 //----------------------------------Ajout photo---------------------------------
 if (isset($_POST['addPictureSubmit'])) { //vérification que les données ont été envoyés
     if (!empty($_FILES['picture'])) { //vérification que le champ picture n'est pas vide
-        $autorizedExtension = array('jpg', 'jpeg', 'png'); //déclaration de la variable contenant le tableau des extensions autorisées
+        $autorizedExtension = array('jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG'); //déclaration de la variable contenant le tableau des extensions autorisées
         $temporary = explode('.', $_FILES['picture']['name']); //découpage du nom du fichier au niveau des '.'
         $file_extension = end($temporary); //récupération de la partie finale du nom du fichier (l'extension)
         if ($_FILES['picture']['size'] <= 500000) { //vérification que la taille du fichier ne dépasse pas 500ko

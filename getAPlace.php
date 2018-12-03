@@ -30,7 +30,7 @@ include_once path::getRootPath() . 'header.php';
         <!--Fin card image-->
         <!--Section Nom, catégorie et description du lieu-->
         <div class="col m7 s12">
-            <h2 class="truncate"><?= $placeInfo->name ?></h2>
+            <h2><?= $placeInfo->name ?></h2>
             <p class="categoryText"><?= $placeInfo->category ?></p>
             <?php
             if (isset($_SESSION['isConnect'])) { //si l'utilisateur est connecté affichage des icones
@@ -290,7 +290,7 @@ include_once path::getRootPath() . 'header.php';
             ?>
         </div>
     </div> <!--Fin section horaires-->
-    <!--Section tarifs-->
+    <!----------------------Section tarifs------------------------->
     <div class="row">
         <div class="col m10 offset-m1 s12 lime lighten-2">
             <h3 class="sectionTitle center-align boldText">Tarifs</h3>
@@ -324,7 +324,7 @@ include_once path::getRootPath() . 'header.php';
                             foreach ($pricesList as $priceDetail) { //boucle permettant d'afficher la liste des périodes horaires (timetableTypes)
                                 ?>
                                 <tr>
-                                    <td><?= $priceDetail->price ?></td>
+                                    <td><?= $priceDetail->price ?> €</td>
                                     <td><?= $priceDetail->priceType ?></td>
                                     <td><?= $priceDetail->name ?></td>
                                     <td><?= $priceDetail->editDatePrices ?></td>

@@ -16,7 +16,7 @@ include_once path::getRootPath() . 'header.php';
                     <p>Vous cherchez un lieu à visiter</p>
                 </div>
                 <div class="card-action">
-                    <a href="Inscription-visiteur" class="userChoiceButton btn waves-effect waves-light lime darken-3" title="Lien vers la page d'inscription d'un visiteur">Cliquer ici</a>
+                    <a href="Inscription-visiteur" class="btn waves-effect waves-light lime darken-3" title="Lien vers la page d'inscription d'un visiteur">Cliquer ici</a>
                 </div>
             </div>
         </div> 
@@ -30,7 +30,7 @@ include_once path::getRootPath() . 'header.php';
                     <p>Vous souhaitez ajouter un site touristique</p>
                 </div>
                 <div class="card-action">
-                    <a href="Inscription-contributeur" class="userChoiceButton btn waves-effect waves-light lime darken-3" title="Lien vers la page d'inscription d'un contributeur">Cliquer ici</a>
+                    <a href="Inscription-contributeur" class="btn waves-effect waves-light lime darken-3" title="Lien vers la page d'inscription d'un contributeur">Cliquer ici</a>
                 </div>
             </div>
         </div> 

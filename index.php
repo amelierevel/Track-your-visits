@@ -4,80 +4,64 @@ include_once 'classes/path.php';
 include_once path::getRootPath() . 'header.php';
 ?>
 <div>
-    <p>
-        Le Chien (Canis lupus familiaris) est la sous-espèce domestique de Canis lupus, un mammifère de la famille 
-        des Canidés (Canidae), laquelle comprend également le Loup gris et le dingo, chien domestique redevenu sauvage.
-        Le Loup est la première espèce animale à avoir été domestiquée par l'Homme pour l'usage de la chasse dans une société
-        humaine paléolithique qui ne maitrise alors ni l'agriculture ni l'élevage. La lignée du Chien s'est différenciée génétiquement de celle 
-        du Loup gris il y a environ 100 000 ans1, et les plus anciens restes confirmés de canidé différencié de la lignée du Loup sont vieux, selon les sources, 
-        de 33 000 ans2,3 ou de 12 000 ans4, donc antérieurs de plusieurs dizaines de milliers d'années à ceux de toute autre espèce domestique connue. 
-        Depuis la Préhistoire, le Chien a accompagné l'être humain durant toute sa phase de sédentarisation, marquée par l'apparition des premières 
-        civilisations agricoles. C'est à ce moment qu'il a acquis la capacité de digérer l'amidon5, et que ses fonctions d'auxiliaire d'Homo sapiens se sont 
-        étendues. Ces nouvelles fonctions ont entrainé une différenciation accrue de la sous-espèce et l'apparition progressive de races canines identifiables. 
-        Le Chien est aujourd'hui utilisé à la fois comme animal de travail et comme animal de compagnie. Son instinct de meute, sa domestication 
-        précoce et les caractéristiques comportementales qui en découlent lui valent familièrement le surnom de « meilleur ami de l'Homme ».
-        Cette place particulière dans la société humaine a conduit à l'élaboration d'une règlementation spécifique. Ainsi, là où les critères de la 
-        Fédération cynologique internationale ont une reconnaissance légale, l'appellation chien de race est conditionnée à l'enregistrement du
-        chien dans les livres des origines de son pays de naissance7,8. Selon le pays, des vaccins peuvent être obligatoires et certains types de chien, 
-        jugés dangereux, sont soumis à des restrictions. Le Chien est généralement soumis aux différentes législations sur les carnivores domestiques. 
-        C'est notamment le cas en Europe, où sa circulation est facilitée grâce à l'instauration du passeport européen pour animal de compagnie. 
-    </p>
-    <p>
-        Le Chien (Canis lupus familiaris) est la sous-espèce domestique de Canis lupus, un mammifère de la famille 
-        des Canidés (Canidae), laquelle comprend également le Loup gris et le dingo, chien domestique redevenu sauvage.
-        Le Loup est la première espèce animale à avoir été domestiquée par l'Homme pour l'usage de la chasse dans une société
-        humaine paléolithique qui ne maitrise alors ni l'agriculture ni l'élevage. La lignée du Chien s'est différenciée génétiquement de celle 
-        du Loup gris il y a environ 100 000 ans1, et les plus anciens restes confirmés de canidé différencié de la lignée du Loup sont vieux, selon les sources, 
-        de 33 000 ans2,3 ou de 12 000 ans4, donc antérieurs de plusieurs dizaines de milliers d'années à ceux de toute autre espèce domestique connue. 
-        Depuis la Préhistoire, le Chien a accompagné l'être humain durant toute sa phase de sédentarisation, marquée par l'apparition des premières 
-        civilisations agricoles. C'est à ce moment qu'il a acquis la capacité de digérer l'amidon5, et que ses fonctions d'auxiliaire d'Homo sapiens se sont 
-        étendues. Ces nouvelles fonctions ont entrainé une différenciation accrue de la sous-espèce et l'apparition progressive de races canines identifiables. 
-        Le Chien est aujourd'hui utilisé à la fois comme animal de travail et comme animal de compagnie. Son instinct de meute, sa domestication 
-        précoce et les caractéristiques comportementales qui en découlent lui valent familièrement le surnom de « meilleur ami de l'Homme ».
-        Cette place particulière dans la société humaine a conduit à l'élaboration d'une règlementation spécifique. Ainsi, là où les critères de la 
-        Fédération cynologique internationale ont une reconnaissance légale, l'appellation chien de race est conditionnée à l'enregistrement du
-        chien dans les livres des origines de son pays de naissance7,8. Selon le pays, des vaccins peuvent être obligatoires et certains types de chien, 
-        jugés dangereux, sont soumis à des restrictions. Le Chien est généralement soumis aux différentes législations sur les carnivores domestiques. 
-        C'est notamment le cas en Europe, où sa circulation est facilitée grâce à l'instauration du passeport européen pour animal de compagnie. 
-    </p>
-    <p>
-        Le Chien (Canis lupus familiaris) est la sous-espèce domestique de Canis lupus, un mammifère de la famille 
-        des Canidés (Canidae), laquelle comprend également le Loup gris et le dingo, chien domestique redevenu sauvage.
-        Le Loup est la première espèce animale à avoir été domestiquée par l'Homme pour l'usage de la chasse dans une société
-        humaine paléolithique qui ne maitrise alors ni l'agriculture ni l'élevage. La lignée du Chien s'est différenciée génétiquement de celle 
-        du Loup gris il y a environ 100 000 ans1, et les plus anciens restes confirmés de canidé différencié de la lignée du Loup sont vieux, selon les sources, 
-        de 33 000 ans2,3 ou de 12 000 ans4, donc antérieurs de plusieurs dizaines de milliers d'années à ceux de toute autre espèce domestique connue. 
-        Depuis la Préhistoire, le Chien a accompagné l'être humain durant toute sa phase de sédentarisation, marquée par l'apparition des premières 
-        civilisations agricoles. C'est à ce moment qu'il a acquis la capacité de digérer l'amidon5, et que ses fonctions d'auxiliaire d'Homo sapiens se sont 
-        étendues. Ces nouvelles fonctions ont entrainé une différenciation accrue de la sous-espèce et l'apparition progressive de races canines identifiables. 
-        Le Chien est aujourd'hui utilisé à la fois comme animal de travail et comme animal de compagnie. Son instinct de meute, sa domestication 
-        précoce et les caractéristiques comportementales qui en découlent lui valent familièrement le surnom de « meilleur ami de l'Homme ».
-        Cette place particulière dans la société humaine a conduit à l'élaboration d'une règlementation spécifique. Ainsi, là où les critères de la 
-        Fédération cynologique internationale ont une reconnaissance légale, l'appellation chien de race est conditionnée à l'enregistrement du
-        chien dans les livres des origines de son pays de naissance7,8. Selon le pays, des vaccins peuvent être obligatoires et certains types de chien, 
-        jugés dangereux, sont soumis à des restrictions. Le Chien est généralement soumis aux différentes législations sur les carnivores domestiques. 
-        C'est notamment le cas en Europe, où sa circulation est facilitée grâce à l'instauration du passeport européen pour animal de compagnie. 
-    </p>
-    <p>
-        Le Chien (Canis lupus familiaris) est la sous-espèce domestique de Canis lupus, un mammifère de la famille 
-        des Canidés (Canidae), laquelle comprend également le Loup gris et le dingo, chien domestique redevenu sauvage.
-        Le Loup est la première espèce animale à avoir été domestiquée par l'Homme pour l'usage de la chasse dans une société
-        humaine paléolithique qui ne maitrise alors ni l'agriculture ni l'élevage. La lignée du Chien s'est différenciée génétiquement de celle 
-        du Loup gris il y a environ 100 000 ans1, et les plus anciens restes confirmés de canidé différencié de la lignée du Loup sont vieux, selon les sources, 
-        de 33 000 ans2,3 ou de 12 000 ans4, donc antérieurs de plusieurs dizaines de milliers d'années à ceux de toute autre espèce domestique connue. 
-        Depuis la Préhistoire, le Chien a accompagné l'être humain durant toute sa phase de sédentarisation, marquée par l'apparition des premières 
-        civilisations agricoles. C'est à ce moment qu'il a acquis la capacité de digérer l'amidon5, et que ses fonctions d'auxiliaire d'Homo sapiens se sont 
-        étendues. Ces nouvelles fonctions ont entrainé une différenciation accrue de la sous-espèce et l'apparition progressive de races canines identifiables. 
-        Le Chien est aujourd'hui utilisé à la fois comme animal de travail et comme animal de compagnie. Son instinct de meute, sa domestication 
-        précoce et les caractéristiques comportementales qui en découlent lui valent familièrement le surnom de « meilleur ami de l'Homme ».
-        Cette place particulière dans la société humaine a conduit à l'élaboration d'une règlementation spécifique. Ainsi, là où les critères de la 
-        Fédération cynologique internationale ont une reconnaissance légale, l'appellation chien de race est conditionnée à l'enregistrement du
-        chien dans les livres des origines de son pays de naissance7,8. Selon le pays, des vaccins peuvent être obligatoires et certains types de chien, 
-        jugés dangereux, sont soumis à des restrictions. Le Chien est généralement soumis aux différentes législations sur les carnivores domestiques. 
-        C'est notamment le cas en Europe, où sa circulation est facilitée grâce à l'instauration du passeport européen pour animal de compagnie. 
-    </p>
+  
+    <div class="center-align">
+        <h2>Visiteur</h2>
+        <p>
+            Vous partez en vacances et recherchez des lieux à visiter ou des activités à faire, seul ou en famille, à proximité de votre lieux de vancances.
+            Vous souhaitez simplement redécouvrir la région où vous habitez. Le site <span class="boldText">Track your visits</span> vous permet de consulter la liste des 
+            lieux et activités à visiter dans la région que vous souhaitez. Vous pouvez, rechercher un lieux qui vous intéresse en particulier, faire votre recherche 
+            selon le type de visites que vous souhaitez faire. Vous aurez ainsi accès à toutes les informations utiles à savoir concernant chaque lieux (adresse, 
+            contact, horaires, tarifs...). En vous inscrivant sur le site <span class="boldText">Track your visits</span> en tant que visiteur vous pourrez enregistrer les lieux qui vous 
+            intéresse afin d'avoir un accès rapide aux informations de ce lieux. Une fois votre visite effectuée vous pouvez enregistrer le lieux dans votre section 
+            "Mes visites" vous aurez ainsi une trace de toutes les visites que vous avez pu faire.
+        </p>
+        <a href="Inscription-visiteur" class="btn waves-effect waves-light lime darken-3 boldText" title="Lien vers la page d'inscription d'un visiteur">Cliquer ici pour créer un compte Visiteur</a>
+    </div>
+    <div class="center-align">
+        <h2>Contributeur</h2>
+        <p>
+           Vous êtes un professionnel, vous cherchez à faire connaître votre site ou simplement gagner en visibilité pour attirer plus de visiteurs. Vous pouvez ajouter 
+           votre site sur <span class="boldText">Track your visit</span> en renseignant toutes ses informations pour permettre aux visiteurs de découvrir votre lieu.
+           Vous êtes un visiteur engagé, vous souhaitez ajouter de nouveaux lieux qui ne sont pas encore référencés sur <span class="boldText">Track your visits</span>.
+           Vous avez remarqué que les informations d'un lieux n'étaient plus à jour et vous voulez contribuer en les mettant à jour pour que tous les utilisateurs aient accès 
+           à des informations correctes; alors devenez un contributeur. Les contributeurs ont accès aux mêmes fonctionnalités que les visiteurs mais ils peuvent en plus, ajouter 
+           de nouveaux lieux et mettre à jour les informations des lieux déjà présents sur le site.
+        </p>
+        <a href="Inscription-visiteur" class="btn waves-effect waves-light lime darken-3 boldText" title="Lien vers la page d'inscription d'un visiteur">Cliquer ici pour créer un compte Visiteur</a>
+    </div>
+    <div class="center-align">
+        <h2>Les lieux à visiter</h2>
+        <h3>Musées</h3>
+        <p>
+            Dans la catégorie <span class="boldText">Musées</span> on trouve les musées d'art, d'histoire, de sciences et toutes les spécialités, 
+            plus les curiosités locales et les archives.
+        </p>
+        <h3>Sites et Monuments</h3>
+        <p>
+            Dans la catégorie <span class="boldText">Sites et monuments</span> on trouve tous les points d'intérêts notoires parmi lesquels, 
+            les monuments, les statues, les promenades, les bâtiments possédant un intérêt architectural certain, les édifices religieux, les ruines antiques et les 
+            sites historiques.
+        </p>
+        <h3>Parcs d'attractions</h3>
+        <p>
+            Dans la catégorie <span class="boldText">Parcs d'attractions</span> on trouve les parcs d'attractions, les grands parcs aquatiques et les parcs à thème 
+            ouverts toute l'année.
+        </p>
+        <h3>Jeux et Divertissements</h3>
+        <p>
+            Dans la catégorie <span class="boldText">Jeux et Divertissements</span> on trouve tout un éventail d'activités comme le kart, le bowling, le cinéma, 
+            le minigolf, l'escalade en salle, les piscines publiques, les complexes de jeux pour les enfants, les jeux d'évasion grandeur nature ou les stands de tir.
+        </p>
+        <h3>Parcs animaliers et Zoos</h3>
+        <p>
+            La catégorie <span class="boldText">Parcs animaliers et Zoos</span> comprend tous les endroits où les gens peuvent voir ou interagir avec des animaux. 
+            On y trouve par exemple, ormis les parcs animaliers et zoos à proprement parler, les fermes éducatives, les centres de réhabilitation des animaux ou les 
+            aquariums.
+        </p>
+    </div>
 </div>
-<?php 
+<?php
 //insertion du footer
-include_once path::getRootPath() . 'footer.php'; 
+include_once path::getRootPath() . 'footer.php';
 ?>

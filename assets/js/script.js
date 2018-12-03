@@ -17,7 +17,7 @@ $(document).ready(function () {
     //on masque le formulaire d'ajout de photo de la page getAPlace
     $('#addPictureForm').hide();
     //fonction permettant l'affichage au clic du formulaire d'ajout de photo de la page getAPlace
-    $('#addPictureFormButton').click(function(){
+    $('#addPictureFormButton').click(function () {
         $('#addPictureForm').show();
     });
 });
