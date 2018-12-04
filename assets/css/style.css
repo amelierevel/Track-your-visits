@@ -42,15 +42,10 @@ body nav ul a:hover{
 }
 /*dimensions et position du logo dans la barre de navigation*/
 #logoNavbar{
-    width: 1.7em;
-    height: 1.9em;
-    padding: 0.1em;
-    margin-left: 0.2em;
-    margin-top: 0.07em;
-    padding-right: 0.2em;
-    padding-bottom: 0.3em;
-    background-color: rgba(255,255,255,0.4);
-    border-radius: 20px 20px 20px 20px;
+    width: 3em;
+    height: 3.2em;
+    margin-top: -0.6em;
+    padding-bottom: 0.2em;
 }
 /*définition de la position de la barre de navigation lorsqu'elle est fixe*/
 nav.fixed{
@@ -124,4 +119,44 @@ table.centered thead tr th, table.centered tbody tr td{
 /*position du nom du lieu*/
 .placesName {
     margin-bottom: -0.1%;
+}
+/*---------------------------------------------------------------Page index-------------------------------------------------------*/
+#indexSection{
+    border-radius: 15px 15px 15px 15px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    margin-left: 8%;
+    margin-right: 8%;
+    padding: 1%;
+}
+#visitorSection{
+    background-color: rgba(255,255,255,0.6);
+    padding-top: 0.5%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin: 3%;
+    border-radius: 20px 20px 20px 20px;
+}
+#contributorSection{
+    background-color: rgba(255,255,255,0.6);
+    padding-top: 0.5%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin: 3%;
+    border-radius: 20px 20px 20px 20px;
+}
+#placesSection{
+    background-color: rgba(255,255,255,0.6);
+    padding-top: 0.5%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin: 3%;
+    border-radius: 20px 20px 20px 20px;
+}
+.underlineSize{
+    text-decoration: underline;
+    font-size: 140%;
 }

@@ -174,9 +174,7 @@ include_once path::getRootPath() . 'header.php';
                     <a href="Inscription-utilisateur" class="waves-effect waves-light btn lime darken-3 boldText">Inscription</a>
                 </div>
             </div>
-            <?php
-        }
-        ?>
+            <?php } ?>
     </div>
 </div>
 <?php

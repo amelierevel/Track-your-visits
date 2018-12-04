@@ -42,7 +42,7 @@ include_once path::getControllersPath() . 'headerCtrl.php';
         <nav class="orange darken-3 z-depth-3">
             <div class="nav-wrapper">
                 <a href="Accueil" class="brand-logo">
-                    <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
+                    <img src="assets/img/logoNavbar.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
                 </a>
                 <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
