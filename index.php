@@ -20,12 +20,12 @@ include_once path::getRootPath() . 'header.php';
     <div class="center-align" id="contributorSection">
         <h2>Contributeur</h2>
         <p>
-           Vous êtes un professionnel, vous cherchez à faire connaître votre site ou simplement gagner en visibilité pour attirer plus de visiteurs. Vous pouvez ajouter 
-           votre site sur <span class="boldText">Track your visit</span> en renseignant toutes ses informations pour permettre aux visiteurs de découvrir votre lieu.
-           Vous êtes un visiteur engagé, vous souhaitez ajouter de nouveaux lieux qui ne sont pas encore référencés sur <span class="boldText">Track your visits</span>.
-           Vous avez remarqué que les informations d'un lieux n'étaient plus à jour et vous voulez contribuer en les mettant à jour pour que tous les utilisateurs aient accès 
-           à des informations correctes; alors devenez un contributeur. Les contributeurs ont accès aux mêmes fonctionnalités que les visiteurs mais ils peuvent en plus, ajouter 
-           de nouveaux lieux et mettre à jour les informations des lieux déjà présents sur le site.
+            Vous êtes un professionnel, vous cherchez à faire connaître votre site ou simplement gagner en visibilité pour attirer plus de visiteurs. Vous pouvez ajouter 
+            votre site sur <span class="boldText">Track your visit</span> en renseignant toutes ses informations pour permettre aux visiteurs de découvrir votre lieu.
+            Vous êtes un visiteur engagé, vous souhaitez ajouter de nouveaux lieux qui ne sont pas encore référencés sur <span class="boldText">Track your visits</span>.
+            Vous avez remarqué que les informations d'un lieux n'étaient plus à jour et vous voulez contribuer en les mettant à jour pour que tous les utilisateurs aient accès 
+            à des informations correctes; alors devenez un contributeur. Les contributeurs ont accès aux mêmes fonctionnalités que les visiteurs mais ils peuvent en plus, ajouter 
+            de nouveaux lieux et mettre à jour les informations des lieux déjà présents sur le site.
         </p>
         <a href="Inscription-visiteur" class="btn waves-effect waves-light lime darken-3 boldText" title="Lien vers la page d'inscription d'un visiteur">Cliquer ici pour créer un compte Visiteur</a>
     </div>
@@ -33,7 +33,7 @@ include_once path::getRootPath() . 'header.php';
         <h2 class="center-align">Les lieux à visiter</h2>
         <h3 class="underlineSize">Musées</h3>
         <p>
-            Dans la catégorie <span class="boldText">Musées</span> on trouve les musées d'art, d'histoire, de sciences et toutes les spécialités, 
+            Dans la catégorie <span class="boldText">Musées</span> on trouve les centres d'interprétation, les musées d'art, d'histoire, de sciences et toutes les spécialités, 
             plus les curiosités locales et les archives.
         </p>
         <h3 class="underlineSize">Sites et Monuments</h3>

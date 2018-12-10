@@ -4,6 +4,7 @@ $(document).ready(function () {
     $(".dropdown-trigger").dropdown();  //pour l'affichage du dropdown de la barre de navigation
     $('select').formSelect();  //pour l'affichage du select du formulaire d'inscription utilisateur
     $('.modal').modal();    //pour l'affichage de la modal pour la connexion dans la barre de navigation
+    $('textarea#priceName').characterCounter(); //pour le calcul du nombre de caractères
 
 //fonction permettant de confirmer ou d'annuler la suppression au clic sur le bouton de suppression
     $('.deleteButton').click(function () {

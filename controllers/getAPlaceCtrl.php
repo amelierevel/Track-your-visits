@@ -196,7 +196,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 $pricesList = $getPrices->getPricesList();
 
 //---------------------------------Ajout d'un tarif-----------------------------------
-$priceType = NEW priceTypes(); //instanciation pour l'affichage de la liste des jours de la semaine
+$priceType = NEW priceTypes(); //instanciation pour l'affichage de la liste des types de tarifs
 $priceTypesList = $priceType->getPriceTypesList();
 //déclaration de la regex pour les tarifs
 $regexPrice = '/^[0-9]+[.]?[0-9]{0,2}$/';
@@ -232,21 +232,13 @@ if (isset($_POST['addPricesSubmit'])) { //vérification que les données ont ét
     if (!empty($_POST['priceName'])) {
         $price->name = htmlspecialchars($_POST['priceName']);
     }
-    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un tarif après avoir vérifié qu'il n'existait pas déjà
+    //s'il n'y a pas d'erreur on appelle la méthode pour l'ajout d'un tarif 
     if (count($formError) == 0) {
-        $checkExistingPrice = $price->checkIfPriceExist(); //appel de la méthode vérifiant que le tarif n'existe pas déjà dans la base de données
-        if ($checkExistingPrice === '0') { //si la méthode checkIfPriceExist() retourne 0 le tarif n'existe pas encore et il peut être ajouté à la base de données
-            if (!$price->addPrices()) { //affichage d'un message d'erreur si la méthode addPrices() ne s'exécute pas
-                $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-            } else { //si la méthode addPrices() s'exécute redirection vers la page du lieu
-                header('Location: Lieu?id=' . $price->idPlaces);
-                exit;
-            }
-            //si la méthode checkIfPriceExist() retourne false affichage d'un message d'erreur car la requête ne s'est pas exécutée correctement
-        } elseif ($checkExistingPrice === FALSE) {
+        if (!$price->addPrices()) { //affichage d'un message d'erreur si la méthode addPrices() ne s'exécute pas
             $formError['addPricesSubmit'] = 'Il y a eu un problème veuillez contacter l\'administrateur du site';
-        } else { //sinon la méthode checkIfPriceExist() retourne 1, le tarif existe déjà dans la base de données, affichage d'un message d'erreur
-            $formError['addPricesSubmit'] = 'Il y a déjà un prix enregistré pour ce type de tarif';
+        } else { //si la méthode addPrices() s'exécute redirection vers la page du lieu
+            header('Location: Lieu?id=' . $price->idPlaces);
+            exit;
         }
     }
 }

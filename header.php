@@ -23,70 +23,62 @@ include_once path::getControllersPath() . 'headerCtrl.php';
     </head>
     <body class="white">
         <!--Header-->
-        <div class="header lime lighten-3">
+        <div class="lime lighten-3" id="header">
             <div class="center-align">
                 <img src="assets/img/logo.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" class="responsive-img" id="headerLogo" />
                 <h1 id="titleSite">Track your visits</h1>
             </div>
         </div>
         <!--Affichage du dropdown de connexion de la barre de navigation-->
-        <ul id="dropdownConnection" class="dropdown-content orange darken-1">
-            <li><a href="Profil" class="white-text boldText">Profil</a></li>
-            <li><a href="Mes-visites" class="white-text boldText">Mes visites</a></li>
-            <li><a href="A-voir" class="white-text boldText">A voir</a></li>
-            <li><a href="Modification-profil" class="white-text boldText">Modifier mon profil</a></li>
+        <ul class="dropdown-content orange darken-1" id="dropdownConnection">
+            <li><a href="Profil" class="white-text boldText" title="Lien vers la page Profil">Profil</a></li>
+            <li><a href="Mes-visites" class="white-text boldText" title="Lien vers la page Mes visites">Mes visites</a></li>
+            <li><a href="A-voir" class="white-text boldText" title="Lien vers la page des lieux A voir">A voir</a></li>
+            <li><a href="Modification-profil" class="white-text boldText" title="Lien vers la page Modifier mon profil">Modifier mon profil</a></li>
             <li class="divider"></li>
-            <li><a href="<?= /* ajout de l'action disconnect dans l'url après le chemin du fichier courant */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText">Déconnexion</a></li>
+            <li><a href="<?= /* ajout de l'action disconnect dans l'url après le chemin du fichier courant */ $_SERVER['PHP_SELF'] ?>?action=disconnect" class="white-text boldText" title="Lien pour la déconnexion">Déconnexion</a></li>
         </ul>
         <!--Barre de navigation-->
         <nav class="orange darken-3 z-depth-3">
             <div class="nav-wrapper">
-                <a href="Accueil" class="brand-logo">
+                <a href="Accueil" class="brand-logo" title="Lien vers la page d'accueil">
                     <img src="assets/img/logoNavbar.png" alt="Logo du site Track your visits représentant un renard" title="Logo de Track your visits" id='logoNavbar' />
                 </a>
-                <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a href="Accueil" data-target="mobileNavbar" class="sidenav-trigger" title="Lien vers la page d'accueil"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="Liste-des-lieux" class="boldText">Voir tous les lieux</a></li>
+                    <li><a href="Liste-des-lieux" class="boldText" title="Lien vers la liste des lieux">Voir tous les lieux</a></li>
                     <?php
-                    //si l'utilisateur est connecté affichage de son menu de connexion
-                    if (isset($_SESSION['isConnect'])) {
+                    if (isset($_SESSION['isConnect'])) { //si l'utilisateur est connecté affichage de son menu de connexion
                         if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                             ?>
-                            <li><a href="Ajout-lieu" class="boldText">Ajouter un lieu</a></li>
+                            <li><a href="Ajout-lieu" class="boldText" title="Lien vers la page d'ajout d'un lieu">Ajouter un lieu</a></li>
                         <?php } ?>
-                        <li><a href="#" data-target="dropdownConnection" class="dropdown-trigger boldText"><?= $_SESSION['username'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
-                        <?php
-                        //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
-                    } else {
-                        ?>
-                        <li><a href="Inscription-utilisateur" class="boldText">Créer un compte</a></li>
-                        <li><a href="#connectionModal" class="boldText modal-trigger">Se connecter</a></li>
+                        <li><a href="#" data-target="dropdownConnection" class="dropdown-trigger boldText" title="Affichage du menu déroulant"><?= $_SESSION['username'] ?><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <?php } else { //si l'utilisateur n'est pas connecté affichage des onglets inscription/connexion ?>
+                        <li><a href="Inscription-utilisateur" class="boldText" title="Lien vers la page d'inscription">Créer un compte</a></li>
+                        <li><a href="#connectionModal" class="boldText modal-trigger" title="Lien vers la fenêtre de connexion">Se connecter</a></li>
                     <?php } ?>
                 </ul>
             </div>
         </nav>
         <!--Affichage du menu de navigation en responsive-->
         <ul class="sidenav" id="mobileNavbar">
-            <li><a href="Liste-des-lieux">Voir tous les lieux</a></li>
+            <li><a href="Liste-des-lieux" title="Lien vers la liste des lieux">Voir tous les lieux</a></li>
             <?php
-            //si l'utilisateur est connecté affichage de son menu de connexion
-            if (isset($_SESSION['isConnect'])) {
+            if (isset($_SESSION['isConnect'])) { //si l'utilisateur est connecté affichage de son menu de connexion
                 if ($_SESSION['idUserTypes'] == 2) { //Affichage des fonctionnalités propres aux contributeurs
                     ?>
-                    <li><a href="Ajout-lieu" class="boldText">Ajouter un lieu</a></li>
+                    <li><a href="Ajout-lieu" title="Lien vers la page d'ajout d'un lieu">Ajouter un lieu</a></li>
                 <?php } ?>
-                <li><a href="Profil">Profil <?= $_SESSION['username'] ?></a></li>
-                <li><a href="Mes-visites">Mes visites</a></li>
-                <li><a href="A-voir">A voir</a></li>
-                <li><a href="Modification-profil">Modifier mon profil</a></li>
+                <li><a href="Profil" title="Lien vers la page Profil">Profil <?= $_SESSION['username'] ?></a></li>
+                <li><a href="Mes-visites" title="Lien vers la page Mes visites">Mes visites</a></li>
+                <li><a href="A-voir" title="Lien vers la page des lieux A voir">A voir</a></li>
+                <li><a href="Modification-profil" title="Lien vers la page Modifier mon profil">Modifier mon profil</a></li>
                 <li class="divider"></li>
-                <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect">Se déconnecter</a></li>
-                <?php
-                //si l'utilisateur n'est pas connecté affichage de l'onglet connexion
-            } else {
-                ?>
-                <li><a href="Inscription-utilisateur">Créer un compte</a></li>
-                <li><a href="#connectionModal" class="modal-trigger">Se connecter</a></li>
+                <li><a href="<?= /* ajout de l'action disconnect dans l'url */ $_SERVER['PHP_SELF'] ?>?action=disconnect" title="Lien pour la déconnexion">Se déconnecter</a></li>
+            <?php } else { //si l'utilisateur n'est pas connecté affichage des onglets inscription/connexion ?>
+                <li><a href="Inscription-utilisateur" title="Lien vers la page d'inscription">Créer un compte</a></li>
+                <li><a href="#connectionModal" class="modal-trigger" title="Lien vers la fenêtre de connexion">Se connecter</a></li>
             <?php } ?>
         </ul>
         <!-- Modal pour la connexion -->

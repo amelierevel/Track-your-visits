@@ -84,9 +84,9 @@ class timetables extends database {
                 . '`timT`.`name` AS `period`, '
                 . '`d`.`day` '
                 . 'FROM `F396V_timetables` AS `tim` '
-                . 'LEFT JOIN `F396V_timetableTypes` AS `timT` ON `tim`.`idTimetableTypes` = `timT`.`id` '
-                . 'LEFT JOIN `F396V_days` AS `d` ON `tim`.`idDays` = `d`.`id` '
-                . 'LEFT JOIN `F396V_places` AS `pl` ON `tim`.`idPlaces` = `pl`.`id` '
+                . 'INNER JOIN `F396V_timetableTypes` AS `timT` ON `tim`.`idTimetableTypes` = `timT`.`id` '
+                . 'INNER JOIN `F396V_days` AS `d` ON `tim`.`idDays` = `d`.`id` '
+                . 'INNER JOIN `F396V_places` AS `pl` ON `tim`.`idPlaces` = `pl`.`id` '
                 . 'WHERE `pl`.`id` = :id '
                 . 'ORDER BY `tim`.`idDays` ASC';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $timetableList
@@ -101,32 +101,6 @@ class timetables extends database {
             }
         }
         return $resultArray;
-    }
-
-    /**
-     * Méthode permettant de modifier un horaire
-     * @return type
-     */
-    public function updateTimetable() {
-        //déclaration de la requête sql
-        $request = 'UPDATE `F396V_timetables` '
-                . 'SET `idDays` = :idDays,`idTimetableTypes` = :idTimetableTypes, `opening` = :opening, `closing` = :closing, `editDate` = :editDate '
-                . 'WHERE `id` = :id';
-        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $updateTimetable
-        $updateTimetable = $this->db->prepare($request);
-        //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
-        $updateTimetable->bindValue(':idDays', $this->idDays, PDO::PARAM_INT);
-        $updateTimetable->bindValue(':idTimetableTypes', $this->idTimetableTypes, PDO::PARAM_INT);
-        $updateTimetable->bindValue(':opening', $this->opening, PDO::PARAM_STR);
-        $updateTimetable->bindValue(':closing', $this->closing, PDO::PARAM_STR);
-        $updateTimetable->bindValue(':editDate', $this->editDate, PDO::PARAM_STR);
-        //vérification que la requête s'est bien exécutée
-        if ($updateTimetable->execute()) {
-            //vérification qu'il s'agit bien d'un objet
-            if (is_object($updateTimetable)) {
-                return $updateTimetable;
-            }
-        }
     }
 
     /**

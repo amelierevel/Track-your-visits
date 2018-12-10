@@ -87,7 +87,7 @@ class users extends database {
                 . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserTypes`,`us`.`password`, '
                 . '`usTypes`.`name` '
                 . 'FROM `F396V_users` AS `us` '
-                . 'LEFT JOIN `F396V_userTypes` AS `usTypes` ON `us`.`idUserTypes` = `usTypes`.`id` '
+                . 'INNER JOIN `F396V_userTypes` AS `usTypes` ON `us`.`idUserTypes` = `usTypes`.`id` '
                 . 'WHERE `us`.`username` = :username';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $result
         $result = $this->db->prepare($request);
@@ -126,7 +126,7 @@ class users extends database {
         $request = 'SELECT `us`.`id`,`us`.`lastname`,`us`.`firstname`,DATE_FORMAT(`us`.`birthDate`, \'%d/%m/%Y\') AS `birthDate`,`us`.`mail`,'
                 . '`us`.`username`,DATE_FORMAT(`us`.`createDate`, \'%d/%m/%Y\') AS `createDate`,`us`.`idUserTypes`,`us`.`password`,`usTypes`.`name` '
                 . 'FROM `F396V_users` AS `us` '
-                . 'LEFT JOIN `F396V_userTypes` AS `usTypes` '
+                . 'INNER JOIN `F396V_userTypes` AS `usTypes` '
                 . 'ON `us`.`idUserTypes` = `usTypes`.`id` '
                 . 'WHERE `us`.`id` = :id';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $result

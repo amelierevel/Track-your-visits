@@ -44,31 +44,6 @@ class prices extends database {
     }
 
     /**
-     * Méthode permettant de vérifier qu'un tarif n'existe pas déjà pour un lieu
-     * @return type
-     */
-    public function checkIfPriceExist() {
-        //initialisation de la variable $state avec la valeur false
-        $state = FALSE;
-        //déclaration de la requête sql
-        $request = 'SELECT COUNT(`id`) AS `count` '
-                . 'FROM `F396V_prices` '
-                . 'WHERE `idPriceTypes` = :idPriceTypes AND `idPlaces` = :idPlaces';
-        //appel de la requête avec un prepare (car il y a des marqueurs nominatifs) que l'on stocke dans l'objet $result
-        $result = $this->db->prepare($request);
-        //attribution des valeurs aux marqueurs nominatifs avec bindValue (protection contre les injections de sql)
-        $result->bindValue(':idPriceTypes', $this->idPriceTypes, PDO::PARAM_INT);
-        $result->bindValue(':idPlaces', $this->idPlaces, PDO::PARAM_INT);
-        //vérification que la requête s'est bien exécutée
-        if ($result->execute()) {
-            $selectResult = $result->fetch(PDO::FETCH_OBJ);
-            //attribution du résultat du count (0 ou 1) à la variable $state
-            $state = $selectResult->count;
-        }
-        return $state;
-    }
-
-    /**
      * Méthode permettant d'afficher la liste des tarifs d'un lieu
      * @return type
      */
@@ -79,8 +54,8 @@ class prices extends database {
         $request = 'SELECT `pr`.`id`,`pr`.`price`,`pr`.`name`,`pr`.`idPlaces`,`pr`.`idPriceTypes`,DATE_FORMAT(`pr`.`editDatePrices`, \'%d/%m/%Y\') AS `editDatePrices`, '
                 . '`prT`.`name` AS `priceType` '
                 . 'FROM `F396V_prices` AS `pr` '
-                . 'LEFT JOIN `F396V_priceTypes` AS `prT` ON `pr`.`idPriceTypes` = `prT`.`id` '
-                . 'LEFT JOIN `F396V_places` AS `pl` ON `pr`.`idPlaces` = `pl`.`id` '
+                . 'INNER JOIN `F396V_priceTypes` AS `prT` ON `pr`.`idPriceTypes` = `prT`.`id` '
+                . 'INNER JOIN `F396V_places` AS `pl` ON `pr`.`idPlaces` = `pl`.`id` '
                 . 'WHERE `pl`.`id` = :id '
                 . 'ORDER BY `prT`.`name` ASC';
         //appel de la requête avec un prepare (car il y a un marqueur nominatif) que l'on stocke dans l'objet $pricesList
